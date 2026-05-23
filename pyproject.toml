@@ -1,5 +1,5 @@
 [project]
-name = "cypherbench-corruptions"
+name = "cypherbenchau"
 version = "0.1.0"
 description = "Corruption generator for CypherBench: ambiguity and unanswerability perturbations"
 requires-python = ">=3.11"

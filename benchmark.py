@@ -30,7 +30,7 @@ Usage:
     OPENAI_BASE_URL=https://openrouter.ai/api/v1 \\
     OPENAI_API_KEY=$OPENROUTER_API_KEY \\
     OPENROUTER_REFERER=https://example.com \\
-    OPENROUTER_TITLE="cypherbench-corruptions" \\
+    OPENROUTER_TITLE="CypherBenchAU" \\
         uv run python benchmark.py run-all --model openai/gpt-5.2 --mode aware
 """
 

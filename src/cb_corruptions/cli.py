@@ -1,4 +1,4 @@
-"""CLI entry point for cypherbench-corruptions."""
+"""CLI entry point for CypherBenchAU."""
 
 from __future__ import annotations
 
@@ -131,7 +131,7 @@ def verify(
         from cb_corruptions.verification import Verifier, VerificationStatus
         from cb_corruptions.verification.neo4j_client import Neo4jClient
     except ImportError:
-        typer.echo("Neo4j driver not installed. Run: uv pip install 'cypherbench-corruptions[verify]'", err=True)
+        typer.echo("Neo4j driver not installed. Run: uv pip install 'cypherbenchau[verify]'", err=True)
         raise typer.Exit(1)
 
     from cb_corruptions.models import CorruptedSample

@@ -1,4 +1,4 @@
-# CypherBench Corruptions
+# CypherBenchAU
 
 Corruption generator for [CypherBench](https://github.com/megagonlabs/cypherbench): produces ambiguous and unanswerable perturbations of NL-to-Cypher benchmark samples using LLMs.
 
@@ -6,8 +6,8 @@ Corruption generator for [CypherBench](https://github.com/megagonlabs/cypherbenc
 
 ```bash
 # Clone the repo
-git clone https://github.com/fabriziobattiloro/cypherbench-corruptions.git
-cd cypherbench-corruptions
+git clone https://github.com/cyphercorruption/CypherBenchAU.git
+cd CypherBenchAU
 
 # Install dependencies
 uv sync
@@ -291,7 +291,7 @@ Each corrupted sample is a JSON object:
 ## Project Structure
 
 ```
-cypherbench-corruptions/
+CypherBenchAU/
 ├── benchmark/                 # CypherBench data (downloaded separately, gitignored)
 │   ├── test.json
 │   └── graphs/simplekg/       # Schema files per graph
