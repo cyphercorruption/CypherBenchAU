@@ -1,0 +1,174 @@
+[
+  {
+    "corruption_id": "A2-soccer-c8002362",
+    "corruption_type": "A2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'where is this player from' is the source of ambiguity.\n2. Schema check: The `Player` entity contains two properties that map to this concept: `country_of_citizenship` and `place_of_birth`.\n3. Exclusivity: These two properties represent different data points (nationality vs. birthplace) and would require different Cypher queries, returning different results.\n4. Balance: In natural language, asking where someone is 'from' can equally mean their nationality or the specific city/country where they were born. Both interpretations are perfectly balanced.\n5. Naturalness: The question sounds like a normal, conversational query a user might ask.\n6. Irresolvability: There are no context clues in the question to indicate whether the user prefers the player's birthplace or their citizenship. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-soccer-fe9f1e14",
+    "corruption_type": "A2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'size' is used to describe the players.\n2. Schema check: The `Player` entity has two properties related to physical size: `height_cm` and `mass_kg`.\n3. Exclusivity: Calculating the average of `height_cm` versus `mass_kg` would require different Cypher queries and produce completely different numerical results.\n4. Balance: In sports, a player's 'size' can refer to their height, their weight, or a combination of both. When asked for a single average metric, both height and weight are equally plausible interpretations.\n5. Naturalness: 'What is the average size of players...' is a very natural and common way for a person to ask about physical dimensions.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is interested in the players' height or their weight. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-soccer-9889c664",
+    "corruption_type": "A2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks \"Where is Guilherme Siqueira from?\". The phrase \"where is [person] from\" is a classic example of natural ambiguity in English. It can refer to the person's birthplace (which maps to the `place_of_birth` property on the Player entity) or their nationality/citizenship (which maps to the `country_of_citizenship` property). Both interpretations are highly plausible, perfectly natural, and would result in different database queries yielding different answers (e.g., a specific city/town vs. a country). There is no additional context in the question to resolve which of the two properties the user is asking for.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-soccer-23edc462",
+    "corruption_type": "A2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'birth detail'.\n2. Schema check: The `Player` entity contains both `date_of_birth` and `place_of_birth` properties.\n3. Exclusivity: Returning a date versus a location requires different queries and yields entirely different results.\n4. Balance: Both date and place of birth are equally valid 'details' about a person's birth, making the interpretations perfectly balanced.\n5. Naturalness: Asking for a 'birth detail' (singular) is slightly awkward and forced compared to asking for 'birth details' or 'birth info', but it is still understandable.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is interested in the time or the location of the player's birth.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": [
+      "The phrase 'birth detail' is slightly awkward and unnatural; 'birth details' or 'birth info' would sound more natural."
+    ]
+  },
+  {
+    "corruption_id": "A2-soccer-29375b7f",
+    "corruption_type": "A2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'smallest' is used to describe a player.\n2. Schema check: The `Player` entity contains both `height_cm` (height) and `mass_kg` (weight) properties. \n3. Exclusivity: Sorting players by minimum `height_cm` versus minimum `mass_kg` will result in two distinct database queries and likely return different players.\n4. Balance: In the context of athletes, 'smallest' is frequently used to refer to either the shortest player (height) or the lightest player (weight/build). Both interpretations are highly plausible and common in everyday language.\n5. Naturalness: Asking for the 'smallest player' is a perfectly natural and common way a user might phrase this question.\n6. Irresolvability: The question lacks any additional context (such as mentioning 'shortest' or 'lightest' elsewhere) to disambiguate which physical dimension the user is asking about.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-soccer-63ccbd92",
+    "corruption_type": "U2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for clubs that use a specific stadium as their 'training venue'. The schema only contains the relationship 'hasHomeVenue' between Club and Venue. In soccer, a training venue (training ground) is a distinct concept from a home venue (stadium used for official matches). Since the schema does not capture training venues, and we cannot assume the home venue is the same as the training venue, the question is genuinely unanswerable. The fake concept is highly plausible and distinct from existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-soccer-4298000a",
+    "corruption_type": "U2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The schema tracks who received an award (`receivesAward`), but it does not track who was nominated for an award. \n2. No alternative path: There are no properties on the `Player` or `Award` entities, nor on the `receivesAward` relationship, that indicate nominations. \n3. Plausibility: Being nominated for an award is a highly plausible and common concept in sports. \n4. Naturalness: The question is grammatically correct and sounds like a natural query a user might ask. \n5. Distinctness: 'Nominated for' is conceptually distinct from 'received' (winning), as many players are nominated without winning. Therefore, the query cannot be answered using the `receivesAward` relationship.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-soccer-3a3b1b70",
+    "corruption_type": "U2",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for clubs that are 'founding members' of a specific league. The schema contains a `partOfLeague` relationship between Club and League, but it does not have any properties (such as `start_year`) to indicate when a club joined the league. Furthermore, the League entity has no properties (like an inception year) to compare against a Club's `inception_year`. Therefore, there is no way to determine if a club is a founding member of a league. The fake relationship is plausible for the sports domain and distinct from simply being part of a league. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-soccer-ff31d332",
+    "corruption_type": "U3",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'club sponsors', which does not exist as an entity type, relationship, or property in the schema. The closest property is 'owners' of the Club entity, but owners and sponsors are distinct concepts in soccer. There is no alternative path to derive sponsor information from the given schema. The fake element is highly plausible for the soccer domain, and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-soccer-2139a004",
+    "corruption_type": "U3",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for players who have played in a '4-4-2 formation'. Looking at the schema, there is no entity type, property, or relationship that captures the tactical formation (e.g., 4-4-2) a player or club has used. The closest element is 'Position', which refers to an individual player's role (like 'wing half' or 'striker'), not a team formation. Since there is no way to filter players by formation, the question is genuinely unanswerable. The fake element 'Formation' is highly plausible in the soccer domain, and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-soccer-da5278bf",
+    "corruption_type": "U3",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for the owner of 'Nike'. In the provided schema, the only entity that has an 'owners' property is 'Club'. 'Nike' is a sportswear company (often a kit sponsor in soccer), not a soccer club, and there is no 'KitSponsor' or 'Company' entity type in the schema. Furthermore, there are no properties or relationships related to kit sponsors or brands. Therefore, the question cannot be answered using the given schema. The fake element is plausible in the soccer domain, distinct from existing elements, and the question sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-soccer-ad783169",
+    "corruption_type": "U3",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'supporters groups' associated with specific players. Looking at the schema, there are entities for Club, Player, Venue, League, Position, and Award, but nothing related to supporters groups or fan clubs. There are no properties on Player or Club that capture this information either. The concept of a supporters group is highly plausible in the soccer domain but completely absent from the schema, making the question genuinely unanswerable. The phrasing is also natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-soccer-88c86a73",
+    "corruption_type": "U4",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter clubs based on their stadium capacity. Looking at the schema, the 'Club' entity has properties: inception_year, owners, country, and head_coach. The 'Venue' entity (which represents stadiums) has no properties besides its name. There is no 'capacity' or 'stadium_capacity' property anywhere in the schema, nor can it be derived from any other properties or relationships. The fake element is highly plausible for the soccer domain and the question sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-soccer-9b94eff7",
+    "corruption_type": "U4",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for players whose 'youth club' was Omonia Nicosia. Looking at the schema, the `Player` entity has properties like `schools_attended`, but no property for `youth_club`. While there is a `playsFor` relationship connecting `Player` to `Club`, this relationship only has properties `start_year`, `end_year`, and `sport_number`. There is no way to distinguish whether a player played for a club at the youth level versus the senior level, nor is there a specific 'youth club' relationship or property. Therefore, the question cannot be answered using the provided schema. The fake element is highly plausible in the soccer domain and the question sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-soccer-94acb8b9",
+    "corruption_type": "U4",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for players who were 'drafted in 2015'. The schema does not contain any properties or relationships related to a draft (e.g., draft year, draft pick). While the 'playsFor' relationship has a 'start_year' property, starting to play for a club is not synonymous with being drafted (players can be transferred, signed as free agents, or promoted from youth academies). Therefore, there is no way to accurately filter players by the year they were drafted. The question is perfectly natural and the fake element is plausible for a sports database, especially for users familiar with American sports leagues like MLS.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-soccer-fc83cabb",
+    "corruption_type": "U4",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks to filter clubs by their 'kit manufacturer'. Checking the Club entity, its properties are inception_year, owners, country, and head_coach. There is no property for kit manufacturer.\n2. No alternative path: There are no other entities (like Sponsor or Brand) or relationships in the schema that could provide information about a club's kit manufacturer.\n3. Plausibility: Kit manufacturer is a very common and plausible attribute for soccer clubs (e.g., Nike, Adidas, Puma).\n4. Naturalness: The question is grammatically correct and sounds perfectly natural.\n5. Distinctness: 'Kit manufacturer' is clearly distinct from 'owners' and all other existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-soccer-3fd3f09e",
+    "corruption_type": "U5",
+    "graph": "soccer",
+    "verdict": "pass",
+    "reasoning": "The question asks for the year a club joined a league. The relationship `partOfLeague` between `Club` and `League` does not have any temporal properties (like `start_year` or `year`). There are no alternative paths to derive this information, as `inception_year` of a club does not necessarily correspond to the year it joined a specific league. The question is natural and plausible.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

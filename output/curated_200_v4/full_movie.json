@@ -1,0 +1,202 @@
+[
+  {
+    "corruption_id": "A2-movie-07fea363",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "birth details",
+      "candidate_interpretations": [
+        "date_of_birth",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "5c59136d-e9b0-4557-8a3c-120e1496287e",
+    "original_graph": "movie",
+    "original_nl_question": "Provide the names and birthplaces of individuals who both acted in and directed a movie.",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCastMember]-(m0:Movie),(n:Person)<-[r1:directedBy]-(m0:Movie) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Provide the name and birth detail of an individual who both acted in and directed a movie.",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:hasCastMember]-(m0:Movie),(n:Person)<-[r1:directedBy]-(m0:Movie) WITH DISTINCT n RETURN n.name, n.date_of_birth",
+      "MATCH (n:Person)<-[r0:hasCastMember]-(m0:Movie),(n:Person)<-[r1:directedBy]-(m0:Movie) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-movie-b25a5e05",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "date_of_death",
+      "corrupted_element": "lifespan",
+      "candidate_interpretations": [
+        "date_of_birth",
+        "date_of_death"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "fc5d08a5-5397-4b9f-9f66-ea84d8eb1575",
+    "original_graph": "movie",
+    "original_nl_question": "Who are the individuals who wrote Rocky V and were cast members in Men in Black, and what are their dates of death?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:writtenBy]-(m0:Movie {name: 'Rocky V'}),(n:Person)<-[r1:hasCastMember]-(m1:Movie {name: 'Men in Black'}) WITH DISTINCT n RETURN n.name, n.date_of_death",
+    "corrupted_nl_question": "Who is the individual who wrote Rocky V and was a cast member in Men in Black, and what is their vital date?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:writtenBy]-(m0:Movie {name: 'Rocky V'}),(n:Person)<-[r1:hasCastMember]-(m1:Movie {name: 'Men in Black'}) WITH DISTINCT n RETURN n.name, n.date_of_birth",
+      "MATCH (n:Person)<-[r0:writtenBy]-(m0:Movie {name: 'Rocky V'}),(n:Person)<-[r1:hasCastMember]-(m1:Movie {name: 'Men in Black'}) WITH DISTINCT n RETURN n.name, n.date_of_death"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-movie-9b21c410",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "gender",
+      "corrupted_element": "occupation",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'occupation' does not exist on entity type 'Person'. Existing: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, gender"
+    },
+    "original_qid": "34362a41-8b90-4e50-a43e-6a2305c5379d",
+    "original_graph": "movie",
+    "original_nl_question": "What are the unique genders of individuals who starred in a movie alongside Patrick Bergin?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCastMember]-(m0:Movie)-[r1:hasCastMember]->(m1:Person {name: 'Patrick Bergin'}) WITH DISTINCT n RETURN DISTINCT n.gender",
+    "corrupted_nl_question": "What are the unique occupations of individuals who starred in a movie alongside Patrick Bergin?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-movie-37c654b2",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "runtime_minute",
+      "corrupted_element": "aspect_ratio",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'aspect_ratio' does not exist on entity type 'Movie'. Existing: global_box_office_usd, original_language, runtime_minute, filming_location"
+    },
+    "original_qid": "7ec38709-a641-456d-ad75-9c703918a1b5",
+    "original_graph": "movie",
+    "original_nl_question": "What are the names and runtimes of movies directed by Jan Svěrák that feature Božidara Turzonovová?",
+    "original_gold_cypher": "MATCH (n:Movie)-[r0:directedBy]->(m0:Person {name: 'Jan Svěrák'}),(n:Movie)-[r1:hasCastMember]->(m1:Person {name: 'Božidara Turzonovová'}) WITH DISTINCT n RETURN n.name, n.runtime_minute",
+    "corrupted_nl_question": "What are the names and aspect ratios of movies directed by Jan Svěrák that feature Božidara Turzonovová?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-movie-1692c0d5",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "releasedIn",
+      "corrupted_element": "bannedIn",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'bannedIn' does not exist. Existing: directedBy, writtenBy, hasCastMember, partOfSeries, receivesAward, producedBy, originatesFrom, releasedIn, hasGenre"
+    },
+    "original_qid": "a8f83587-4095-416a-86ee-f46352bd73e3",
+    "original_graph": "movie",
+    "original_nl_question": "What are the names of movies released in Israel, along with their global box office earnings in USD?",
+    "original_gold_cypher": "MATCH (n:Movie)-[r0:releasedIn]->(m0:Country {name: 'Israel'}) WITH DISTINCT n RETURN n.name, n.global_box_office_usd",
+    "corrupted_nl_question": "What are the names of movies banned in Israel, along with their global box office earnings in USD?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-movie-5c17c8f6",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Movie",
+      "corrupted_element": "FictionalCharacter",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'FictionalCharacter' does not exist. Existing: Movie, Person, ProductionCompany, Country, FilmSeries, Award, Genre"
+    },
+    "original_qid": "aa8f6cd5-e9c4-4533-8b97-d2a1a72b41d3",
+    "original_graph": "movie",
+    "original_nl_question": "What are the unique genders of individuals who have both directed and written a movie?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:directedBy]-(m0:Movie),(n:Person)<-[r1:writtenBy]-(m0:Movie) WITH DISTINCT n RETURN DISTINCT n.gender",
+    "corrupted_nl_question": "What are the unique genders of individuals who have both created and written a fictional character?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-movie-b30b8dea",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "global_box_office_usd",
+      "corrupted_element": "age_rating",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'age_rating' does not exist on 'Movie'. Existing: global_box_office_usd, original_language, runtime_minute, filming_location"
+    },
+    "original_qid": "0bf0d1cc-cd13-4b79-a239-3aa5e1b67b3b",
+    "original_graph": "movie",
+    "original_nl_question": "What are the names of movies directed by Colin Trevorrow, released in Germany, and grossing over one billion USD at the global box office?",
+    "original_gold_cypher": "MATCH (n:Movie)-[r0:directedBy]->(m0:Person {name: 'Colin Trevorrow'}),(n:Movie)-[r1:releasedIn]->(m1:Country {name: 'Germany'}) WITH DISTINCT n WHERE n.global_box_office_usd > 1000000000 RETURN n.name",
+    "corrupted_nl_question": "What are the names of movies directed by Colin Trevorrow, released in Germany, and with an age rating of PG-13?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-movie-1f99e778",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "runtime_minute",
+      "corrupted_element": "age_rating",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'age_rating' does not exist on 'Movie'. Existing: global_box_office_usd, original_language, runtime_minute, filming_location"
+    },
+    "original_qid": "c31bfc29-7d01-4314-a86e-85cd44b75405",
+    "original_graph": "movie",
+    "original_nl_question": "What are the names of movies written by Pete Docter that have a runtime of more than 81 minutes?",
+    "original_gold_cypher": "MATCH (n:Movie)-[r0:writtenBy]->(m0:Person {name: 'Pete Docter'}) WITH DISTINCT n WHERE n.runtime_minute > 81 RETURN n.name",
+    "corrupted_nl_question": "What are the names of movies written by Pete Docter that have an age rating of PG?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-movie-b59f5fbc",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "directedBy",
+      "corrupted_element": "directedBy (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'directedBy' between Movie and Person has no temporal properties. Properties: none"
+    },
+    "original_qid": "5b263348-416c-4da0-8e8b-b673dfffa1b7",
+    "original_graph": "movie",
+    "original_nl_question": "Who directed the movie Ray?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:directedBy]-(m0:Movie {name: 'Ray'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year was the movie Ray directed?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A1-movie-15a68a69",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "writtenBy",
+      "corrupted_element": "credited in",
+      "candidate_interpretations": [
+        "directedBy",
+        "writtenBy",
+        "hasCastMember"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "a70453db-6a4d-4796-8aac-2f7375a6c9a3",
+    "original_graph": "movie",
+    "original_nl_question": "How many individuals either directed Star Wars: Episode III – Revenge of the Sith or wrote Star Wars: Episode II – Attack of the Clones?",
+    "original_gold_cypher": "CALL { MATCH (n:Person)<-[r0:directedBy]-(m0:Movie {name: 'Star Wars: Episode III – Revenge of the Sith'}) RETURN n, m0 as m UNION MATCH (n:Person)<-[r1:writtenBy]-(m1:Movie {name: 'Star Wars: Episode II – Attack of the Clones'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many individuals got the credit for either Star Wars: Episode III – Revenge of the Sith or Star Wars: Episode II – Attack of the Clones?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Person)<-[r0:directedBy]-(m0:Movie {name: 'Star Wars: Episode III – Revenge of the Sith'}) RETURN n, m0 as m UNION MATCH (n:Person)<-[r1:directedBy]-(m1:Movie {name: 'Star Wars: Episode II – Attack of the Clones'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Person)<-[r0:directedBy]-(m0:Movie {name: 'Star Wars: Episode III – Revenge of the Sith'}) RETURN n, m0 as m UNION MATCH (n:Person)<-[r1:writtenBy]-(m1:Movie {name: 'Star Wars: Episode II – Attack of the Clones'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Person)<-[r0:directedBy]-(m0:Movie {name: 'Star Wars: Episode III – Revenge of the Sith'}) RETURN n, m0 as m UNION MATCH (n:Person)<-[r1:hasCastMember]-(m1:Movie {name: 'Star Wars: Episode II – Attack of the Clones'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

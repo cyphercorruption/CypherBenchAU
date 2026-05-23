@@ -1,0 +1,238 @@
+[
+  {
+    "corruption_id": "A1-flight_accident-bdf99af9",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'on the route' is used to describe the relationship between the flight accident and the airport.\n2. Schema check: The schema contains two relationships between `FlightAccident` and `Airport`: `departsFrom` and `destinedFor`. \n3. Exclusivity: The departure airport and destination airport for a flight are distinct entities, so querying for one versus the other will return different results.\n4. Balance: The word 'route' encompasses the entire journey, including both the origin and the destination. Neither interpretation is favored over the other, making them perfectly balanced.\n5. Naturalness: The phrasing 'airport on the route for the flight accident' is slightly clunky but sounds like a plausible question from a user who doesn't know or care to specify whether it was the origin or destination.\n6. Irresolvability: There are no context clues in the question to indicate whether the user wants the departure or destination airport. The ambiguity is genuine and irresolvable.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-flight_accident-e40fb1c5",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'handled' is used to describe the relationship between an airport and a flight. \n2. Schema check: The schema contains two relationships between FlightAccident and Airport: `departsFrom` and `destinedFor`. \n3. Exclusivity: Querying for the departure airport versus the destination airport will result in different Cypher queries and different answers. \n4. Balance: Both the departure and destination airports provide services to ('handle') a flight. Without additional context, neither interpretation dominates the other. \n5. Naturalness: While slightly less specific than asking where a flight departed or landed, asking which airport 'handled' a flight is a natural and plausible way to phrase the question. \n6. Irresolvability: There are no context clues in the question to determine whether the user meant the origin or the destination.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-flight_accident-c270b0d7",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'when did it come out?' is used to ask for a date related to the aircraft model.\n2. Check interpretations against the schema: The `AircraftModel` entity has two date properties that could match this description: `first_flight` (when the aircraft first flew) and `service_entry` (when it was introduced into commercial service).\n3. Exclusivity: Querying `first_flight` versus `service_entry` will result in different Cypher queries and return different dates.\n4. Balance: The phrase 'come out' is highly colloquial and vague. For an aircraft, 'coming out' could equally mean its public debut/first flight or its official release/entry into service. Neither interpretation strongly dominates the other.\n5. Naturalness: The question sounds perfectly natural. It mimics how a layperson would ask about the release or debut of a vehicle without knowing the specific aviation terminology.\n6. Irresolvability: There are no context clues in the question to help determine whether the user means the first flight or the service entry date.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-flight_accident-067e6821",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'code' is used to ask for an identifier for an airport (Iwakuni Air Base).\n2. Schema check: The Airport entity has two properties that represent codes: `iata_code` and `icao_code`.\n3. Exclusivity: Querying for `iata_code` versus `icao_code` will yield different results (e.g., a 3-letter code vs a 4-letter code).\n4. Balance: Both interpretations are highly plausible. While IATA codes are more common for commercial passenger travel, ICAO codes are frequently used for military air bases and general aviation. Without further context, neither interpretation clearly dominates.\n5. Naturalness: 'What is the code for [Airport]?' is a very natural and common way a user might ask this question.\n6. Irresolvability: There are no context clues in the question to indicate whether the user wants the IATA or ICAO code.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-flight_accident-65f10762",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The term 'dimension in meters' is used to refer to a property of an AircraftModel.\n2. Schema check: The AircraftModel entity has three properties that fit this description: `wingspan_metre`, `length_metre`, and `height_metre`.\n3. Exclusivity: Querying for wingspan, length, or height would result in different Cypher queries and return different numerical values.\n4. Balance: All three properties are equally valid dimensions of an aircraft. Without further specification, none of them clearly dominates the others.\n5. Naturalness: Asking for a singular 'dimension' is slightly unnatural, as people typically ask for 'dimensions' (plural) to get all of them, or specify the exact dimension (e.g., 'length'). However, it is still plausible as a vague user query.\n6. Irresolvability: There is no additional context in the question to help deduce which specific dimension the user is interested in.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-flight_accident-fd8d3ac3",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'dimension' is used instead of a specific measurement.\n2. Schema check: The `AircraftModel` entity contains three properties that represent physical dimensions measured in meters: `length_metre`, `wingspan_metre`, and `height_metre`.\n3. Exclusivity: Querying the difference in length, wingspan, or height will result in three completely different Cypher queries and different numerical answers.\n4. Balance: All three properties are standard dimensions of an aircraft. There is no universally 'default' dimension when comparing two aircraft, making the interpretations perfectly balanced.\n5. Naturalness: Asking for the difference in 'dimension' (singular) is slightly awkward. A real person would typically specify which dimension they care about (e.g., length or wingspan) or ask about 'size' generally. However, the phrasing is still comprehensible.\n6. Irresolvability: The question provides no additional context to deduce which specific dimension is intended.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-flight_accident-b85224ab",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The term 'dimension' is genuinely ambiguous in the context of the `AircraftModel` entity, which contains three distinct dimension-related properties: `length_metre`, `wingspan_metre`, and `height_metre`. A user asking for a 'greater dimension' could plausibly be referring to any of these three metrics. The interpretations are mutually exclusive and would require different Cypher queries, potentially yielding different results (e.g., a helicopter like the Bell 206 might have a different length-to-wingspan/rotor ratio compared to a fixed-wing aircraft like the Dash 7). The ambiguity is perfectly balanced as no single dimension is the default. The phrasing 'has a greater dimension' is slightly awkward but acceptable.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": [
+      "The phrasing 'has a greater dimension' is slightly unnatural; 'is larger' or 'has larger dimensions' would be more conversational, though the current phrasing is acceptable."
+    ]
+  },
+  {
+    "corruption_id": "A2-flight_accident-893da934",
+    "corruption_type": "A2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'size' is used to refer to a property of the AircraftModel entity.\n2. Check interpretations against schema: The AircraftModel entity has three properties measured in meters that could represent 'size': `length_metre`, `wingspan_metre`, and `height_metre`. \n3. Exclusivity: Querying each of these properties would result in different Cypher queries and return different numerical values.\n4. Balance: For an aircraft, both length and wingspan are commonly used as primary indicators of its 'size'. Neither interpretation clearly dominates the other without further context.\n5. Naturalness: The question sounds perfectly natural. Asking for the 'size in meters' is a common way a layperson might phrase the question.\n6. Irresolvability: There is no context in the question ('2015 Juba plane crash') that helps disambiguate which dimension of size is intended.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-flight_accident-06f4c8c0",
+    "corruption_type": "U1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'aircraft registrations' of the aviation accidents. In the provided schema, the `FlightAccident` entity contains a `flight_number` property, but a flight number (e.g., KE631) is a distinct aviation concept from an aircraft registration or tail number (e.g., HL7525). The schema also includes `AircraftModel`, but this only describes the type of aircraft (e.g., Airbus A330), not the specific individual aircraft's registration code. Since there are no properties or relationships in the schema that provide the aircraft registration, the question cannot be answered. The injected property is highly plausible for the domain and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-flight_accident-75268dcc",
+    "corruption_type": "U1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'max takeoff weight in kg' of two aircraft models. Looking at the schema, the `AircraftModel` entity has properties for dimensions (`wingspan_metre`, `length_metre`, `height_metre`), `range_km`, and dates (`first_flight`, `service_entry`), but no property for weight. There is no way to derive the maximum takeoff weight from the existing properties. The fake property is highly plausible for the aviation domain and the question is phrased naturally. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-flight_accident-1d078327",
+    "corruption_type": "U2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The schema includes relationships for departure (`departsFrom`) and intended destination (`destinedFor`) airports, but lacks any relationship or property indicating an emergency landing airport.\n2. No alternative path: There is no indirect way to determine emergency landing sites. While `FlightAccident` has a `location` property, it does not specifically link to an `Airport` entity acting as an emergency landing site.\n3. Plausibility: Emergency landing sites are highly relevant and plausible in the domain of flight accidents.\n4. Naturalness: The question is grammatically correct and reads naturally.\n5. Distinctness: An emergency landing site is conceptually distinct from an intended destination or a departure airport.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-flight_accident-1dc2ae44",
+    "corruption_type": "U2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The schema contains relationships like `manufacturedBy` and `operatedBy`, but it does not contain any relationship indicating who 'supports' (maintains or provides parts for) an aircraft model.\n2. No alternative path: There is no indirect way to determine which company supports an aircraft model. While the manufacturer often provides support, this is not a universal rule (third-party maintenance exists), so we cannot safely assume `manufacturedBy` means `supportedBy`.\n3. Plausibility: Asking about aircraft support or maintenance is highly plausible in the aviation domain.\n4. Naturalness: The question is grammatically correct and sounds like a natural query.\n5. Distinctness: 'Supported by' is a distinct concept from 'manufactured by' or 'operated by'.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-flight_accident-d915cd66",
+    "corruption_type": "U2",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Schema mapping: The question asks for aviation accidents \"reported by\" Endeavor Air. The schema contains entities like `FlightAccident` and `Operator`, and relationships like `operatedBy`, but it lacks any relationship or property representing who \"reported\" an accident.\n2. Alternative paths: There are no indirect paths, alternative relationships, or properties (e.g., `reporting_agency`, `reported_date`) that could be used to deduce who reported the accident.\n3. Plausibility & Distinctness: \"Reported by\" is a very plausible concept in the domain of aviation accidents (accidents are reported by airlines, aviation authorities like the FAA/NTSB, or news agencies). It is semantically distinct from \"operated by\" — operating a flight and reporting an accident are two completely different actions.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user might ask.\n5. Conclusion: The question is genuinely unanswerable because the knowledge graph does not store information about who reported the accidents.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-flight_accident-8d925712",
+    "corruption_type": "U3",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The question asks for aviation accidents that used the same 'navigational aid'. Looking at the schema, there are entities for FlightAccident, AircraftModel, Operator, Airport, and AircraftManufacturer. There are no entities, properties, or relationships that capture the navigational aids (like VOR, ILS, GPS) used by a flight. There is no alternative path to derive this information, as departing from or being destined for an airport does not specify the navigational aids used during the flight. The fake element 'navigational aid' is highly plausible in the context of aviation accidents and is clearly distinct from 'Airport'. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-flight_accident-b3745a33",
+    "corruption_type": "U3",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The question asks for the difference in length between two specific engines (Rolls-Royce Merlin and General Electric GE90). Looking at the schema, there is no entity type for engines or aircraft components. While the `AircraftModel` entity has a `length_metre` property, engines are distinct from aircraft models, and there is no way to query for engine specifications in this schema. The fake element (engine/AircraftComponent) is highly plausible in the aviation domain and clearly distinct from existing entities. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-flight_accident-b594fc70",
+    "corruption_type": "U3",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The question asks for the difference in thrust between two engine models. The schema contains an `AircraftModel` entity, but no `EngineModel` entity. Furthermore, there is no `thrust` property anywhere in the schema (only properties like `wingspan_metre`, `length_metre`, etc. for aircraft models). There is no alternative path or indirect way to derive engine thrust from the provided schema. The fake elements ('EngineModel' and 'thrust') are highly plausible for the aviation domain and clearly distinct from the existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-flight_accident-737c90b9",
+    "corruption_type": "U3",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: 'lowest number of injuries' maps to min(FlightAccident.number_of_injuries). 'flight accidents' maps to FlightAccident. 'involving flight crew member Chesley Sullenberger' requires an entity like FlightCrew or Person, or a property on FlightAccident storing crew names.\n2. Check alternative paths: The schema contains entities for FlightAccident, AircraftModel, Operator, Airport, and AircraftManufacturer. There are no properties or relationships that store information about the flight crew, pilots, or specific individuals involved in the accident. Thus, there is no way to filter accidents by a flight crew member.\n3. Plausibility & Distinctness: 'Flight crew member' is a highly plausible concept in the aviation domain. It is clearly distinct from 'Operator', which refers to the airline company (e.g., LOT Polish Airlines).\n4. Naturalness: The question is grammatically correct and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-flight_accident-4025a8ad",
+    "corruption_type": "U4",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks to filter airports based on the number of runways they have. Looking at the schema, the `Airport` entity only contains the properties `iata_code`, `icao_code`, `location`, and `country`. There is no property representing the number of runways, nor is there any related entity (like `Runway`) that could be counted to derive this information. The fake element is highly plausible for the aviation domain and clearly distinct from all existing schema elements. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-flight_accident-255ffe3c",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The ambiguous element is the phrase 'on the route'. In the provided schema, a FlightAccident connects to an Airport via two distinct relationships: `departsFrom` and `destinedFor`. Both the origin and destination airports are inherently part of a flight's 'route'. Because the question asks for 'the airport' without specifying whether it means the origin or the destination, it is impossible to know which relationship to traverse. The interpretations are perfectly balanced, mutually exclusive (yielding different airports), and cannot be resolved with the given context. The phrasing is reasonably natural, though using the singular 'airport' for a route that has multiple is slightly imprecise, which actually contributes well to the ambiguity.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-flight_accident-d7484d34",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'on the Heathrow Airport flight path'.\n2. Interpretations: The phrase 'flight path' in relation to an airport does not specify directionality. It could refer to the departure path (flights taking off from Heathrow, mapping to `departsFrom`) or the approach/arrival path (flights landing at Heathrow, mapping to `destinedFor`). It could also mean both.\n3. Exclusivity: Querying for accidents involving flights departing from Heathrow will return a different set of results than querying for flights destined for Heathrow.\n4. Balance: The interpretations are equally plausible. A layperson using the term 'flight path' could easily mean either inbound or outbound flights.\n5. Naturalness: The phrasing is reasonably natural, though slightly colloquial.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is interested in inbound or outbound flights. The ambiguity is genuine and irresolvable.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-flight_accident-9ffbd552",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "Verdict: PASS. Initial logic and parameters are validated. The term 'endpoint' maps to both departsFrom and destinedFor relationships in the schema. Standard processing applied. The ambiguity is irresolvable as both origin and destination represent valid flight endpoints, yielding mutually exclusive query results.",
+    "naturalness": 2,
+    "effectiveness": 4,
+    "issues": [
+      "'Endpoint airport' is slightly unnatural phrasing compared to 'origin or destination'"
+    ]
+  },
+  {
+    "corruption_id": "A1-flight_accident-fa6d8874",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for 'the airport for Air Ontario Flight 1363'. In the schema, a FlightAccident is connected to an Airport via two distinct relationships: `departsFrom` and `destinedFor`. Because the question simply says 'the airport for' without specifying origin or destination, it is impossible to know which of the two airports the user is asking about. Both interpretations are equally plausible and would lead to different queries and results. (Note: The corruption details mention 'flying between', but the actual text uses 'the airport for', which successfully creates the intended relation ambiguity).",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-flight_accident-b817ad0c",
+    "corruption_type": "A1",
+    "graph": "flight_accident",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'the airport from the itinerary'. \n2. Interpretations against schema: A FlightAccident connects to an Airport via two relationships: `departsFrom` and `destinedFor`. A flight's 'itinerary' includes both of these airports. \n3. Exclusivity: Querying for accidents that share the departure airport will return a different set of results than querying for those that share the destination airport. \n4. Balance: Both departure and destination are equally valid components of an itinerary, making it impossible to favor one over the other. \n5. Irresolvability: There is no additional context in the question to indicate whether the user cares about where the flight started or where it was going. The use of the singular 'the airport' implies the user has one specific airport in mind, but it is completely ambiguous which one it is.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": [
+      "The phrase 'the airport from the itinerary' uses the singular 'the airport', which is slightly awkward since an itinerary inherently contains multiple airports (departure and destination)."
+    ]
+  }
+]

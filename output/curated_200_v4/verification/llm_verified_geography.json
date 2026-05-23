@@ -1,0 +1,198 @@
+[
+  {
+    "corruption_id": "A2-geography-4b044c32",
+    "corruption_type": "A2",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'depth' when referring to an Ocean.\n2. Schema check: The `Ocean` entity type has two distinct properties related to depth: `max_vertical_depth_m` and `avg_vertical_depth_m`.\n3. Plausibility and Balance: In geography, both maximum depth and average depth are standard, frequently queried metrics for bodies of water. When a user asks for the 'depth' of an ocean without specifying, it is impossible to know whether they want the maximum depth or the average depth. Both interpretations are equally plausible.\n4. Exclusivity: Querying the maximum depth versus the average depth will result in different Cypher queries and yield different numerical differences.\n5. Naturalness: The question is phrased perfectly naturally, exactly as a casual user might ask it.\n6. Irresolvability: There are no context clues in the question to indicate which specific depth metric is desired.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-geography-91d4d264",
+    "corruption_type": "A2",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The ambiguous element is the word 'depth'. In the schema, the Ocean entity has two depth-related properties: 'max_vertical_depth_m' and 'avg_vertical_depth_m'. When a user asks for the 'depth' of an ocean without specifying 'average' or 'maximum', it is genuinely unclear which metric they are requesting. Both are standard geographic statistics, and both would yield different numerical answers. The question is perfectly natural and contains no context clues to resolve the ambiguity.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A3-geography-2942a61c",
+    "corruption_type": "A3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The term 'waterway' typically refers to navigable bodies of water. In the context of a drainage basin, this could refer strictly to `River` entities, or it could encompass both `River` and `Lake` entities (as lakes are often part of inland waterway systems). Since the schema allows both `River` and `Lake` to have a `partOf` relationship with a `DrainageBasin`, the system cannot definitively know whether to query only for rivers or for both rivers and lakes. The ambiguity is genuine and irresolvable without user clarification.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A3-geography-aaf1c116",
+    "corruption_type": "A3",
+    "graph": "geography",
+    "verdict": "fail",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'natural features' replaces 'lakes'.\n2. Check interpretations against the schema: The schema contains several entity types that could be considered natural features, such as `Lake`, `Mountain`, and `DrainageBasin`, all of which have a `locatedIn` relationship with `Country`.\n3. Judge ambiguity: For a question to be genuinely ambiguous, it must admit multiple EXCLUSIVE interpretations (e.g., the user meant ONLY lakes, OR the user meant ONLY mountains). However, in natural language, 'natural features' is a broad category. A user asking for 'natural features' expects to see all of them (a union of lakes, mountains, drainage basins, etc.), not just one specific type. Because there is a single, broad interpretation (the union of all applicable entities), the question is not genuinely ambiguous.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'natural features' is a hypernym, not an ambiguous term. It refers to the union of all natural features (Lakes, Mountains, Drainage Basins, etc.) rather than forcing an exclusive choice between them."
+    ]
+  },
+  {
+    "corruption_id": "A3-geography-d95f1edc",
+    "corruption_type": "A3",
+    "graph": "geography",
+    "verdict": "fail",
+    "reasoning": "The term 'landform' refers to natural physical features of the Earth's surface. In the context of the schema, 'Mountain' is the clearest example of a landform. While 'Lake' and 'DrainageBasin' are geographic features, lakes are typically considered bodies of water rather than landforms. More importantly, if a user asks for 'landforms', they are asking for a broad category (meaning they want all landforms, such as mountains, hills, plains, etc.), rather than using 'landform' as an ambiguous substitute for exclusively 'lakes' or exclusively 'drainage basins'. A user who specifically wants a list of lakes would just ask for lakes. Therefore, the question does not have mutually exclusive, equally plausible interpretations mapping to single entity types.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'landform' is a broad category, not an ambiguous term for a specific entity type.",
+      "A user asking for 'landforms' would not exclusively mean 'lakes' or 'drainage basins'.",
+      "The interpretations are not balanced; 'Mountain' is a much more accurate fit for 'landform' than 'Lake'."
+    ]
+  },
+  {
+    "corruption_id": "A5-geography-66ead774",
+    "corruption_type": "A5",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "1. The ambiguous element is the phrase 'connect with', which replaces the directional 'flow into'.\\n2. In the schema, rivers have a self-referential relationship `(River)-[:flowsInto]->(River)`. \\n3. 'Connect with' is symmetric, meaning it could refer to rivers that flow into the Kainsas/Shaytanka (tributaries) OR rivers that the Kainsas/Shaytanka flow into (downstream rivers).\\n4. Both interpretations are perfectly valid according to the schema and would yield different results (upstream vs. downstream rivers).\\n5. The question sounds completely natural, as people often use 'connect with' or 'join' when talking about river confluences without specifying flow direction. The ambiguity is irresolvable without asking the user for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-geography-5061dd63",
+    "corruption_type": "A5",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'connect to' is used to describe the relationship between rivers.\n2. Schema check: The schema contains a directed relationship `(River)-[:flowsInto]->(River)`. \n3. Exclusivity: Interpreting 'connect to' as incoming flows `(r:River)-[:flowsInto]->(Paraguay)` would return tributaries of the Paraguay River. Interpreting it as outgoing flows `(Paraguay)-[:flowsInto]->(r:River)` would return the river that the Paraguay River empties into. These yield completely different results.\n4. Balance: The phrase 'connect to' is inherently undirected and symmetric, making both the forward and reverse directions of the `flowsInto` relationship equally plausible.\n5. Naturalness: The question sounds perfectly natural; people commonly use 'connect to' when talking about waterways joining.\n6. Irresolvability: There is no additional context in the question to indicate whether the user is asking for tributaries or the downstream river.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-geography-4046d27b",
+    "corruption_type": "U1",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for the average salinity of oceans. Looking at the schema, the 'Ocean' entity only has properties for 'area_km2', 'max_vertical_depth_m', and 'avg_vertical_depth_m'. There are no properties related to salinity on 'Ocean' or any other entity in the schema (such as 'Lake' or 'River'). Furthermore, salinity cannot be derived from any existing properties or relationships. The fake property 'avg_salinity_ppt' is highly plausible for the geography domain, distinct from existing properties, and the question is phrased naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-geography-a6010723",
+    "corruption_type": "U1",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'populations' of countries. Looking at the schema, the 'Country' entity only has 'capital' and 'area_km2' properties. There is no 'population' property on 'Country' or any other entity in the schema. Furthermore, population cannot be derived from area without population density, which is also missing. The fake property 'population' is highly plausible for a geography domain and distinct from existing properties. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-geography-796ed58c",
+    "corruption_type": "U2",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for rivers that 'originate in' a specific country. The schema contains a `flowsThrough` relationship between River and Country, but it does not specify the order of countries a river flows through, nor does it have a specific `originatesIn` or `source` relationship/property. There is no way to distinguish the country of origin from other countries the river flows through. The fake relationship is highly plausible for the geography domain and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-geography-6cbe22ab",
+    "corruption_type": "U3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'valleys' that include a specific entity (Uja Tirche, presumably a mountain). Looking at the schema, there is no 'Valley' entity type. The closest geographical concepts are 'DrainageBasin' or 'MountainRange', but neither is a synonym for 'Valley'. There are no properties or relationships in the schema that capture valley information or map mountains to valleys. Therefore, the question is genuinely unanswerable. The fake element 'Valley' is highly plausible in a geography domain, and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-geography-90e71835",
+    "corruption_type": "U3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for rivers flowing into the \"Gulf Stream\", which is an ocean current. The schema includes entity types for `Ocean`, `River`, and `Lake` as targets for the `flowsInto` relationship, but it does not contain an `OceanCurrent` entity type or any properties to represent ocean currents. There is no alternative path or workaround to identify the Gulf Stream or the rivers that flow into it. The question is highly plausible in a geography context, sounds natural, and the concept of an ocean current is clearly distinct from the existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-geography-f73c95ef",
+    "corruption_type": "U3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'mountain passes', which do not exist in the schema. The schema contains 'Mountain' and 'MountainRange' entities, but no 'MountainPass' entities or properties. There is no alternative path or relationship to derive mountain passes from the existing schema. The fake element is highly plausible in a geography domain and distinct from existing elements. The question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-geography-4ebbc8d2",
+    "corruption_type": "U4",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter lakes by their elevation. Looking at the schema, the `Lake` entity only has `area_km2` and `vertical_depth_m` properties. While `Mountain` has an `elevation_m` property, there is no way to determine the elevation of a `Lake` or link a `Lake` to a `Mountain` to infer its elevation. Elevation is a highly plausible property for a lake (surface elevation above sea level) and is clearly distinct from depth (how deep the water goes). Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-geography-316a7c08",
+    "corruption_type": "U5",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The question asks for the specific year when two rivers began flowing into the same lakes. While the schema includes the `flowsInto` relationship between `River` and `Lake`, there are absolutely no temporal properties (such as year, date, or start time) associated with this relationship or the relevant entities. Furthermore, there are no alternative paths or properties in the schema that could be used to derive historical or geological timelines. The question is plausible in a geographical context (as river courses change over time) and is phrased naturally, but it is completely unanswerable given the current schema.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A3-geography-1c4b1394",
+    "corruption_type": "A3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "First, the phrase 'bodies of water' is a hypernym that encompasses Rivers, Lakes, and Oceans. When a user asks 'How many bodies of water...', they are typically asking for the combined total of all applicable types, rather than exclusively asking for ONLY Rivers or ONLY Lakes. Therefore, the interpretations are not mutually exclusive; the correct query would simply search across all relevant entity types. Second, checking the schema, only `River` entities have the `flowsInto` relationship. A `Lake` cannot flow into anything in this schema. Thus, the first condition ('flow into the Obukhovka') can only apply to Rivers, making 'Lake' an invalid interpretation for that part of the query. Because 'bodies of water' naturally means the union of these types rather than an ambiguous choice between them, the question is not genuinely ambiguous.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "Interpretations are not mutually exclusive (hypernym)",
+      "Schema restricts flowsInto to River"
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-geography-415dce80",
+    "corruption_type": "A3",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "The corrupted question replaces 'drainage basin' with the broad term 'natural feature'. In the schema, Lakes, Mountains, and DrainageBasins are all located in Countries. However, using a hypernym does not create genuine ambiguity between exclusive interpretations. If a user asks for countries containing 'a natural feature', the most logical and common-sense interpretation is that they are asking for countries containing *any* natural feature (a union of Lakes, Mountains, and DrainageBasins). It is highly implausible that a user would use the generic term 'natural feature' if they specifically and exclusively wanted to query 'DrainageBasins' and expected the system to guess that exact type. Therefore, the question is broad, not ambiguous. Additionally, the singular phrasing 'a natural feature' sounds a bit unnatural for a broad query.",
+    "naturalness": 2,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'natural feature' acts as a hypernym, making the question broad rather than ambiguous. A user asking this would expect a union of all natural features, not for the system to guess one specific type.",
+      "The phrasing 'a natural feature' is slightly unnatural; a real user would likely say 'natural features' if they meant the broad category."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A5-geography-282bdc57",
+    "corruption_type": "A5",
+    "graph": "geography",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'connect to' is used to describe the relationship between rivers.\n2. Schema check: The schema contains a directed `(River)-[:flowsInto]->(River)` relationship. \n3. Interpretations: 'Connect to' is undirected in natural language. It could mean rivers that flow into the Negro River (forward direction), the river(s) that the Negro River flows into (reverse direction), or a union of both.\n4. Exclusivity: Querying for tributaries vs. the river the Negro River empties into will yield completely different results (e.g., Branco River vs. Amazon River).\n5. Balance: Without domain knowledge of what the user specifically wants, both directions are highly plausible because 'connect' does not imply a flow direction.\n6. Naturalness: While 'flow into' or 'join' is more common for rivers, 'connect to' is a perfectly natural way for a layperson to describe river confluences.\n7. Irresolvability: There are no context clues in the question to specify the direction of the water flow.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  }
+]

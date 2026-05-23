@@ -1,0 +1,108 @@
+[
+  {
+    "corruption_id": "A2-movie-07fea363",
+    "corruption_type": "A2",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'birth detail'.\n2. Schema check: The `Person` entity has two properties related to birth: `date_of_birth` (date) and `place_of_birth` (string). Both perfectly fit the vague term 'birth detail'.\n3. Exclusivity: Querying for `date_of_birth` would return a date, whereas querying for `place_of_birth` would return a location string. These lead to different Cypher queries and different results.\n4. Balance: Both interpretations are equally plausible. There is no reason to assume a user means the date rather than the place when asking for a 'birth detail'.\n5. Naturalness: The phrasing 'birth detail' is slightly awkward (people more commonly say 'birth details' or 'birth info'), but it is perfectly understandable and not overly robotic.\n6. Irresolvability: The question lacks any context to disambiguate whether the user wants the date or the location.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-movie-b25a5e05",
+    "corruption_type": "A2",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The question asks for the person's 'vital date'. \n2. Check interpretations against schema: In the schema, a Person has both a `date_of_birth` and a `date_of_death`. 'Vital date' could plausibly refer to either of these properties.\n3. Exclusivity: Querying `date_of_birth` vs `date_of_death` will yield completely different results.\n4. Balance: The term 'vital date' does not inherently favor birth over death; both are considered vital events.\n5. Naturalness: The phrasing 'vital date' in the singular is quite unnatural and forced. People typically ask for 'dates of birth and death', 'lifespan', or use the plural 'vital dates'. Furthermore, there is a discrepancy between the claimed ambiguous element ('lifespan') and the one actually used in the text ('vital date').\n6. Irresolvability: There is no context in the question to determine whether the user wants the birth date or the death date. The ambiguity is genuine and irresolvable.",
+    "naturalness": 2,
+    "effectiveness": 5,
+    "issues": [
+      "The question uses the singular 'vital date', which is awkward; usually 'vital dates' or 'vital records' is used.",
+      "The corruption details claim the ambiguous element used is 'lifespan', but the actual question text uses 'vital date'."
+    ]
+  },
+  {
+    "corruption_id": "U1-movie-9b21c410",
+    "corruption_type": "U1",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for the 'occupations' of individuals. The `Person` entity does not have an `occupation` property.\n2. No alternative path: While one could theoretically infer movie-industry roles (actor, director, writer) based on the relationships (`hasCastMember`, `directedBy`, `writtenBy`), this does not equate to a general `occupation` property (which would include other professions like producer, singer, politician, etc.). Additionally, the `character_role` property on the `hasCastMember` relationship refers to the fictional character played in the movie, not the person's real-world occupation. Thus, the exact occupations cannot be accurately retrieved.\n3. Plausibility: 'Occupation' is a highly plausible and common attribute for a person in a knowledge graph.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user would make.\n5. Distinctness: 'Occupation' is clearly distinct from existing properties like `gender`, `date_of_birth`, and `country_of_citizenship`.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-movie-37c654b2",
+    "corruption_type": "U1",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'aspect ratios' of movies. Looking at the schema, the `Movie` entity has properties `global_box_office_usd`, `original_language`, `runtime_minute`, and `filming_location`. There is no property for aspect ratio, nor is there any relationship or other entity type that could provide this information. Aspect ratio is a plausible technical specification for a movie, making the question realistic but genuinely unanswerable using the given schema.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-movie-1692c0d5",
+    "corruption_type": "U2",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The question asks for movies 'banned in' a specific country (Israel). Looking at the schema, there are relationships for where a movie was released (`releasedIn`) and where it originated (`originatesFrom`), but there is no relationship or property indicating whether a movie was banned, censored, or restricted in a country. There is no alternative path to derive this information. The concept of a movie being banned is highly plausible in the movie domain and is clearly distinct from being released. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-movie-5c17c8f6",
+    "corruption_type": "U3",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The question asks for individuals who have 'created and written a fictional character'. While the schema contains a 'character_role' property on the 'hasCastMember' relationship, it does not contain a 'FictionalCharacter' entity, nor does it have relationships indicating who 'created' or 'wrote' a specific character (only who wrote a Movie). Therefore, there is no way to answer this question using the provided schema. The fake element is plausible for the movie domain and the question sounds natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-movie-b30b8dea",
+    "corruption_type": "U4",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter movies by their 'age rating' (specifically PG-13). Reviewing the schema, the `Movie` entity only has properties for `global_box_office_usd`, `original_language`, `runtime_minute`, and `filming_location`. There are no relationships or other entities (like Genre or Award) that capture age ratings, MPAA ratings, or certifications. Since there is no alternative path to derive a movie's age rating, the question is genuinely unanswerable. Furthermore, 'age rating' is a highly plausible attribute for a movie, and the question is phrased naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-movie-1f99e778",
+    "corruption_type": "U4",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The question asks for movies with a specific 'age rating' (PG). Looking at the schema, the `Movie` entity only has properties for `global_box_office_usd`, `original_language`, `runtime_minute`, and `filming_location`. There are no relationships or other entities (like a Rating entity) that could provide the age rating of a movie. The fake element 'age rating' is highly plausible for the movie domain, completely distinct from existing schema elements, and there is no alternative path to derive this information. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-movie-b59f5fbc",
+    "corruption_type": "U5",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: The question asks for the movie 'Ray' (Movie entity) and the year it was 'directed' (temporal property of the `directedBy` relationship or a production date property on Movie).\n2. Check schema: The `directedBy` relationship has no properties. The `Movie` entity has no temporal properties (only box office, language, runtime, and filming location).\n3. Check alternative paths: The schema contains a `date` property on the `releasedIn` relationship. However, the release date of a movie is distinct from the year it was directed or filmed. While they might be close in time, they are not the same thing, so the release date cannot accurately answer 'when was it directed'.\n4. Plausibility: It is highly plausible for a user to ask when a movie was actually filmed or directed, as opposed to when it was released.\n5. Naturalness: The question is grammatically correct and sounds like a natural query.\n6. Distinctness: The temporal aspect of directing is clearly distinct from the available temporal properties (release date, award year, birth/death dates of people).",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-movie-15a68a69",
+    "corruption_type": "A1",
+    "graph": "movie",
+    "verdict": "pass",
+    "reasoning": "The phrase 'got the credit for' is ambiguous in the context of movies. It could refer to the primary creative force behind the movie (usually the director, mapping to `directedBy`), the writer (`writtenBy`), or it could be interpreted broadly as anyone who received a screen credit (mapping to a union of `directedBy`, `writtenBy`, and `hasCastMember`). Because 'the credit' is singular and definite, it strongly implies a primary creator, but it is irresolvably unclear whether that means the director, the writer, or both. The phrasing is slightly unnatural, but the ambiguity is genuine.",
+    "naturalness": 2,
+    "effectiveness": 4,
+    "issues": [
+      "The phrase 'got the credit for' is slightly unnatural and idiomatic; 'was credited in' or 'received credit for' would be more natural.",
+      "'Got the credit for' often implies a single primary creator (like the director) rather than anyone in the credits, making the 'hasCastMember' interpretation a bit of a stretch, though still possible."
+    ]
+  }
+]

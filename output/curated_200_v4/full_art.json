@@ -1,0 +1,572 @@
+[
+  {
+    "corruption_id": "A2-art-dea158fb",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "end_year",
+      "corrupted_element": "timeframe",
+      "candidate_interpretations": [
+        "start_year",
+        "end_year"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "70d2f296-576c-4e4a-b011-398e7c9a0a7e",
+    "original_graph": "art",
+    "original_nl_question": "What are the names and end years of art movements associated with both the paintings Impression, Sunrise and Garden at Sainte-Adresse?",
+    "original_gold_cypher": "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Painting {name: 'Impression, Sunrise'}),(n:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Garden at Sainte-Adresse'}) WITH DISTINCT n RETURN n.name, n.end_year",
+    "corrupted_nl_question": "What is the name and year of the art movement associated with both the paintings Impression, Sunrise and Garden at Sainte-Adresse?",
+    "valid_cyphers": [
+      "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Painting {name: 'Impression, Sunrise'}),(n:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Garden at Sainte-Adresse'}) WITH DISTINCT n RETURN n.name, n.start_year",
+      "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Painting {name: 'Impression, Sunrise'}),(n:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Garden at Sainte-Adresse'}) WITH DISTINCT n RETURN n.name, n.end_year"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-67167023",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "work of art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "9561bb90-7402-4c98-a99a-9687722e2880",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of sculptures linked to the same art movement as the painting Rouen Cathedral?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Rouen Cathedral'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of a work of art linked to the same art movement as the painting Rouen Cathedral?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Rouen Cathedral'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement)<-[r1:associatedWith]-(m1:Painting {name: 'Rouen Cathedral'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-1d2f27a9",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "artwork",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "6ee692f8-b74f-484e-9622-650b407265a9",
+    "original_graph": "art",
+    "original_nl_question": "Who are the creators of the sculpture Untitled V, and where were they born?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:createdBy]-(m0:Sculpture {name: 'Untitled V'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Who are the creators of the artwork Untitled V, and where were they born?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Sculpture {name: 'Untitled V'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Painting {name: 'Untitled V'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-31200333",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "art piece",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "1a74b675-3219-47e9-a09e-028181b73a0a",
+    "original_graph": "art",
+    "original_nl_question": "What is the earliest creation year of paintings displayed at the Solomon R. Guggenheim Museum?",
+    "original_gold_cypher": "MATCH (n:Painting)-[r0:displayedAt]->(m0:Museum {name: 'Solomon R. Guggenheim Museum'}) WITH DISTINCT n RETURN min(n.creation_year)",
+    "corrupted_nl_question": "What is the earliest creation year of an art piece displayed at the Solomon R. Guggenheim Museum?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum {name: 'Solomon R. Guggenheim Museum'}) WITH DISTINCT n RETURN min(n.creation_year)",
+      "MATCH (n:Painting)-[r0:displayedAt]->(m0:Museum {name: 'Solomon R. Guggenheim Museum'}) WITH DISTINCT n RETURN min(n.creation_year)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-6afc1df3",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "work of art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "0e536172-38c7-4990-afaf-cbdd81a64960",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of museums that exhibit paintings associated with the Renaissance art movement?",
+    "original_gold_cypher": "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Painting)-[r1:associatedWith]->(m1:ArtMovement {name: 'Renaissance'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of museums that exhibit a work of art associated with the Renaissance art movement?",
+    "valid_cyphers": [
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Sculpture)-[r1:associatedWith]->(m1:ArtMovement {name: 'Renaissance'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Painting)-[r1:associatedWith]->(m1:ArtMovement {name: 'Renaissance'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-2231ac79",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "e5ae3727-722c-4eb7-b91e-6705f527e26b",
+    "original_graph": "art",
+    "original_nl_question": "Who are the artists who created sculptures associated with the Art Nouveau movement, and where were they born?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:createdBy]-(m0:Sculpture)-[r1:associatedWith]->(m1:ArtMovement {name: 'Art Nouveau'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Who are the artists who created art associated with the Art Nouveau movement, and where were they born?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Sculpture)-[r1:associatedWith]->(m1:ArtMovement {name: 'Art Nouveau'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Painting)-[r1:associatedWith]->(m1:ArtMovement {name: 'Art Nouveau'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-236ecb30",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "art piece",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "fad4ed2f-2060-4d7b-b8d6-0104b3a33c71",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of sculptures linked to an art movement?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of art pieces linked to an art movement?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-2404f35f",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "905a2ebf-f964-4c05-9ca4-b965742a1f58",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of museums that exhibit portrait paintings, and how many portrait paintings does each museum display?",
+    "original_gold_cypher": "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Painting)-[r1:hasGenre]->(m1:Genre {name: 'portrait'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of museums that exhibit portrait art, and how many pieces of portrait art does each museum display?",
+    "valid_cyphers": [
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Sculpture)-[r1:hasGenre]->(m1:Genre {name: 'portrait'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Painting)-[r1:hasGenre]->(m1:Genre {name: 'portrait'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-art-0c77a24f",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "start_year",
+      "corrupted_element": "origin_city",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'origin_city' does not exist on entity type 'ArtMovement'. Existing: start_year, end_year"
+    },
+    "original_qid": "1a7e7204-58d4-4d08-aaa9-1af9d2cfab64",
+    "original_graph": "art",
+    "original_nl_question": "What are the names and starting years of art movements linked to paintings in the trompe-l'œil genre?",
+    "original_gold_cypher": "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Painting)-[r1:hasGenre]->(m1:Genre {name: 'trompe-l\\'œil'}) WITH DISTINCT n RETURN n.name, n.start_year",
+    "corrupted_nl_question": "What are the names and origin cities of art movements linked to paintings in the trompe-l'œil genre?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-art-7223a175",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Sculpture",
+      "corrupted_element": "SculptingTechnique",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'SculptingTechnique' does not exist. Existing: Painting, Sculpture, Genre, ArtMovement, Person, Museum"
+    },
+    "original_qid": "e8a53229-f70b-4e8c-bd4c-689f8ca3f44b",
+    "original_graph": "art",
+    "original_nl_question": "How many art movements are associated with either the sculpture Head of Saint John the Baptist or The Cathedral?",
+    "original_gold_cypher": "CALL { MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Sculpture {name: 'Head of Saint John the Baptist'}) RETURN n, m0 as m UNION MATCH (n:ArtMovement)<-[r1:associatedWith]-(m1:Sculpture {name: 'The cathedral'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many art movements are associated with either the sculpting technique of lost-wax casting or assemblage?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-art-1460ebe1",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "creation_year",
+      "corrupted_element": "canvas_orientation",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'canvas_orientation' does not exist on 'Painting'. Existing: country_of_origin, creation_year"
+    },
+    "original_qid": "230a6a3e-ff92-4ec3-b28a-9f9f34959027",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of Mannerist paintings in the nude genre that were created after the year 1555?",
+    "original_gold_cypher": "MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement {name: 'mannerism'}),(n:Painting)-[r1:hasGenre]->(m1:Genre {name: 'nude'}) WITH DISTINCT n WHERE n.creation_year > 1555 RETURN n.name",
+    "corrupted_nl_question": "What are the names of Mannerist paintings in the nude genre that have a landscape canvas orientation?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-art-8413e4bf",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "creation_year",
+      "corrupted_element": "medium",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'medium' does not exist on 'Painting'. Existing: country_of_origin, creation_year"
+    },
+    "original_qid": "59f08d63-2d45-4e2f-b96a-cf6c1e077880",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of paintings that belong to both the landscape art and marine art genres and were created before the year 1883?",
+    "original_gold_cypher": "MATCH (n:Painting)-[r0:hasGenre]->(m0:Genre {name: 'landscape art'}),(n:Painting)-[r1:hasGenre]->(m1:Genre {name: 'marine art'}) WITH DISTINCT n WHERE n.creation_year < 1883 RETURN n.name",
+    "corrupted_nl_question": "What are the names of paintings that belong to both the landscape art and marine art genres and were painted in oil on canvas?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-art-88fd3c84",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "creation_year",
+      "corrupted_element": "dominant_color",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'dominant_color' does not exist on 'Painting'. Existing: country_of_origin, creation_year"
+    },
+    "original_qid": "500f2cf6-a36b-4b39-ad7c-0939e963d2be",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of paintings linked to synthetic cubism that were created before 1914?",
+    "original_gold_cypher": "MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement {name: 'synthetic cubism'}) WITH DISTINCT n WHERE n.creation_year < 1914 RETURN n.name",
+    "corrupted_nl_question": "What are the names of paintings linked to synthetic cubism where the dominant color is blue?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-art-81f6fed2",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "creation_year",
+      "corrupted_element": "preservation_status",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'preservation_status' does not exist on 'Sculpture'. Existing: country_of_origin, creation_year"
+    },
+    "original_qid": "0fadad79-4aff-4dcb-be66-622e7728f1a7",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of sculptures created after 1905 that are displayed in the same museum as the Figure of a Woman \"The Sphinx\"?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum)<-[r1:displayedAt]-(m1:Sculpture {name: 'Figure of a Woman \"The Sphinx\"'}) WITH DISTINCT n WHERE n.creation_year > 1905 RETURN n.name",
+    "corrupted_nl_question": "What are the names of well-preserved sculptures that are displayed in the same museum as the Figure of a Woman \"The Sphinx\"?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-art-d132606a",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "creation_year",
+      "corrupted_element": "sculpting_technique",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'sculpting_technique' does not exist on 'Sculpture'. Existing: country_of_origin, creation_year"
+    },
+    "original_qid": "8277ef08-652d-4f92-b2cb-de24a5c5a065",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of sculptures linked to the Impressionism art movement that were created after the year 1884?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement {name: 'Impressionism'}) WITH DISTINCT n WHERE n.creation_year > 1884 RETURN n.name",
+    "corrupted_nl_question": "What are the names of sculptures linked to the Impressionism art movement that were created using the bronze casting technique?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-art-f653ca80",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "displayedAt",
+      "corrupted_element": "displayedAt (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'displayedAt' between Sculpture and Museum has no temporal properties. Properties: none"
+    },
+    "original_qid": "9945cdb6-64cb-4f42-a06f-c16a32882ad0",
+    "original_graph": "art",
+    "original_nl_question": "How many museums display either the sculpture Right Foot or the painting The Garden Table?",
+    "original_gold_cypher": "CALL { MATCH (n:Museum)<-[r0:displayedAt]-(m0:Sculpture {name: 'Right Foot'}) RETURN n, m0 as m UNION MATCH (n:Museum)<-[r1:displayedAt]-(m1:Painting {name: 'The Garden Table'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "During what years did museums display either the sculpture Right Foot or the painting The Garden Table?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-art-2816534f",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "hasGenre",
+      "corrupted_element": "hasGenre (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasGenre' between Sculpture and Genre has no temporal properties. Properties: none"
+    },
+    "original_qid": "d2e2cf67-28e0-4d5f-a854-216f3b89282e",
+    "original_graph": "art",
+    "original_nl_question": "What are the names and creation years of nude sculptures displayed at the Ricardo Brennand Institute?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:hasGenre]->(m0:Genre {name: 'nude'}),(n:Sculpture)-[r1:displayedAt]->(m1:Museum {name: 'Ricardo Brennand Institute'}) WITH DISTINCT n RETURN n.name, n.creation_year",
+    "corrupted_nl_question": "When were the sculptures displayed at the Ricardo Brennand Institute first categorized under the nude genre?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A3-art-b2861473",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "work of art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "e5fdba44-0e0c-4f0f-b2df-05f79889b9e2",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of nude sculptures displayed at the Strasbourg Museum of Modern and Contemporary Art, listed from the most recently created to the oldest?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:hasGenre]->(m0:Genre {name: 'nude'}),(n:Sculpture)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) WITH DISTINCT n RETURN n.name ORDER BY n.creation_year DESC",
+    "corrupted_nl_question": "What are the names of nude works of art displayed at the Strasbourg Museum of Modern and Contemporary Art, listed from the most recently created to the oldest?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:hasGenre]->(m0:Genre {name: 'nude'}),(n:Sculpture)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) WITH DISTINCT n RETURN n.name ORDER BY n.creation_year DESC",
+      "MATCH (n:Painting)-[r0:hasGenre]->(m0:Genre {name: 'nude'}),(n:Painting)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) WITH DISTINCT n RETURN n.name ORDER BY n.creation_year DESC"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-063521cb",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "masterpiece",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "53ebe563-fcea-4e32-b0a0-a0e79f674229",
+    "original_graph": "art",
+    "original_nl_question": "How many sculptures are either displayed at the Museo del Prado or created by El Greco?",
+    "original_gold_cypher": "CALL { MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum {name: 'Museo del Prado'}) RETURN n, m0 as m UNION MATCH (n:Sculpture)-[r1:createdBy]->(m1:Person {name: 'El Greco'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many masterpieces are either displayed at the Museo del Prado or created by El Greco?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum {name: 'Museo del Prado'}) RETURN n, m0 as m UNION MATCH (n:Sculpture)-[r1:createdBy]->(m1:Person {name: 'El Greco'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Painting)-[r0:displayedAt]->(m0:Museum {name: 'Museo del Prado'}) RETURN n, m0 as m UNION MATCH (n:Painting)-[r1:createdBy]->(m1:Person {name: 'El Greco'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-2176fa9d",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "artwork",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "da5e4af5-8ea1-4513-9ae9-17abc4854698",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of museums that have displayed sculptures associated with Impressionism, and how many such sculptures have they exhibited?",
+    "original_gold_cypher": "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Sculpture)-[r1:associatedWith]->(m1:ArtMovement {name: 'Impressionism'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of museums that have displayed artwork associated with Impressionism, and how many pieces of such artwork have they exhibited?",
+    "valid_cyphers": [
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Sculpture)-[r1:associatedWith]->(m1:ArtMovement {name: 'Impressionism'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Museum)<-[r0:displayedAt]-(m0:Painting)-[r1:associatedWith]->(m1:ArtMovement {name: 'Impressionism'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-f8dec839",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "art piece",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "3bf52971-f599-421f-a6d7-3881e9d34e24",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of paintings either linked to the Italian Renaissance painting movement or created by Leonardo da Vinci?",
+    "original_gold_cypher": "CALL { MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement {name: 'Italian Renaissance painting'}) RETURN n, m0 as m UNION MATCH (n:Painting)-[r1:createdBy]->(m1:Person {name: 'Leonardo da Vinci'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of an art piece either linked to the Italian Renaissance painting movement or created by Leonardo da Vinci?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Sculpture)-[r0:associatedWith]->(m0:ArtMovement {name: 'Italian Renaissance painting'}) RETURN n, m0 as m UNION MATCH (n:Sculpture)-[r1:createdBy]->(m1:Person {name: 'Leonardo da Vinci'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Painting)-[r0:associatedWith]->(m0:ArtMovement {name: 'Italian Renaissance painting'}) RETURN n, m0 as m UNION MATCH (n:Painting)-[r1:createdBy]->(m1:Person {name: 'Leonardo da Vinci'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-8c660399",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "work of art",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "13f27503-7840-4be1-8b81-eabbdcb961d2",
+    "original_graph": "art",
+    "original_nl_question": "What are the names and countries of origin of sculptures that are exhibited at the Strasbourg Museum of Modern and Contemporary Art and belong to the nude genre?",
+    "original_gold_cypher": "MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}),(n:Sculpture)-[r1:hasGenre]->(m1:Genre {name: 'nude'}) WITH DISTINCT n RETURN n.name, n.country_of_origin",
+    "corrupted_nl_question": "What is the name and country of origin of a work of art that is exhibited at the Strasbourg Museum of Modern and Contemporary Art and belongs to the nude genre?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:displayedAt]->(m0:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}),(n:Sculpture)-[r1:hasGenre]->(m1:Genre {name: 'nude'}) WITH DISTINCT n RETURN n.name, n.country_of_origin",
+      "MATCH (n:Painting)-[r0:displayedAt]->(m0:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}),(n:Painting)-[r1:hasGenre]->(m1:Genre {name: 'nude'}) WITH DISTINCT n RETURN n.name, n.country_of_origin"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-cc2263db",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "artwork",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "ba0d8712-3c0a-4f88-9fbd-a9c458af6d5c",
+    "original_graph": "art",
+    "original_nl_question": "How many sculptures are either in the portrait genre or displayed at the Strasbourg Museum of Modern and Contemporary Art?",
+    "original_gold_cypher": "CALL { MATCH (n:Sculpture)-[r0:hasGenre]->(m0:Genre {name: 'portrait'}) RETURN n, m0 as m UNION MATCH (n:Sculpture)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many artworks are either in the portrait genre or displayed at the Strasbourg Museum of Modern and Contemporary Art?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Sculpture)-[r0:hasGenre]->(m0:Genre {name: 'portrait'}) RETURN n, m0 as m UNION MATCH (n:Sculpture)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Painting)-[r0:hasGenre]->(m0:Genre {name: 'portrait'}) RETURN n, m0 as m UNION MATCH (n:Painting)-[r1:displayedAt]->(m1:Museum {name: 'Strasbourg Museum of Modern and Contemporary Art'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-7a5352ff",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "art piece",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "81adfb75-3934-4678-9bf0-639f410e64b8",
+    "original_graph": "art",
+    "original_nl_question": "Who are the individuals who created the painting Jeunesse, and what are their genders?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:createdBy]-(m0:Painting {name: 'Jeunesse'}) WITH DISTINCT n RETURN n.name, n.gender",
+    "corrupted_nl_question": "Who are the individuals who created the art piece Jeunesse, and what are their genders?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Sculpture {name: 'Jeunesse'}) WITH DISTINCT n RETURN n.name, n.gender",
+      "MATCH (n:Person)<-[r0:createdBy]-(m0:Painting {name: 'Jeunesse'}) WITH DISTINCT n RETURN n.name, n.gender"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-c9f5ec90",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Sculpture",
+      "corrupted_element": "artwork",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "41997eb1-2fa8-44c6-843d-1c2ebbdc0224",
+    "original_graph": "art",
+    "original_nl_question": "What are the names of art movements linked to sculptures in the genre of erotic art?",
+    "original_gold_cypher": "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Sculpture)-[r1:hasGenre]->(m1:Genre {name: 'erotic art'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of art movements linked to an artwork in the genre of erotic art?",
+    "valid_cyphers": [
+      "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Sculpture)-[r1:hasGenre]->(m1:Genre {name: 'erotic art'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:ArtMovement)<-[r0:associatedWith]-(m0:Painting)-[r1:hasGenre]->(m1:Genre {name: 'erotic art'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-art-8ff24520",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Painting",
+      "corrupted_element": "artwork",
+      "candidate_interpretations": [
+        "Painting",
+        "Sculpture"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "89c42c85-2dae-4943-9cc3-5ef7a8c7f983",
+    "original_graph": "art",
+    "original_nl_question": "How many paintings were created by Frédéric Montenard?",
+    "original_gold_cypher": "MATCH (n:Painting)-[r0:createdBy]->(m0:Person {name: 'Frédéric Montenard'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many artworks were created by Frédéric Montenard?",
+    "valid_cyphers": [
+      "MATCH (n:Sculpture)-[r0:createdBy]->(m0:Person {name: 'Frédéric Montenard'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:Painting)-[r0:createdBy]->(m0:Person {name: 'Frédéric Montenard'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

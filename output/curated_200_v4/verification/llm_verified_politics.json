@@ -1,0 +1,122 @@
+[
+  {
+    "corruption_id": "A1-politics-02f3de4a",
+    "corruption_type": "A1",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'leader' is used to describe the relationship between a politician and a country.\n2. Check interpretations against schema: The schema contains two distinct relationships for a country's leader: `hasHeadOfState` and `hasHeadOfGovernment`. \n3. Exclusivity: Querying for `hasHeadOfState` will return different politicians (e.g., monarchs, ceremonial presidents) than querying for `hasHeadOfGovernment` (e.g., prime ministers, chancellors). \n4. Balance: Both interpretations are equally plausible, as 'leader' is a colloquial term that encompasses both roles depending on the country's political system.\n5. Naturalness: The phrasing 'leader of any country' is highly natural and commonly used by laypeople.\n6. Irresolvability: There is no additional context in the question to specify whether the user means the head of state, the head of government, or both. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-politics-dde479da",
+    "corruption_type": "A1",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The corrupted question uses the phrase \"leader of Poland\" (note: the corruption details incorrectly claim \"runs\" was used, but the actual question text uses \"leader\").\n2. Check interpretations against schema: The schema contains two distinct relationships for a country's leader: `hasHeadOfState` and `hasHeadOfGovernment`. \n3. Exclusivity and Balance: Both relationships connect a Country to a Politician. For a country like Poland, which has both a President (Head of State) and a Prime Minister (Head of Government), the term \"leader\" could equally refer to either role. Querying for one versus the other would return different sets of politicians, making the interpretations mutually exclusive and perfectly balanced.\n4. Naturalness: Asking about the \"leader of Poland\" is a very natural, colloquial way for a layperson to phrase the question.\n5. Irresolvability: There are no context clues in the question to determine whether the user meant the head of state or the head of government. The ambiguity is genuine and irresolvable without asking the user for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-politics-ca06d26e",
+    "corruption_type": "A1",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The term 'leader' replaces 'head of states'. (Note: The corruption details mention 'runs', but the actual question uses 'leader').\n2. Schema check: In the provided schema, 'leader' could map to several distinct relationships:\n   - `(Country)-[:hasHeadOfState]->(Politician)`\n   - `(Country)-[:hasHeadOfGovernment]->(Politician)`\n   - `(PoliticalParty)-[:headedBy]->(Politician)`\n   - `(Position)-[:leads]->(GovernmentOrganization)` where the Politician `holdsPosition`.\n3. Exclusivity: Each of these interpretations would require a different Cypher query traversing different relationships, and would return a different list of politicians.\n4. Balance: The term 'leader' is commonly used in everyday language to refer to both Heads of State (e.g., Presidents) and Heads of Government (e.g., Prime Ministers). It is also frequently used for party leaders. These interpretations are equally plausible.\n5. Naturalness: The question sounds perfectly natural and is phrased like a typical user query.\n6. Irresolvability: There is no additional context in the question (such as 'country leader' or 'party leader') to help disambiguate which specific type of leader is being requested.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-politics-cf0468fa",
+    "corruption_type": "A1",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'leader of Poland' is the source of ambiguity.\n2. Schema check: The schema contains two distinct relationships that connect a Country to a Politician in a leadership capacity: `hasHeadOfState` and `hasHeadOfGovernment`.\n3. Exclusivity: Querying for `hasHeadOfState` (Presidents) versus `hasHeadOfGovernment` (Prime Ministers) would yield different Cypher queries and different sets of politicians.\n4. Balance: The term 'leader' is colloquially used to refer to either the head of state or the head of government. For a country like Poland, both roles are prominent, making both interpretations equally plausible.\n5. Naturalness: The question flows perfectly and sounds exactly like how a layperson would ask about a country's leadership without knowing the specific constitutional terms.\n6. Irresolvability: There are no context clues in the question to specify whether the user means the President or the Prime Minister. The ambiguity is genuine and irresolvable without asking the user for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-politics-ca3d46bc",
+    "corruption_type": "U2",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for politicians who have been 'nominated by' specific political parties. Looking at the schema, the relationships between Politician and PoliticalParty are 'memberOf', 'headedBy' (from Party to Politician), and 'foundedBy' (from Party to Politician). There is no relationship or property indicating that a politician was nominated by a party. While a nominee is typically a member of the party, being a member does not mean one was nominated, so 'memberOf' cannot be used as a substitute. The concept of nomination is highly plausible in the political domain but is entirely missing from the schema, making the question genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-politics-fce0231c",
+    "corruption_type": "U3",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for 'signatories' of the 'Paris Agreement', which implies an entity type like 'Treaty' or 'Agreement' and a relationship like 'signedBy' or 'signatory'. Neither exists in the schema.\n2. No alternative path: There is no way to retrieve treaties or their signatories. While an LLM might incorrectly attempt to model the 'Paris Agreement' as an 'InternationalOrganization' and look for countries that are 'memberOf' it, a treaty is fundamentally distinct from an organization, making this an invalid path.\n3. Plausibility: Asking about signatories of major international agreements is highly plausible in a political domain.\n4. Naturalness: The question is perfectly natural and well-phrased.\n5. Distinctness: A diplomatic treaty is clearly distinct from an international organization, government organization, or political party.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-politics-9cc90b04",
+    "corruption_type": "U3",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "The question asks for an 'international treaty' that a political party is 'actively opposing'. Looking at the schema, there is no entity type for 'InternationalTreaty' (the closest is 'InternationalOrganization', which is distinct). Additionally, there is no relationship in the schema that captures a political party 'opposing' something. Because both the target entity type and the relationship are missing, there is absolutely no way to answer this question using the provided schema. The question is highly plausible for the political domain and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-politics-5917bcc5",
+    "corruption_type": "U3",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for government organizations that 'govern' a specific 'congressional district'. The schema contains 'GovernmentOrganization', but lacks any entity type for electoral districts, states, or local jurisdictions. It also lacks a 'governs' relationship.\n2. No alternative path: There is no way to represent a congressional district using the existing schema. It cannot be mapped to 'Country', 'Position', or 'PoliticalParty'. Even if we assumed the district was part of a 'Position' title (e.g., Representative of the 14th District), the question asks what organizations govern the district itself, not what organizations the representative leads.\n3. Plausibility: Electoral districts are a fundamental concept in politics, making the fake element highly plausible.\n4. Naturalness: The question is grammatically correct and sounds like a realistic query a user might ask.\n5. Distinctness: An electoral district is clearly distinct from a 'Country' (the only geographic/jurisdictional entity in the schema) and 'Position'.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-politics-55eaf808",
+    "corruption_type": "U5",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: The question asks for the time/date ('When') a Country (The Bahamas, Mauritius) became a member of an InternationalOrganization.\n2. Check paths: The relationship `(Country)-[:memberOf]->(InternationalOrganization)` exists, but it has no temporal properties (like `start_year` or `date_joined`).\n3. Check alternatives: `founding_year` of InternationalOrganization or `founding_date` of Country do not represent the date of joining. There are no other relationships connecting Country and InternationalOrganization that have temporal properties.\n4. Plausibility: Asking when a country joined an international organization is highly plausible and common in the political domain.\n5. Naturalness: The question is grammatically correct and sounds natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-politics-8a73e39a",
+    "corruption_type": "U5",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "The question asks for the year a political party started operating in a specific country. To answer this, we would need a temporal property (like 'start_year' or 'start_date') on the 'operatesIn' relationship between 'PoliticalParty' and 'Country'. However, the schema shows that the 'operatesIn' relationship has no properties. While the 'PoliticalParty' entity has a 'founding_date', this represents when the party was created, not necessarily when it began operating in a specific country (especially for international parties or if borders changed). Therefore, there is no valid path or property in the schema to answer the temporal aspect of the question.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-politics-328a74a4",
+    "corruption_type": "U5",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "The question asks for the number of government organizations that belonged to a country in a specific year (2010). In the schema, the `belongsTo` relationship between `GovernmentOrganization` and `Country` has no temporal properties. Furthermore, `GovernmentOrganization` has no temporal properties (like founding_date or dissolution_date). While one could potentially find government organizations that had a politician holding a position in them during 2010 (via `holdsPosition` which has `start_year` and `end_year`), this is an incomplete proxy and does not accurately count all government organizations that belonged to the country in that year. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-politics-522df826",
+    "corruption_type": "U5",
+    "graph": "politics",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for the exact year diplomatic ties were established between countries. In the schema, the relationship `(Country)-[:hasDiplomaticRelationWith]->(Country)` exists, but it does not have any properties, temporal or otherwise. There are no other entities or relationships (like a DiplomaticMission or Treaty entity) that could provide this temporal information. Therefore, the question is genuinely unanswerable. The addition of the temporal requirement is highly plausible for the political domain and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

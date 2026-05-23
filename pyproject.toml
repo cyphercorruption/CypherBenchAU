@@ -1,0 +1,30 @@
+[project]
+name = "cypherbench-corruptions"
+version = "0.1.0"
+description = "Corruption generator for CypherBench: ambiguity and unanswerability perturbations"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic",
+    "openai",
+    "typer",
+    "tqdm",
+    "python-dotenv",
+    "neo4j>=6.1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+verify = ["neo4j"]
+
+[project.scripts]
+cb-corrupt = "cb_corruptions.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cb_corruptions"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

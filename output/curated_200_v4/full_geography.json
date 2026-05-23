@@ -1,0 +1,392 @@
+[
+  {
+    "corruption_id": "A2-geography-4b044c32",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "max_vertical_depth_m",
+      "corrupted_element": "depth",
+      "candidate_interpretations": [
+        "max_vertical_depth_m",
+        "avg_vertical_depth_m"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "0eee9bd1-316c-485f-9c05-909c7c1babab",
+    "original_graph": "geography",
+    "original_nl_question": "What is the difference in maximum vertical depth between the Atlantic Ocean and the Arctic Ocean?",
+    "original_gold_cypher": "MATCH (n:Ocean {name: 'Atlantic Ocean'}), (m0:Ocean {name: 'Arctic Ocean'}) RETURN n.max_vertical_depth_m - m0.max_vertical_depth_m AS answer",
+    "corrupted_nl_question": "What is the difference in depth between the Atlantic Ocean and the Arctic Ocean?",
+    "valid_cyphers": [
+      "MATCH (n:Ocean {name: 'Atlantic Ocean'}), (m0:Ocean {name: 'Arctic Ocean'}) RETURN n.max_vertical_depth_m - m0.max_vertical_depth_m AS answer",
+      "MATCH (n:Ocean {name: 'Atlantic Ocean'}), (m0:Ocean {name: 'Arctic Ocean'}) RETURN n.avg_vertical_depth_m - m0.avg_vertical_depth_m AS answer"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-geography-91d4d264",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "avg_vertical_depth_m",
+      "corrupted_element": "depth",
+      "candidate_interpretations": [
+        "max_vertical_depth_m",
+        "avg_vertical_depth_m"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "ca466b33-31fd-4ee4-8daf-a88e351f54f1",
+    "original_graph": "geography",
+    "original_nl_question": "What is the average vertical depth in meters of the Arctic Ocean?",
+    "original_gold_cypher": "MATCH (n:Ocean {name: 'Arctic Ocean'}) WITH DISTINCT n RETURN n.avg_vertical_depth_m",
+    "corrupted_nl_question": "What is the depth of the Arctic Ocean in meters?",
+    "valid_cyphers": [
+      "MATCH (n:Ocean {name: 'Arctic Ocean'}) WITH DISTINCT n RETURN n.max_vertical_depth_m",
+      "MATCH (n:Ocean {name: 'Arctic Ocean'}) WITH DISTINCT n RETURN n.avg_vertical_depth_m"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-geography-2942a61c",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "River",
+      "corrupted_element": "waterway",
+      "candidate_interpretations": [
+        "Lake",
+        "River"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "942ddefb-08fb-4dcd-9cfa-e860b86580fa",
+    "original_graph": "geography",
+    "original_nl_question": "How many rivers are part of the Tobol basin?",
+    "original_gold_cypher": "MATCH (n:River)-[r0:partOf]->(m0:DrainageBasin {name: 'Tobol basin'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many waterways are part of the Tobol basin?",
+    "valid_cyphers": [
+      "MATCH (n:Lake)-[r0:partOf]->(m0:DrainageBasin {name: 'Tobol basin'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:River)-[r0:partOf]->(m0:DrainageBasin {name: 'Tobol basin'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-geography-aaf1c116",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Lake",
+      "corrupted_element": "natural feature",
+      "candidate_interpretations": [
+        "DrainageBasin",
+        "Lake",
+        "Mountain"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "f2ff594d-ebbd-4a28-afaf-6f8fca757015",
+    "original_graph": "geography",
+    "original_nl_question": "List the names of lakes situated in the same countries as Chopicalqui, and for each lake, provide the number of such countries.",
+    "original_gold_cypher": "MATCH (n:Lake)-[r0:locatedIn]->(m0:Country)<-[r1:locatedIn]-(m1:Mountain {name: 'Chopicalqui'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "List the names of natural features situated in the same countries as Chopicalqui, and for each natural feature, provide the number of such countries.",
+    "valid_cyphers": [
+      "MATCH (n:Lake)-[r0:locatedIn]->(m0:Country)<-[r1:locatedIn]-(m1:Mountain {name: 'Chopicalqui'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:DrainageBasin)-[r0:locatedIn]->(m0:Country)<-[r1:locatedIn]-(m1:Mountain {name: 'Chopicalqui'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Mountain)-[r0:locatedIn]->(m0:Country)<-[r1:locatedIn]-(m1:Mountain {name: 'Chopicalqui'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-geography-d95f1edc",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "Lake",
+      "corrupted_element": "landform",
+      "candidate_interpretations": [
+        "DrainageBasin",
+        "Lake",
+        "Mountain"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "3949691f-bb9a-4370-96d6-ff814338a439",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of lakes situated in Armenia?",
+    "original_gold_cypher": "MATCH (n:Lake)-[r0:locatedIn]->(m0:Country {name: 'Armenia'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of landforms situated in Armenia?",
+    "valid_cyphers": [
+      "MATCH (n:Lake)-[r0:locatedIn]->(m0:Country {name: 'Armenia'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:DrainageBasin)-[r0:locatedIn]->(m0:Country {name: 'Armenia'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Mountain)-[r0:locatedIn]->(m0:Country {name: 'Armenia'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-geography-66ead774",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "flowsInto",
+      "corrupted_element": "flowsInto (direction ambiguous)",
+      "candidate_interpretations": [
+        "flowsInto (forward)",
+        "flowsInto (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "18e2a1fd-9b10-4d9b-9c98-38eebf1eac09",
+    "original_graph": "geography",
+    "original_nl_question": "How many rivers do the Kainsas or the Shaytanka flow into?",
+    "original_gold_cypher": "CALL { MATCH (n:River)<-[r0:flowsInto]-(m0:River {name: 'Kainsas'}) RETURN n, m0 as m UNION MATCH (n:River)<-[r1:flowsInto]-(m1:River {name: 'Shaytanka'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many rivers connect with the Kainsas or the Shaytanka?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:River)<-[r0:flowsInto]-(m0:River {name: 'Kainsas'}) RETURN n, m0 as m UNION MATCH (n:River)<-[r1:flowsInto]-(m1:River {name: 'Shaytanka'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:River)-[r0:flowsInto]->(m0:River {name: 'Kainsas'}) RETURN n, m0 as m UNION MATCH (n:River)-[r1:flowsInto]->(m1:River {name: 'Shaytanka'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-geography-5061dd63",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "flowsInto",
+      "corrupted_element": "flowsInto (direction ambiguous)",
+      "candidate_interpretations": [
+        "flowsInto (forward)",
+        "flowsInto (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "82003c13-6ec2-4468-83e5-f5edccf104f5",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of rivers that either flow into the Paraguay River or pass through Brazil?",
+    "original_gold_cypher": "CALL { MATCH (n:River)-[r0:flowsInto]->(m0:River {name: 'Paraguay River'}) RETURN n, m0 as m UNION MATCH (n:River)-[r1:flowsThrough]->(m1:Country {name: 'Brazil'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of rivers that connect to the Paraguay River or pass through Brazil?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:River)-[r0:flowsInto]->(m0:River {name: 'Paraguay River'}) RETURN n, m0 as m UNION MATCH (n:River)-[r1:flowsThrough]->(m1:Country {name: 'Brazil'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:River)<-[r0:flowsInto]-(m0:River {name: 'Paraguay River'}) RETURN n, m0 as m UNION MATCH (n:River)<-[r1:flowsThrough]-(m1:Country {name: 'Brazil'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-geography-4046d27b",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "area_km2",
+      "corrupted_element": "avg_salinity_ppt",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'avg_salinity_ppt' does not exist on entity type 'Ocean'. Existing: area_km2, max_vertical_depth_m, avg_vertical_depth_m"
+    },
+    "original_qid": "78d0c54c-4c8d-4b25-8ac4-102bde2737cc",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of oceans and their areas in square kilometers?",
+    "original_gold_cypher": "MATCH (n:Ocean) WITH DISTINCT n RETURN n.name, n.area_km2",
+    "corrupted_nl_question": "What are the names of oceans and their average salinity in ppt?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-geography-a6010723",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "capital",
+      "corrupted_element": "population",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'population' does not exist on entity type 'Country'. Existing: capital, area_km2"
+    },
+    "original_qid": "2a57b762-22ee-4195-9258-225090e0d998",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names and capitals of countries in South America that the Baquiá Preto River flows through?",
+    "original_gold_cypher": "MATCH (n:Country)-[r0:locatedIn]->(m0:Continent {name: 'South America'}),(n:Country)<-[r1:flowsThrough]-(m1:River {name: 'Baquiá Preto River'}) WITH DISTINCT n RETURN n.name, n.capital",
+    "corrupted_nl_question": "What are the names and populations of countries in South America that the Baquiá Preto River flows through?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-geography-796ed58c",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "flowsThrough",
+      "corrupted_element": "originatesIn",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'originatesIn' does not exist. Existing: flowsInto, flowsInto, flowsInto, partOf, partOf, locatedIn, flowsThrough, locatedIn, locatedIn, partOf, partOf, locatedIn"
+    },
+    "original_qid": "e4f98d02-f314-4971-9128-76f7e07c1169",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names and discharge rates in cubic meters per second of rivers that pass through Zambia and flow into the Atlantic Ocean?",
+    "original_gold_cypher": "MATCH (n:River)-[r0:flowsThrough]->(m0:Country {name: 'Zambia'}),(n:River)-[r1:flowsInto]->(m1:Ocean {name: 'Atlantic Ocean'}) WITH DISTINCT n RETURN n.name, n.discharge_m3_s",
+    "corrupted_nl_question": "What are the names and discharge rates in cubic meters per second of rivers that originate in Zambia and flow into the Atlantic Ocean?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-geography-6cbe22ab",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "MountainRange",
+      "corrupted_element": "Valley",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'Valley' does not exist. Existing: River, Ocean, Lake, DrainageBasin, Mountain, Country, Continent, MountainRange"
+    },
+    "original_qid": "937960b0-405e-4b46-ae54-7e64dc90eb03",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of the mountain ranges that include Uja Tirche?",
+    "original_gold_cypher": "MATCH (n:MountainRange)<-[r0:partOf]-(m0:Mountain {name: 'Uja Tirche'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of the valleys that include Uja Tirche?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-geography-90e71835",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Ocean",
+      "corrupted_element": "OceanCurrent",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'OceanCurrent' does not exist. Existing: River, Ocean, Lake, DrainageBasin, Mountain, Country, Continent, MountainRange"
+    },
+    "original_qid": "5f75bc89-7ba3-480f-aac5-07321c446f03",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of drainage basins that include rivers flowing into the Atlantic Ocean, and how many such rivers are part of each basin?",
+    "original_gold_cypher": "MATCH (n:DrainageBasin)<-[r0:partOf]-(m0:River)-[r1:flowsInto]->(m1:Ocean {name: 'Atlantic Ocean'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of drainage basins that include rivers flowing into the Gulf Stream, and how many such rivers are part of each basin?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-geography-f73c95ef",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "MountainRange",
+      "corrupted_element": "MountainPass",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'MountainPass' does not exist. Existing: River, Ocean, Lake, DrainageBasin, Mountain, Country, Continent, MountainRange"
+    },
+    "original_qid": "07ccbdc9-a24a-4ad6-a01d-0eacb52d0ae8",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of mountains that are part of both the Himalayas and the Gurans Himal?",
+    "original_gold_cypher": "MATCH (n:Mountain)-[r0:partOf]->(m0:MountainRange {name: 'Himalayas'}),(n:Mountain)-[r1:partOf]->(m1:MountainRange {name: 'Gurans Himal'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of mountain passes that are part of both the Himalayas and the Gurans Himal?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-geography-4ebbc8d2",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "area_km2",
+      "corrupted_element": "elevation_m",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'elevation_m' does not exist on 'Lake'. Existing: area_km2, vertical_depth_m"
+    },
+    "original_qid": "081e13fa-7bec-4dcf-94e6-ee3d38962938",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of lakes situated in the same country as the Bug Basin, with an area greater than 200 square kilometers?",
+    "original_gold_cypher": "MATCH (n:Lake)-[r0:locatedIn]->(m0:Country)<-[r1:locatedIn]-(m1:DrainageBasin {name: 'Bug Basin'}) WITH DISTINCT n WHERE n.area_km2 > 200 RETURN n.name",
+    "corrupted_nl_question": "What are the names of lakes situated in the same country as the Bug Basin, with an elevation greater than 500 meters?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-geography-316a7c08",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "flowsInto",
+      "corrupted_element": "flowsInto (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'flowsInto' between River and Lake has no temporal properties. Properties: none"
+    },
+    "original_qid": "1fc31c0c-479c-4b24-bd3d-af6f319c3b7d",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of lakes into which both the Yuan River and the Xiang River flow?",
+    "original_gold_cypher": "MATCH (n:Lake)<-[r0:flowsInto]-(m0:River {name: 'Yuan River'}),(n:Lake)<-[r1:flowsInto]-(m1:River {name: 'Xiang River'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year did both the Yuan River and the Xiang River start flowing into the same lakes?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A3-geography-1c4b1394",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "River",
+      "corrupted_element": "body of water",
+      "candidate_interpretations": [
+        "Lake",
+        "River"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "b3489674-1f6e-4ec6-9c40-4763c95bd96e",
+    "original_graph": "geography",
+    "original_nl_question": "How many rivers either flow into the Obukhovka or are part of the Tobol basin?",
+    "original_gold_cypher": "CALL { MATCH (n:River)-[r0:flowsInto]->(m0:River {name: 'Obukhovka'}) RETURN n, m0 as m UNION MATCH (n:River)-[r1:partOf]->(m1:DrainageBasin {name: 'Tobol basin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many bodies of water either flow into the Obukhovka or are part of the Tobol basin?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Lake)-[r0:flowsInto]->(m0:Lake {name: 'Obukhovka'}) RETURN n, m0 as m UNION MATCH (n:Lake)-[r1:partOf]->(m1:DrainageBasin {name: 'Tobol basin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:River)-[r0:flowsInto]->(m0:River {name: 'Obukhovka'}) RETURN n, m0 as m UNION MATCH (n:River)-[r1:partOf]->(m1:DrainageBasin {name: 'Tobol basin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A3-geography-415dce80",
+    "corruption": {
+      "corruption_type": "A3",
+      "corruption_category": "ambiguity",
+      "original_element": "DrainageBasin",
+      "corrupted_element": "natural feature",
+      "candidate_interpretations": [
+        "DrainageBasin",
+        "Lake",
+        "Mountain"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "c3b8b137-41a1-45af-8b58-f9889f2325b4",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of countries in which a drainage basin is located, sorted by their area from smallest to largest?",
+    "original_gold_cypher": "MATCH (n:Country)<-[r0:locatedIn]-(m0:DrainageBasin) WITH DISTINCT n RETURN n.name ORDER BY n.area_km2 ASC",
+    "corrupted_nl_question": "What are the names of countries in which a natural feature is located, sorted by their area from smallest to largest?",
+    "valid_cyphers": [
+      "MATCH (n:Country)<-[r0:locatedIn]-(m0:Lake) WITH DISTINCT n RETURN n.name ORDER BY n.area_km2 ASC",
+      "MATCH (n:Country)<-[r0:locatedIn]-(m0:DrainageBasin) WITH DISTINCT n RETURN n.name ORDER BY n.area_km2 ASC",
+      "MATCH (n:Country)<-[r0:locatedIn]-(m0:Mountain) WITH DISTINCT n RETURN n.name ORDER BY n.area_km2 ASC"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-geography-282bdc57",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "flowsInto",
+      "corrupted_element": "flowsInto (direction ambiguous)",
+      "candidate_interpretations": [
+        "flowsInto (forward)",
+        "flowsInto (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "8fbd2f97-1e06-4ed8-9cdb-e3e0beb384ae",
+    "original_graph": "geography",
+    "original_nl_question": "What are the names of rivers that flow into the Negro River, and how many countries does each of them pass through?",
+    "original_gold_cypher": "MATCH (n:River)-[r1:flowsInto]->(m1:River {name: 'Negro River'}) OPTIONAL MATCH (n:River)-[r0:flowsThrough]->(m0:Country) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of rivers that connect to the Negro River, and how many countries does each of them pass through?",
+    "valid_cyphers": [
+      "MATCH (n:River)-[r1:flowsInto]->(m1:River {name: 'Negro River'}) OPTIONAL MATCH (n:River)-[r0:flowsThrough]->(m0:Country) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:River)<-[r1:flowsInto]-(m1:River {name: 'Negro River'}) OPTIONAL MATCH (n:River)<-[r0:flowsThrough]-(m0:Country) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

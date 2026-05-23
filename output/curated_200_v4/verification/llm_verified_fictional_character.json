@@ -1,0 +1,220 @@
+[
+  {
+    "corruption_id": "A1-fictional_character-6790ef54",
+    "corruption_type": "A1",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'immediate family member'.\n2. Schema check: The schema includes several family-related relationships between Characters: `hasMother`, `hasFather`, and `hasSpouse`. \n3. Interpretations: 'immediate family member' could mean the character's mother is Cassana, their father is Cassana, their spouse is Cassana, or even that the character is Cassana's mother or father (inverse relationship). \n4. Exclusivity: Each of these relationships would require a different Cypher path (e.g., `(c)-[:hasMother]->(cassana)` vs `(c)-[:hasSpouse]->(cassana)`) and would return different characters.\n5. Balance: All of these relationships perfectly fit the definition of 'immediate family member', making them equally plausible.\n6. Naturalness: The question sounds like a normal, albeit slightly formal, way a user might ask for relatives of a specific character.\n7. Irresolvability: There are no context clues to narrow down which specific type of immediate family member the user is looking for.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-674abc40",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The phrase 'someone they had a father-child relationship with' is symmetric, meaning the character in question could either be the father or the child in the relationship. Since the schema uses a directed `hasFather` relationship, this maps to two distinct query patterns: one where the character is the father (victim-[:hasFather]->character) and one where the character is the child (character-[:hasFather]->victim). Both interpretations are equally plausible and would yield different results. The phrasing is slightly clinical but perfectly understandable.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-2f3c9e35",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. The ambiguous element is the phrase 'had a fatal encounter with Loras Tyrell'.\n2. Against the schema, this can map to two distinct relationship directions: `(Character)-[:killedBy]->(Loras Tyrell)` (meaning the character was killed by Loras) or `(Loras Tyrell)-[:killedBy]->(Character)` (meaning Loras was killed by the character).\n3. These interpretations are mutually exclusive and would yield completely different sets of characters (victims of Loras vs. killers of Loras).\n4. The phrase 'fatal encounter' is perfectly balanced because it only implies that an encounter occurred and resulted in a death, without specifying whose death it was. \n5. The phrasing is slightly formal or journalistic but sounds natural.\n6. There are no context clues in the question to resolve who died in the encounter, making it genuinely irresolvable.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-fictional_character-2156b62a",
+    "corruption_type": "U1",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for the 'arch enemies' of characters. There is no 'arch_enemy' property or 'hasArchEnemy' relationship in the schema.\n2. No alternative path: The schema contains a 'killedBy' relationship, but an arch enemy is not necessarily the person who killed the character (and vice versa). There is no way to derive arch enemies from the existing schema.\n3. Plausibility: Arch enemies are a very common and expected concept in the domain of fictional characters, making the question highly plausible.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user might ask.\n5. Distinctness: 'Arch enemy' is clearly distinct from all existing properties and relationships.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-fictional_character-e00cc909",
+    "corruption_type": "U1",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'moral alignments' of characters. Looking at the schema, the `Character` entity has properties `creator`, `gender`, `occupation`, `country_of_citizenship`, and `birth_name`. There is no property or relationship that captures a character's moral alignment (e.g., good, evil, lawful, chaotic). There is no alternative path to derive this information from other properties or relationships. The fake property is highly plausible for the domain of fictional characters (e.g., D&D alignments) and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-fictional_character-5204a324",
+    "corruption_type": "U2",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The question asks for characters who were 'exiled to' a specific location (the Twins). Looking at the schema, the only relationships connecting a Character to a Location are 'bornIn' and 'diedIn'. There is no relationship or property that captures whether a character was exiled to a location. There is no alternative path to derive this information. The fake relationship 'exiledTo' is highly plausible for fictional universes and distinct from the existing relationships. The question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-fictional_character-738df9e0",
+    "corruption_type": "U2",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Map to schema: The question asks for Character names and creators, linked to FictionalUniverse 'Marvel Universe', and having a 'rivals with' relationship with Character 'Red Guardian'.\n2. Check alternative paths: The schema contains relationships like 'hasSpouse', 'hasStudent', and 'killedBy'. None of these represent a 'rival' relationship. While 'killedBy' is an antagonistic relationship, it is not synonymous with 'rivals with' (rivals don't necessarily kill each other, and killers aren't always rivals). There is no property or relationship that can be used to derive rivalry.\n3. Plausibility: In the domain of fictional characters (especially comic books like Marvel), having a rival or archenemy is a very common and plausible concept.\n4. Naturalness: The phrasing 'who are rivals with Red Guardian' is perfectly natural and grammatically correct.\n5. Distinctness: The fake relationship 'hasRival' is clearly distinct from all existing relationships.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-fictional_character-4cb9f72c",
+    "corruption_type": "U5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'birth years' of characters. Checking the schema, the Character entity has properties like 'birth_name', 'creator', 'gender', 'occupation', and 'country_of_citizenship', but no 'birth_year' or any temporal property related to birth. The 'bornIn' relationship also has no properties. There is no alternative path to derive a character's birth year. The question is highly plausible and natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-fictional_character-d6346b0c",
+    "corruption_type": "U5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: 'organizations that Kamala Khan is a member of' maps to (Character)-[:memberOf]->(Organization). 'become part of the Marvel Universe' maps to (Organization)-[:fromUniverse]->(FictionalUniverse). 'When did...' asks for a temporal property on the `fromUniverse` relationship or the `Organization` node.\n2. Check alternative paths: The schema has no temporal properties on the `fromUniverse` relationship or the `Organization` node. The `FictionalUniverse` node has an `inception_year` property, but this represents when the universe itself was created, not when a specific organization was introduced to it. Thus, there is no way to answer the question.\n3. Plausibility: Asking when an organization or character was introduced into a comic book universe is a very common and plausible question for this domain.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a fan might ask.\n5. Distinctness: The requested temporal information is clearly distinct from the mere existence of the `fromUniverse` relationship.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-fictional_character-45129f1a",
+    "corruption_type": "U5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The question asks for the year that characters got married. To answer this, we would need a temporal property on the `hasSpouse` relationship or a `marriage_year` property on the `Character` entity. Looking at the schema, the `hasSpouse` relationship has no properties, and the `Character` entity only has `creator`, `gender`, `occupation`, `country_of_citizenship`, and `birth_name`. There is no alternative path to derive the marriage year. The question is highly plausible and sounds natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-fictional_character-a45d47e3",
+    "corruption_type": "A1",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "Step 1: Analyze the claimed ambiguity. The corruption claims 'parent' is ambiguous between `hasMother` and `hasFather`. However, 'parent' is simply a hypernym. A user asking for a 'parent' is typically asking for any parent, which can be easily resolved in Cypher using an OR condition (`[:hasMother|hasFather]`). This does not force mutually exclusive interpretations.\n\nStep 2: Identify other ambiguities. Reading the corrupted question naively, there is a genuine, irresolvable pronoun ambiguity with the word 'their'. \n- Interpretation A: 'their' is used as a singular, gender-neutral pronoun referring to the 'parent' (since the parent's gender is unknown). The user wants the parent's countries of citizenship.\n- Interpretation B: 'their' is used as a plural pronoun referring to the compound subject 'Rhaelle Targaryen and Shaera Targaryen'. The user wants the children's countries of citizenship.\n\nStep 3: Check against schema. The `Character` entity has a `country_of_citizenship` property. Both the parent and the children are Characters, so both interpretations are perfectly valid against the schema.\n\nStep 4: Exclusivity and Balance. The two interpretations lead to entirely different return values (parent's citizenship vs. children's citizenship). Both are grammatically valid and logically plausible in everyday English. There is no context in the question to definitively resolve which entity 'their' refers to.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-267ebd44",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The phrase 'have a mother relationship with Lady Wang' is awkward but introduces genuine direction ambiguity. It can be interpreted as the character being the mother of Lady Wang (Lady Wang -[:hasMother]-> Character) or Lady Wang being the mother of the character (Character -[:hasMother]-> Lady Wang). Both interpretations are valid according to the schema, would result in different Cypher queries, and would return mutually exclusive sets of characters (parents vs. children). The ambiguity is perfectly balanced and irresolvable from the question alone, though the phrasing is somewhat unnatural.",
+    "naturalness": 2,
+    "effectiveness": 4,
+    "issues": [
+      "The phrase 'have a mother relationship with' is awkward and sounds like schema jargon derived directly from the 'hasMother' relationship."
+    ]
+  },
+  {
+    "corruption_id": "A5-fictional_character-2416064f",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'in a father relationship'.\n2. Interpretations: This could mean characters who *have* a father (the source node of the `hasFather` relationship) or characters who *are* a father (the target node of the `hasFather` relationship).\n3. Exclusivity: The two interpretations lead to different queries (outgoing vs. incoming edge) and will return different sets of characters (children vs. fathers).\n4. Balance: The phrasing is perfectly balanced between the two directions, as 'relationship' is a bidirectional concept in natural language.\n5. Naturalness: Saying 'in a father relationship' is slightly unnatural; a real person would typically specify 'who are fathers' or 'who have fathers'. However, it is understandable.\n6. Irresolvability: There is no additional context in the question to determine which direction is intended.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": [
+      "The phrasing 'in a father relationship' is slightly awkward and sounds a bit forced or academic."
+    ]
+  },
+  {
+    "corruption_id": "A5-fictional_character-53709560",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. The ambiguous element is the phrase 'had a deadly encounter with'. \n2. In the context of the schema, this could map to two distinct directions of the `killedBy` relationship: either the individual was killed by their father (Individual-[:killedBy]->Father), or the individual killed their father (Father-[:killedBy]->Individual). \n3. These interpretations are mutually exclusive and would return completely different sets of characters (victims of filicide vs. perpetrators of patricide). \n4. The phrase 'deadly encounter' is often used in journalism and does not inherently specify who the victim and perpetrator are, making both readings highly plausible and balanced. \n5. The question is reasonably natural, though slightly journalistic, and contains no context clues to resolve the ambiguity.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-7f43af40",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'shared a student-teacher relationship with' is symmetric and does not specify which role the killer played in the relationship.\n2. Schema check: The schema contains a `hasStudent` relationship between Characters. The question could mean the killer is the teacher (MATCH (killer)-[:hasStudent]->(victim)) or the killer is the student (MATCH (victim)-[:hasStudent]->(killer)). Both also involve the `killedBy` relationship (MATCH (victim)-[:killedBy]->(killer)).\n3. Exclusivity: The two interpretations lead to different queries (teachers who killed students vs. students who killed teachers) and would return different results.\n4. Balance: The interpretations are perfectly balanced because the phrase 'shared a student-teacher relationship with' is inherently bidirectional.\n5. Naturalness: The phrasing is slightly wordy but sounds like a plausible way to describe the relationship without specifying the direction.\n6. Irresolvability: There is no context in the question to determine whether the user wants students who killed teachers or teachers who killed students.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-95bd9728",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'in a mother-child relationship with' is used to describe the connection between the characters and Jacqueline Bouvier.\n2. Interpretations: Because a 'mother-child relationship' involves two distinct roles, the phrase does not specify which character plays which role. Interpretation A: The target characters are the children of Jacqueline Bouvier (Character-[:hasMother]->Jacqueline Bouvier). Interpretation B: The target characters are the mother(s) of Jacqueline Bouvier (Jacqueline Bouvier-[:hasMother]->Character). The same ambiguity applies to the second half of the question ('count of characters who are in a mother-child relationship with each of them').\n3. Exclusivity: The two interpretations map to different directions of the `hasMother` relationship and will return completely different sets of characters (her children vs. her mother).\n4. Balance: The phrasing is perfectly symmetric, making neither direction more linguistically plausible than the other.\n5. Naturalness: While grammatically correct, 'in a mother-child relationship with' sounds a bit clinical or legalistic compared to natural phrasing like 'who are the mother or child of'. However, it is acceptable.\n6. Irresolvability: There is no context in the question to determine which direction the user intended.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": [
+      "The phrase 'in a mother-child relationship with' sounds slightly clinical and unnatural for everyday conversation, though it effectively creates the ambiguity."
+    ]
+  },
+  {
+    "corruption_id": "A5-fictional_character-2fb69dd5",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'someone in a father-child relationship with Maekar I Targaryen' is symmetric and does not specify who is the father and who is the child.\n2. Interpretations against schema: This maps to the `hasFather` relationship in two different directions: `(someone)-[:hasFather]->(Maekar)` (someone is the child) or `(Maekar)-[:hasFather]->(someone)` (someone is the father).\n3. Exclusivity: The queries will return different locations (where Maekar's father died vs. where his children died).\n4. Balance: The phrasing is perfectly symmetric, making both interpretations equally plausible.\n5. Naturalness: The phrase 'in a father-child relationship with' is slightly clinical or formal, but it is understandable and grammatically correct.\n6. Irresolvability: There is no context in the question to determine whether the user is asking about Maekar's father or Maekar's children.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-f9b07a6e",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "1. The ambiguous element is 'had a fatal encounter with'. \n2. In the schema, the relationship is `(Character)-[:killedBy]->(Character)`. The phrase 'had a fatal encounter with' does not specify who died in the encounter. It could mean the characters in question died (they were killed by Ellaria Sand) or that Ellaria Sand died (she was killed by the characters). \n3. Both interpretations map to valid but distinct database queries with different results (victims vs. killers). \n4. The phrasing is natural, albeit slightly journalistic or dramatic, which fits the fictional context well. \n5. The ambiguity is irresolvable from the question alone, as 'fatal encounter' is inherently bidirectional regarding who suffered the fatality.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-7fd03e3a",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The phrase 'shared a student-teacher relationship with' is symmetric in English, meaning it does not specify which person was the student and which was the teacher. In the schema, this relationship is directed (`hasStudent`). Therefore, the question could be asking for characters killed by their students, or characters killed by their teachers. Both interpretations are equally plausible, map to different directed relationships in the schema, and would yield different results. The phrasing is slightly formal but natural enough for a real user.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-38006822",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The phrase 'have a mother-child relationship with Cassana Baratheon' is symmetric, meaning it does not specify which person is the mother and which is the child. In the schema, this maps to either `(Character)-[:hasMother]->(Cassana)` or `(Cassana)-[:hasMother]->(Character)`. Both interpretations are equally plausible linguistically and would lead to completely different queries and results (Cassana's children vs. Cassana's mother). The phrasing is slightly clinical ('mother-child relationship') but acceptable and genuinely ambiguous.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-fictional_character-8c29822a",
+    "corruption_type": "A5",
+    "graph": "fictional_character",
+    "verdict": "pass",
+    "reasoning": "The phrase 'have a father relationship with Corlys Velaryon' is ambiguous regarding the direction of the relationship. It could mean that the characters have Corlys as their father (Character-[:hasFather]->Corlys), or that they are the father of Corlys (Corlys-[:hasFather]->Character). Both interpretations map to valid but distinct Cypher queries using the `hasFather` relationship in opposite directions. The ambiguity is irresolvable without further context. However, the phrasing is very awkward and robotic, clearly constructed to force the ambiguity rather than reflecting natural human speech.",
+    "naturalness": 2,
+    "effectiveness": 4,
+    "issues": [
+      "The phrase 'have a father relationship with' is highly unnatural and sounds like forced schema jargon."
+    ]
+  }
+]

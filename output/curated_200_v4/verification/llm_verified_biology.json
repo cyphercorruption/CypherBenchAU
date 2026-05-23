@@ -1,0 +1,174 @@
+[
+  {
+    "corruption_id": "A5-biology-daca69fe",
+    "corruption_type": "A5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'have feeding relationships with' replaces 'feed on'.\n2. Interpretations against schema: The schema contains a directed `(Taxon)-[:feedsOn]->(Taxon)` relationship. 'Feeding relationships' is undirected and could refer to taxa that are predators (outgoing `feedsOn`), taxa that are prey (incoming `feedsOn`), or taxa involved in either side of the relationship (undirected `feedsOn`).\n3. Exclusivity: Querying for outgoing vs. incoming `feedsOn` relationships will yield different sets of taxa (predators vs. prey).\n4. Balance: The phrase is perfectly neutral regarding the direction of the relationship, making the interpretations equally plausible.\n5. Naturalness: 'Feeding relationships' is a standard and natural term in biology and ecology.\n6. Irresolvability: There is no additional context in the question to indicate whether the user is interested in the eaters, the eaten, or both.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-biology-1b14c09e",
+    "corruption_type": "U1",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for the 'thermoregulation strategies' of taxa. Looking at the schema, the 'Taxon' entity has properties: taxon_name, diel_cycle, avg_gestation_period_days, and longest_lifespan_years. There is no property for thermoregulation strategy (e.g., endothermic, ectothermic). Furthermore, this information cannot be derived from any other properties or relationships in the schema, such as habitat or diel cycle, as they represent distinct biological concepts. The fake property is highly plausible in a biological context and the question reads naturally. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-biology-26fbb43b",
+    "corruption_type": "U1",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Schema mapping: 'names' maps to Taxon.taxon_name, 'parents' maps to the [:hasParent] relationship, 'taxa' maps to the Taxon entity, and 'conservation status of Vulnerable' maps to [:hasConservationStatus]->(ConservationStatus). 'reproduction methods' does not map to any property in the schema.\n2. Alternative paths: There is no property or relationship that provides the reproduction method (e.g., oviparous, viviparous, asexual). While 'avg_gestation_period_days' is related to reproduction, it is a measurement of time for a specific type of reproduction, not the method itself, and thus cannot answer the question.\n3. Plausibility: 'Reproduction method' is a highly plausible and common attribute to ask about in a biological knowledge graph.\n4. Naturalness: The question is grammatically correct, clear, and sounds like a natural query a user might ask.\n5. Distinctness: The fake property is clearly distinct from all existing properties.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-biology-72aeb446",
+    "corruption_type": "U1",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for the 'average adult masses in kg' of taxa. Looking at the schema, the 'Taxon' entity only has properties for 'taxon_name', 'diel_cycle', 'avg_gestation_period_days', and 'longest_lifespan_years'. There is no property related to mass or weight, nor are there any relationships that could be used to derive this information. The fake property is highly plausible for the biological domain and distinct from all existing properties. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-biology-6f39c316",
+    "corruption_type": "U2",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Map to schema: 'names' maps to `taxon_name`, 'diel cycles' maps to `diel_cycle`, 'live in grasslands' maps to `(Taxon)-[:inhabits]->(Habitat)`. 'hosted by Efferia' implies a host-guest relationship (like parasitism, commensalism, or mutualism) between two Taxa (Efferia and the target taxa).\n2. Check paths: The schema contains `feedsOn` (which typically represents predation or herbivory), `inhabits` (which strictly connects a Taxon to a Habitat, not another Taxon), `hasParent`, `hasRank`, and `hasConservationStatus`. There is no relationship that captures one Taxon hosting another. While a parasite might technically 'feed on' a host, 'hosted by' is ecologically distinct from predation and includes non-feeding relationships. Thus, it cannot be reliably mapped to `feedsOn`.\n3. Plausibility & Distinctness: Host-parasite or symbiotic relationships are very common and plausible in biology. The concept is clearly distinct from the existing relationships in the schema.\n4. Conclusion: The question asks for a relationship that does not exist and cannot be derived from the schema, making it genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-biology-f0023f6c",
+    "corruption_type": "U2",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Schema mapping: 'names' maps to taxon_name, 'average gestation periods in days' maps to avg_gestation_period_days, 'Agromyza' is a Taxon. 'competitors' implies a relationship like 'competesWith', which does not exist in the schema.\n2. Alternative paths: There is no relationship representing competition. While one might infer potential competition if two taxa share the same habitat or food source (using 'inhabits' or 'feedsOn'), this is an ecological inference and not a definitive 'competitor' relationship recorded in the database. Thus, the question cannot be accurately answered.\n3. Plausibility: Asking about the competitors of a species is a very common and realistic question in biology and ecology.\n4. Naturalness: The question is grammatically correct and sounds like a natural query from a user.\n5. Distinctness: 'competitors' is clearly distinct from existing ecological relationships like 'feedsOn' (predator-prey) or 'hasParent' (lineage).",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-biology-0b11e3fb",
+    "corruption_type": "U3",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'reproductive strategies' employed by forest-dwelling species. Looking at the schema, the available entity types are Taxon, TaxonRank, ConservationStatus, and Habitat. The properties of Taxon include taxon_name, diel_cycle, avg_gestation_period_days, and longest_lifespan_years. While 'avg_gestation_period_days' is related to reproduction, it is a numerical measurement of time, not a categorical 'reproductive strategy' (such as viviparity, oviparity, r/K selection, etc.). There is no entity type, relationship, or property that stores reproductive strategies. Therefore, the question is genuinely unanswerable. The fake element is highly plausible in a biology context and distinct from existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-biology-776f2339",
+    "corruption_type": "U4",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks to filter taxa by their 'primary diet type' (specifically, whether they are carnivores). The schema contains a `feedsOn` relationship between Taxon entities, which indicates what a taxon eats, but it does not contain a 'primary_diet_type' property or a direct way to classify a taxon as a 'carnivore', 'herbivore', or 'omnivore'. While one might theoretically trace the `feedsOn` relationship to see if the consumed taxa belong to the animal kingdom (via `hasParent`), this would not definitively establish the 'primary' diet type, nor is 'carnivore' explicitly defined in the schema. Therefore, the question is genuinely unanswerable. The fake element is highly plausible for a biology knowledge graph and the question sounds natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-biology-ac957d89",
+    "corruption_type": "U4",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter taxa by their 'reproduction method' (specifically 'budding'). Looking at the schema, the `Taxon` entity has properties `taxon_name`, `diel_cycle`, `avg_gestation_period_days`, and `longest_lifespan_years`. While `avg_gestation_period_days` is related to reproduction, it measures the duration of pregnancy, not the method of reproduction (like budding, sexual, asexual, etc.). There are no relationships or other entities (like TaxonRank, ConservationStatus, Habitat) that capture reproduction methods. Therefore, there is no alternative path to answer this question. The fake element is highly plausible in a biology context, and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-biology-f140512b",
+    "corruption_type": "U5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for the year a taxon was classified as critically endangered. Looking at the schema, the relationship `hasConservationStatus` connects `Taxon` to `ConservationStatus`, but neither the relationship nor the `ConservationStatus` node has any temporal properties (like year, date, etc.). There are no other properties in the schema that could provide this information. The question is highly plausible, as conservation statuses are updated periodically (e.g., by the IUCN), and it is phrased naturally. Since there is absolutely no way to retrieve the year of classification from the given schema, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-biology-0ac594a5",
+    "corruption_type": "U5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The question asks for taxa that were assigned a specific rank 'in the year 2015'. Looking at the schema, the relationship `hasRank` between `Taxon` and `TaxonRank` has no properties, temporal or otherwise. Furthermore, neither the `Taxon` nor `TaxonRank` entities contain any properties related to the date or year of rank assignment. There is no alternative path or proxy property to derive when a rank was assigned. The question is highly plausible in the domain of biology (as taxonomic classifications are updated over time) and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-biology-9b279d4d",
+    "corruption_type": "U5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The question asks for species that fed on 'Diaphorina citri' specifically in the year 2022. Looking at the schema, the 'feedsOn' relationship between Taxon entities has no properties, meaning it only represents a static, timeless feeding relationship. There are no temporal properties on the Taxon entity or any other related entities that could indicate when a feeding event was recorded. Therefore, there is no way to filter the results by the year 2022. The question is highly plausible for an ecological database and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-biology-fbc54b5d",
+    "corruption_type": "U5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The question asks for the specific year when certain taxa began inhabiting specific environments. To answer this, the schema would need a temporal property (like 'year_colonized' or 'start_date') on the 'inhabits' relationship between Taxon and Habitat, or a similar property on the Taxon entity. Reviewing the schema, the 'inhabits' relationship has no properties, and the Taxon entity only has properties for name, diel cycle, gestation period, and lifespan. There is no alternative path or proxy property to derive the historical year of habitat colonization. The question is highly plausible in an ecological or evolutionary context (e.g., tracking invasive species or evolutionary adaptations) and is phrased naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-biology-178fe0eb",
+    "corruption_type": "A5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "The phrase 'associated with [Entity] as a parent' is structurally ambiguous. The adjunct 'as a parent' could modify either the subject ('taxa') or the object of the preposition ('Molossinae' / 'each of them'). Because the schema contains a self-referential relationship `(Taxon)-[:hasParent]->(Taxon)`, both directions are perfectly valid and would result in entirely different queries and results. A real person would not be able to determine which direction was intended without further clarification. The phrasing is slightly formal but natural enough for a database query.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-biology-a27268cc",
+    "corruption_type": "A5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'share a feeding relationship with' is used twice to replace 'feed on' / 'consume'.\n2. Interpretations: Because 'feedsOn' is a directed relationship, 'sharing a feeding relationship' could mean either being the predator (forward direction) or being the prey (reverse direction). Since the phrase is used twice, there are actually four possible interpretations (forward-forward, reverse-reverse, forward-reverse, reverse-forward).\n3. Exclusivity: Each interpretation maps to a different directed path in the graph (e.g., `(t)-[:feedsOn]->(o)-[:feedsOn]->(a)` vs `(t)<-[:feedsOn]-(o)<-[:feedsOn]-(a)`), which would yield different results.\n4. Balance: All directions are equally plausible since any taxon could theoretically be a predator or prey in these relationships.\n5. Naturalness: The phrasing is very awkward and robotic. Real users rarely say 'share a feeding relationship with'; they would either specify the direction ('eat', 'are eaten by') or use broader ecological terms ('are connected in the food web').\n6. Irresolvability: There is no context to determine which direction is intended.",
+    "naturalness": 2,
+    "effectiveness": 5,
+    "issues": [
+      "The phrase 'share a feeding relationship with' is highly unnatural and sounds like a forced construction designed specifically to hide the direction of the relationship."
+    ]
+  },
+  {
+    "corruption_id": "A5-biology-14fd9f75",
+    "corruption_type": "A5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'have a parent relationship with' is used to describe the connection between the target taxa and Carangaria.\n2. Interpretations: Because 'have a relationship with' is symmetric in English, it could mean either that the taxa are the parents of Carangaria (Carangaria -[:hasParent]-> Taxon) or that Carangaria is the parent of the taxa (Taxon -[:hasParent]-> Carangaria).\n3. Exclusivity: Querying for the parents of a taxon versus the children of a taxon will yield completely different results.\n4. Balance: The phrasing is perfectly symmetric, making neither direction dominate the other.\n5. Naturalness: The phrase 'have a parent relationship with' sounds slightly like database jargon or a bit forced compared to 'are parents of' or 'are children of', but it is understandable.\n6. Irresolvability: There is no additional context in the question to determine which direction is intended.",
+    "naturalness": 3,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-biology-28f52c13",
+    "corruption_type": "A5",
+    "graph": "biology",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'have a parent-child relationship with Ducula' does not specify the direction of the relationship.\n2. Interpretations: It could mean taxa where Ducula is the parent (Taxon -[:hasParent]-> Ducula) or taxa where Ducula is the child (Ducula -[:hasParent]-> Taxon).\n3. Exclusivity: These interpretations map to opposite directions of the `hasParent` relationship, which will match different sets of taxa (sub-taxa vs. super-taxa) and thus return different habitats.\n4. Balance: The phrase 'parent-child relationship' is perfectly symmetrical, making both readings equally plausible.\n5. Naturalness: The phrasing is slightly formal but perfectly natural in the context of querying a taxonomic database.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is looking for the broader taxonomic classifications (parents) or the narrower ones (children).",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

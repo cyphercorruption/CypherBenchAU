@@ -1,0 +1,338 @@
+[
+  {
+    "corruption_id": "A2-soccer-c8002362",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "country_of_citizenship",
+      "corrupted_element": "from",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "53e965d5-dbae-4304-aa5f-c9d82485a9ac",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names and countries of citizenship of players who have played as defenders for Derthona F.B.C. 1908 at some point?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'defender'}),(n:Player)-[r1:playsFor]->(m1:Club {name: 'Derthona F.B.C. 1908'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+    "corrupted_nl_question": "What is the name of a player who has played as a defender for Derthona F.B.C. 1908, and where is this player from?",
+    "valid_cyphers": [
+      "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'defender'}),(n:Player)-[r1:playsFor]->(m1:Club {name: 'Derthona F.B.C. 1908'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'defender'}),(n:Player)-[r1:playsFor]->(m1:Club {name: 'Derthona F.B.C. 1908'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-soccer-fe9f1e14",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "mass_kg",
+      "corrupted_element": "physical dimensions",
+      "candidate_interpretations": [
+        "height_cm",
+        "mass_kg"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "e0edb791-05fc-496d-a2ec-811abe9f9743",
+    "original_graph": "soccer",
+    "original_nl_question": "What is the average weight in kilograms of players who play as stoppers?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'stopper'}) WITH DISTINCT n RETURN avg(n.mass_kg)",
+    "corrupted_nl_question": "What is the average size of players who play as stoppers?",
+    "valid_cyphers": [
+      "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'stopper'}) WITH DISTINCT n RETURN avg(n.height_cm)",
+      "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'stopper'}) WITH DISTINCT n RETURN avg(n.mass_kg)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-soccer-9889c664",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "nationality",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "bb68d523-0792-4c24-b326-1b2261e2086a",
+    "original_graph": "soccer",
+    "original_nl_question": "Where was Guilherme Siqueira born?",
+    "original_gold_cypher": "MATCH (n:Player {name: 'Guilherme Siqueira'}) WITH DISTINCT n RETURN n.place_of_birth",
+    "corrupted_nl_question": "Where is Guilherme Siqueira from?",
+    "valid_cyphers": [
+      "MATCH (n:Player {name: 'Guilherme Siqueira'}) WITH DISTINCT n RETURN n.country_of_citizenship",
+      "MATCH (n:Player {name: 'Guilherme Siqueira'}) WITH DISTINCT n RETURN n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-soccer-23edc462",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "date_of_birth",
+      "corrupted_element": "birth",
+      "candidate_interpretations": [
+        "place_of_birth",
+        "date_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "565b787b-1961-4d76-891c-b19b67fcbfcd",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names and birthdates of players who have played for FC Bayern Munich and have received the Étoile d'Or award?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsFor]->(m0:Club {name: 'FC Bayern Munich'}),(n:Player)-[r1:receivesAward]->(m1:Award {name: 'Étoile d\\'Or'}) WITH DISTINCT n RETURN n.name, n.date_of_birth",
+    "corrupted_nl_question": "What is the name and birth detail of the player who has played for FC Bayern Munich and received the Étoile d'Or award?",
+    "valid_cyphers": [
+      "MATCH (n:Player)-[r0:playsFor]->(m0:Club {name: 'FC Bayern Munich'}),(n:Player)-[r1:receivesAward]->(m1:Award {name: 'Étoile d\\'Or'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+      "MATCH (n:Player)-[r0:playsFor]->(m0:Club {name: 'FC Bayern Munich'}),(n:Player)-[r1:receivesAward]->(m1:Award {name: 'Étoile d\\'Or'}) WITH DISTINCT n RETURN n.name, n.date_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-soccer-29375b7f",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "height_cm",
+      "corrupted_element": "size",
+      "candidate_interpretations": [
+        "height_cm",
+        "mass_kg"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "8505f881-431d-4043-bf57-04ee6e973ea3",
+    "original_graph": "soccer",
+    "original_nl_question": "Who is the shortest player to receive an award that Franck Ribéry has also received?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:receivesAward]->(m0:Award)<-[r1:receivesAward]-(m1:Player {name: 'Franck Ribéry'}) WITH DISTINCT n RETURN n.name ORDER BY n.height_cm ASC LIMIT 1",
+    "corrupted_nl_question": "Who is the smallest player to receive an award that Franck Ribéry has also received?",
+    "valid_cyphers": [
+      "MATCH (n:Player)-[r0:receivesAward]->(m0:Award)<-[r1:receivesAward]-(m1:Player {name: 'Franck Ribéry'}) WITH DISTINCT n RETURN n.name ORDER BY n.height_cm ASC LIMIT 1",
+      "MATCH (n:Player)-[r0:receivesAward]->(m0:Award)<-[r1:receivesAward]-(m1:Player {name: 'Franck Ribéry'}) WITH DISTINCT n RETURN n.name ORDER BY n.mass_kg ASC LIMIT 1"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U2-soccer-63ccbd92",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "hasHomeVenue",
+      "corrupted_element": "trainsAtVenue",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'trainsAtVenue' does not exist. Existing: playsFor, playsPosition, receivesAward, hasHomeVenue, partOfLeague"
+    },
+    "original_qid": "9d95e03a-cbe5-43de-99bf-e984be1b0358",
+    "original_graph": "soccer",
+    "original_nl_question": "List the names of players who have been part of clubs that have used Stadion An der Alten Försterei as their home venue, and for each player, provide the number of such clubs they have played for.",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsFor]->(m0:Club)-[r1:hasHomeVenue]->(m1:Venue {name: 'Stadion An der Alten Försterei'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "List the names of players who have been part of clubs that have used Stadion An der Alten Försterei as their training venue, and for each player, provide the number of such clubs they have played for.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-soccer-4298000a",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "receivesAward",
+      "corrupted_element": "nominatedForAward",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'nominatedForAward' does not exist. Existing: playsFor, playsPosition, receivesAward, hasHomeVenue, partOfLeague"
+    },
+    "original_qid": "cc032042-019d-4b35-bca4-adbf2baf687f",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names and genders of players who have received the Landon Donovan MVP Award?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:receivesAward]->(m0:Award {name: 'Landon Donovan MVP Award'}) WITH DISTINCT n RETURN n.name, n.gender",
+    "corrupted_nl_question": "What are the names and genders of players who have been nominated for the Landon Donovan MVP Award?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-soccer-3a3b1b70",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "partOfLeague",
+      "corrupted_element": "foundingMemberOf",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'foundingMemberOf' does not exist. Existing: playsFor, playsPosition, receivesAward, hasHomeVenue, partOfLeague"
+    },
+    "original_qid": "b8c3af92-593b-4b22-9d40-bcc958d8fbf8",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of all clubs that are part of the Torneo Argentino A league, and how many venues have served as their home ground at any time?",
+    "original_gold_cypher": "MATCH (n:Club)-[r1:partOfLeague]->(m1:League {name: 'Torneo Argentino A'}) OPTIONAL MATCH (n:Club)-[r0:hasHomeVenue]->(m0:Venue) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of all clubs that are founding members of the Torneo Argentino A league, and how many venues have served as their home ground at any time?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-soccer-ff31d332",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Club",
+      "corrupted_element": "ClubSponsor",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'ClubSponsor' does not exist. Existing: Club, Player, Venue, League, Position, Award"
+    },
+    "original_qid": "6322f8a7-a8ec-4b29-b0ba-14f54d767db4",
+    "original_graph": "soccer",
+    "original_nl_question": "How many clubs are either part of LaLiga or have had Abanca Balaídos Stadium as their home venue at some point?",
+    "original_gold_cypher": "CALL { MATCH (n:Club)-[r0:partOfLeague]->(m0:League {name: 'LaLiga'}) RETURN n, m0 as m UNION MATCH (n:Club)-[r1:hasHomeVenue]->(m1:Venue {name: 'Abanca Balaídos Stadium'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many club sponsors sponsor a club that is either part of LaLiga or has had Abanca Balaídos Stadium as its home venue at some point?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-soccer-2139a004",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Position",
+      "corrupted_element": "Formation",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'Formation' does not exist. Existing: Club, Player, Venue, League, Position, Award"
+    },
+    "original_qid": "1513dad0-f6f6-409e-9ecd-3159851c0a59",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names and weights in kilograms of players who have played as a wing half and have been part of Sporting CP B at some point?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'wing half'}),(n:Player)-[r1:playsFor]->(m1:Club {name: 'Sporting CP B'}) WITH DISTINCT n RETURN n.name, n.mass_kg",
+    "corrupted_nl_question": "What are the names and weights in kilograms of players who have played in a 4-4-2 formation and have been part of Sporting CP B at some point?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-soccer-da5278bf",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Club",
+      "corrupted_element": "KitSponsor",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'KitSponsor' does not exist. Existing: Club, Player, Venue, League, Position, Award"
+    },
+    "original_qid": "029a9d00-ab45-4ad7-8775-48470b31fad7",
+    "original_graph": "soccer",
+    "original_nl_question": "Who owns Villarreal CF?",
+    "original_gold_cypher": "MATCH (n:Club {name: 'Villarreal CF'}) WITH DISTINCT n RETURN n.owners",
+    "corrupted_nl_question": "Who owns Nike?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-soccer-ad783169",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Club",
+      "corrupted_element": "SupportersGroup",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'SupportersGroup' does not exist. Existing: Club, Player, Venue, League, Position, Award"
+    },
+    "original_qid": "d4fd9f2b-46b3-4d65-b422-6359bdf686b6",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of clubs that Pierino Prati or Vittorio Staccione have played for at any time?",
+    "original_gold_cypher": "CALL { MATCH (n:Club)<-[r0:playsFor]-(m0:Player {name: 'Pierino Prati'}) RETURN n, m0 as m UNION MATCH (n:Club)<-[r1:playsFor]-(m1:Player {name: 'Vittorio Staccione'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of supporters groups that Pierino Prati or Vittorio Staccione have been associated with at any time?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-soccer-88c86a73",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "head_coach",
+      "corrupted_element": "stadium_capacity",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'stadium_capacity' does not exist on 'Club'. Existing: inception_year, owners, country, head_coach"
+    },
+    "original_qid": "2e158b91-d308-4a26-884e-979d676bd322",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of clubs that Giuseppe Greco has played for, where Andrea Pirlo is the head coach?",
+    "original_gold_cypher": "MATCH (n:Club)<-[r0:playsFor]-(m0:Player {name: 'Giuseppe Greco'}) WITH DISTINCT n WHERE n.head_coach = 'Andrea Pirlo' RETURN n.name",
+    "corrupted_nl_question": "What are the names of clubs that Giuseppe Greco has played for, where the stadium capacity is over 40,000?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-soccer-9b94eff7",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "mass_kg",
+      "corrupted_element": "youth_club",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'youth_club' does not exist on 'Player'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth, date_of_death, height_cm, mass_kg, nicknames, footedness, schools_attended"
+    },
+    "original_qid": "eb49322e-25e5-4d10-aa90-8b86eb0cdfe1",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of players who have played for a club in the Cypriot Second Division and weigh 79 kilograms or less?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsFor]->(m0:Club)-[r1:partOfLeague]->(m1:League {name: 'Cypriot Second Division'}) WITH DISTINCT n WHERE n.mass_kg <= 79 RETURN n.name",
+    "corrupted_nl_question": "What are the names of players who have played for a club in the Cypriot Second Division and whose youth club was Omonia Nicosia?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-soccer-94acb8b9",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "country_of_citizenship",
+      "corrupted_element": "draft_year",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'draft_year' does not exist on 'Player'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth, date_of_death, height_cm, mass_kg, nicknames, footedness, schools_attended"
+    },
+    "original_qid": "3d4f009a-6b72-4c90-bdb9-4c85f1e83893",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of players who play both as a midfielder and a forward, and are not citizens of Armenia?",
+    "original_gold_cypher": "MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'midfielder'}),(n:Player)-[r1:playsPosition]->(m1:Position {name: 'forward'}) WITH DISTINCT n WHERE NOT 'Armenia' IN n.country_of_citizenship RETURN n.name",
+    "corrupted_nl_question": "What are the names of players who play both as a midfielder and a forward, and were drafted in 2015?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-soccer-fc83cabb",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "owners",
+      "corrupted_element": "kit_manufacturer",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'kit_manufacturer' does not exist on 'Club'. Existing: inception_year, owners, country, head_coach"
+    },
+    "original_qid": "bac2973b-b8f7-4521-af4c-dec463dc25ca",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of clubs that Marco Marchi has played for, which are owned by the Fluorsid Group?",
+    "original_gold_cypher": "MATCH (n:Club)<-[r0:playsFor]-(m0:Player {name: 'Marco Marchi'}) WITH DISTINCT n WHERE 'Fluorsid Group' IN n.owners RETURN n.name",
+    "corrupted_nl_question": "What are the names of clubs that Marco Marchi has played for, whose kit manufacturer is Nike?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-soccer-3fd3f09e",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "partOfLeague",
+      "corrupted_element": "partOfLeague (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'partOfLeague' between Club and League has no temporal properties. Properties: none"
+    },
+    "original_qid": "5eac9911-1d53-436f-b162-0065add5761c",
+    "original_graph": "soccer",
+    "original_nl_question": "What are the names of clubs that are part of the Iran Pro League?",
+    "original_gold_cypher": "MATCH (n:Club)-[r0:partOfLeague]->(m0:League {name: 'Iran Pro League'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year did the clubs become part of the Iran Pro League?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  }
+]

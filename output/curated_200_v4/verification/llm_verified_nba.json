@@ -1,0 +1,92 @@
+[
+  {
+    "corruption_id": "A1-nba-66d3f479",
+    "corruption_type": "A1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'joined'. \n2. Schema check: The schema contains two relationships between Player and Team: `playsFor` and `draftedBy`. \n3. Exclusivity: A player can be drafted by one team but play for another (e.g., due to draft-day trades). Therefore, querying `playsFor` vs `draftedBy` can return different results. \n4. Balance: 'Joined' is a broad term. It can mean signing a contract and playing for a team (`playsFor`), or it can refer to a player's initial entry into a franchise via the draft (`draftedBy`). While `playsFor` might be slightly more common for veterans, both are highly plausible interpretations without further context. \n5. Naturalness: The question is perfectly natural and sounds like a typical user query. \n6. Irresolvability: There are no context clues (such as 'as a rookie' or a specific year) to clarify which relationship the user intends.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-nba-97d7e367",
+    "corruption_type": "A1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'joined' is used to describe the relationship between the player (Derek Fisher) and the team.\n2. Schema check: In the schema, a Player can be associated with a Team via the `playsFor` relationship or the `draftedBy` relationship. 'Joined' could plausibly refer to either the team he signed with/played for, or the team that drafted him into the league.\n3. Exclusivity: The interpretations lead to different queries. Derek Fisher played for multiple teams in the Pacific Division (Lakers, Warriors), but was drafted by only one (Lakers). Thus, the results would differ.\n4. Balance: While 'joined' leans slightly toward `playsFor` (since a player can be drafted by a team but traded before ever 'joining' them), both are very common and plausible interpretations in the context of a sports database.\n5. Naturalness: The question sounds completely natural for a casual sports fan.\n6. Irresolvability: There is no additional context in the question to specify whether the user means the draft or his playing career.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-nba-8b841a18",
+    "corruption_type": "A1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'landed with' is used to describe the relationship between a player and the Houston Rockets.\n2. Schema check: The schema contains two relationships between Player and Team: `playsFor` and `draftedBy`.\n3. Exclusivity: These relationships are distinct. A player might be drafted by the Rockets but never play for them, or play for the Rockets after being drafted by another team. The resulting Cypher queries and result sets would be different.\n4. Balance: In sports terminology, 'landed with' is a colloquial phrase meaning 'was acquired by' or 'joined'. This can equally refer to a player joining a team via the draft (`draftedBy`) or joining via free agency/trade and playing for them (`playsFor`). Both interpretations are highly plausible.\n5. Naturalness: The question sounds perfectly natural. 'Landed with' is common sports parlance.\n6. Irresolvability: There are no context clues in the question to specify whether the user means drafted by or played for. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-nba-f006bfa1",
+    "corruption_type": "A2",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'physical size' is used to compare two players.\n2. Schema check: The `Player` entity has two properties related to physical size: `height_cm` and `mass_kg`.\n3. Exclusivity: Calculating the difference in height will produce a different query and a different numerical result than calculating the difference in mass.\n4. Balance: In the context of basketball players, 'size' is frequently used to refer to both height and weight. Both interpretations are equally plausible.\n5. Naturalness: The question is phrased naturally, though slightly formal.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is asking about height or weight. The ambiguity is genuine and irresolvable.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-nba-2168751c",
+    "corruption_type": "U1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "The question asks for the number of career matches played by two players. Looking at the schema, the `Player` entity has properties like `height_cm`, `mass_kg`, `date_of_birth`, etc., but nothing related to the number of games or matches played. The relationships `playsFor` have `start_year` and `end_year`, which indicate the duration of a player's tenure with a team, but this cannot be used to determine the exact number of matches played. Therefore, there is no alternative path to answer the question. The fake property 'career matches played' is highly plausible in the context of basketball and distinct from any existing schema elements. The question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-nba-4e2f517d",
+    "corruption_type": "U1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "The question asks for the number of championships won by a team. The `Team` entity only has properties `inception_year`, `owners`, and `head_coach`. There is no property for championships won, nor is there a relationship connecting a `Team` to an `Award` or championship entity. While players have a `receivesAward` relationship, using this to infer team championships (by finding players who won a championship award while playing for the team) is extremely indirect, unreliable, and not supported as a valid path by the schema. Thus, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-nba-453f63d9",
+    "corruption_type": "U1",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "1. Schema mapping: The question asks for teams that drafted Kent Benson (Player-[:draftedBy]->Team) and have Jabari Parker as a player (Player-[:playsFor]->Team). It requests the team's name and 'league affiliation'.\n2. Alternative paths: We must check if 'league affiliation' can be answered using other schema elements. The schema contains 'Division' and 'Conference' entities, which are subdivisions of a league, but it does not contain any entity or property for the 'League' itself (e.g., NBA, ABA, NBL). Therefore, there is no way to retrieve a team's league affiliation.\n3. Plausibility: Asking for a team's league affiliation is highly plausible in sports, especially since historical teams often moved between leagues (like the ABA and NBA).\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user would make.\n5. Distinctness: 'League affiliation' is clearly distinct from the original property 'owners' and does not have any direct synonym in the schema.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-nba-341bf192",
+    "corruption_type": "U5",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "The question asks for the number of positions a player played during a specific season (2022). The schema has a `playsPosition` relationship between `Player` and `Position`, but it lacks any temporal properties (like year or season). There are no other relationships or properties that can provide the position played in a specific year. Thus, the question is genuinely unanswerable. The temporal constraint is highly plausible for the basketball domain.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-nba-b3f079f8",
+    "corruption_type": "U5",
+    "graph": "nba",
+    "verdict": "pass",
+    "reasoning": "The question asks for the year when divisions became part of the Eastern Conference. This requires a temporal property (such as 'start_year' or 'year') on the 'partOfConference' relationship, or an inception year on the Division or Conference entities. Looking at the schema, the 'partOfConference' relationship has no properties, and both Division and Conference entities have no properties besides their names. There are no alternative paths or indirect relationships that could provide this temporal information. The question is plausible, as sports leagues often undergo realignment, and it is phrased naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

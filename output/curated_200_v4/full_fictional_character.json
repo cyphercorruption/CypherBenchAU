@@ -1,0 +1,466 @@
+[
+  {
+    "corruption_id": "A1-fictional_character-6790ef54",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasMother",
+      "corrupted_element": "immediate family",
+      "candidate_interpretations": [
+        "hasMother",
+        "hasFather",
+        "hasSpouse"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "1bdc8f7e-3027-492f-8605-4a530adc0d8d",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names of characters whose mother is Cassana Baratheon or who killed Mance Rayder?",
+    "original_gold_cypher": "CALL { MATCH (n:Character)-[r0:hasMother]->(m0:Character {name: 'Cassana Baratheon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:killedBy]-(m1:Character {name: 'Mance Rayder'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of characters whose immediate family member is Cassana Baratheon or who killed Mance Rayder?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Character)-[r0:hasMother]->(m0:Character {name: 'Cassana Baratheon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:killedBy]-(m1:Character {name: 'Mance Rayder'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Character)-[r0:hasFather]->(m0:Character {name: 'Cassana Baratheon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:killedBy]-(m1:Character {name: 'Mance Rayder'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Character)-[r0:hasSpouse]->(m0:Character {name: 'Cassana Baratheon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:killedBy]-(m1:Character {name: 'Mance Rayder'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-674abc40",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasFather",
+      "corrupted_element": "hasFather (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasFather (forward)",
+        "hasFather (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "c65d78a8-1614-4863-be45-49fd653098a1",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names and occupations of characters who are fathers and killed their children?",
+    "original_gold_cypher": "MATCH (n:Character)<-[r0:killedBy]-(m0:Character),(n:Character)<-[r1:hasFather]-(m0:Character) WITH DISTINCT n RETURN n.name, n.occupation",
+    "corrupted_nl_question": "What are the names and occupations of characters who killed someone they had a father-child relationship with?",
+    "valid_cyphers": [
+      "MATCH (n:Character)<-[r0:killedBy]-(m0:Character),(n:Character)<-[r1:hasFather]-(m0:Character) WITH DISTINCT n RETURN n.name, n.occupation",
+      "MATCH (n:Character)-[r0:killedBy]->(m0:Character),(n:Character)-[r1:hasFather]->(m0:Character) WITH DISTINCT n RETURN n.name, n.occupation"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-2f3c9e35",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "killedBy",
+      "corrupted_element": "killedBy (direction ambiguous)",
+      "candidate_interpretations": [
+        "killedBy (forward)",
+        "killedBy (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "e102bb8d-ba38-4286-89d8-d45b3e884012",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many characters either killed Loras Tyrell or are the mother of Tommen Baratheon?",
+    "original_gold_cypher": "CALL { MATCH (n:Character)<-[r0:killedBy]-(m0:Character {name: 'Loras Tyrell'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasMother]-(m1:Character {name: 'Tommen Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many characters either had a fatal encounter with Loras Tyrell or are the mother of Tommen Baratheon?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Character)<-[r0:killedBy]-(m0:Character {name: 'Loras Tyrell'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasMother]-(m1:Character {name: 'Tommen Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Character)-[r0:killedBy]->(m0:Character {name: 'Loras Tyrell'}) RETURN n, m0 as m UNION MATCH (n:Character)-[r1:hasMother]->(m1:Character {name: 'Tommen Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-fictional_character-2156b62a",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "birth_name",
+      "corrupted_element": "arch_enemy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'arch_enemy' does not exist on entity type 'Character'. Existing: creator, gender, occupation, country_of_citizenship, birth_name"
+    },
+    "original_qid": "c540c788-57c0-42a0-add0-498688baf958",
+    "original_graph": "fictional_character",
+    "original_nl_question": "Who are the characters that have a student who is also a student of Xuanzang, and what are their birth names?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:hasStudent]->(m0:Character)<-[r1:hasStudent]-(m1:Character {name: 'Xuanzang'}) WITH DISTINCT n RETURN n.name, n.birth_name",
+    "corrupted_nl_question": "Who are the characters that have a student who is also a student of Xuanzang, and what are their arch enemies?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-fictional_character-e00cc909",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "gender",
+      "corrupted_element": "moral_alignment",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'moral_alignment' does not exist on entity type 'Character'. Existing: creator, gender, occupation, country_of_citizenship, birth_name"
+    },
+    "original_qid": "fe8278df-0e77-4658-822d-8f188a2afe38",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many different genders are there among characters who have students?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:hasStudent]->(m0:Character) WITH DISTINCT n RETURN count(DISTINCT n.gender)",
+    "corrupted_nl_question": "How many different moral alignments are there among characters who have students?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-fictional_character-5204a324",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "diedIn",
+      "corrupted_element": "exiledTo",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'exiledTo' does not exist. Existing: fromUniverse, fromUniverse, memberOf, hasMother, hasFather, hasSpouse, hasStudent, killedBy, bornIn, diedIn, basedIn"
+    },
+    "original_qid": "40d4ba4c-fd83-480a-ac75-28ce10cf8a1a",
+    "original_graph": "fictional_character",
+    "original_nl_question": "Provide the names of all characters who died at the Twins, along with the number of organizations each was a member of.",
+    "original_gold_cypher": "MATCH (n:Character)-[r1:diedIn]->(m1:Location {name: 'Twins'}) OPTIONAL MATCH (n:Character)-[r0:memberOf]->(m0:Organization) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of all characters who were exiled to the Twins, along with the number of organizations each was a member of.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-fictional_character-738df9e0",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "hasSpouse",
+      "corrupted_element": "hasRival",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasRival' does not exist. Existing: fromUniverse, fromUniverse, memberOf, hasMother, hasFather, hasSpouse, hasStudent, killedBy, bornIn, diedIn, basedIn"
+    },
+    "original_qid": "e702f5e2-c0c5-4dd3-88cb-74595ec52ca3",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names and creators of characters from the Marvel Universe who are married to Red Guardian?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:fromUniverse]->(m0:FictionalUniverse {name: 'Marvel Universe'}),(n:Character)<-[r1:hasSpouse]-(m1:Character {name: 'Red Guardian'}) WITH DISTINCT n RETURN n.name, n.creator",
+    "corrupted_nl_question": "What are the names and creators of characters from the Marvel Universe who are rivals with Red Guardian?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-fictional_character-4cb9f72c",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "bornIn",
+      "corrupted_element": "bornIn (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'bornIn' between Character and Location has no temporal properties. Properties: none"
+    },
+    "original_qid": "c5dc5f5e-68d1-497e-9d38-05e52d0b00fb",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names and occupations of characters who were born in Metropolis?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:bornIn]->(m0:Location {name: 'Metropolis'}) WITH DISTINCT n RETURN n.name, n.occupation",
+    "corrupted_nl_question": "What are the names, occupations, and birth years of characters who were born in Metropolis?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-fictional_character-d6346b0c",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "fromUniverse",
+      "corrupted_element": "fromUniverse (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'fromUniverse' between Organization and FictionalUniverse has no temporal properties. Properties: none"
+    },
+    "original_qid": "e7a0e810-65c8-4672-947c-861400d8a7ef",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names of organizations from the Marvel Universe that Kamala Khan is a member of?",
+    "original_gold_cypher": "MATCH (n:Organization)-[r0:fromUniverse]->(m0:FictionalUniverse {name: 'Marvel Universe'}),(n:Organization)<-[r1:memberOf]-(m1:Character {name: 'Kamala Khan'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "When did the organizations that Kamala Khan is a member of become part of the Marvel Universe?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-fictional_character-45129f1a",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "hasSpouse",
+      "corrupted_element": "hasSpouse (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasSpouse' between Character and Character has no temporal properties. Properties: none"
+    },
+    "original_qid": "e0cb7c63-f9f1-4d3f-b58a-ab2e17832e93",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many creators are there of characters who killed their spouse?",
+    "original_gold_cypher": "MATCH (n:Character)<-[r0:killedBy]-(m0:Character),(n:Character)<-[r1:hasSpouse]-(m0:Character) WITH DISTINCT n RETURN count(DISTINCT n.creator)",
+    "corrupted_nl_question": "In what year did the characters who killed their spouse get married?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A1-fictional_character-a45d47e3",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasFather",
+      "corrupted_element": "mother and father",
+      "candidate_interpretations": [
+        "hasMother",
+        "hasFather"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "207d7f3c-20b6-47cb-a7cd-b7b601ee5397",
+    "original_graph": "fictional_character",
+    "original_nl_question": "Who is the father of both Rhaelle Targaryen and Shaera Targaryen, and what is his countries of citizenship?",
+    "original_gold_cypher": "MATCH (n:Character)<-[r0:hasFather]-(m0:Character {name: 'Rhaelle Targaryen'}),(n:Character)<-[r1:hasFather]-(m1:Character {name: 'Shaera Targaryen'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+    "corrupted_nl_question": "Who is the parent of both Rhaelle Targaryen and Shaera Targaryen, and what are their countries of citizenship?",
+    "valid_cyphers": [
+      "MATCH (n:Character)<-[r0:hasMother]-(m0:Character {name: 'Rhaelle Targaryen'}),(n:Character)<-[r1:hasMother]-(m1:Character {name: 'Shaera Targaryen'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Character)<-[r0:hasFather]-(m0:Character {name: 'Rhaelle Targaryen'}),(n:Character)<-[r1:hasFather]-(m1:Character {name: 'Shaera Targaryen'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-267ebd44",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasMother",
+      "corrupted_element": "hasMother (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasMother (forward)",
+        "hasMother (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d50301a7-94fc-4361-aff4-6ba7a5f5a6b9",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many characters either have Lady Wang as their mother or are married to Lady He?",
+    "original_gold_cypher": "CALL { MATCH (n:Character)-[r0:hasMother]->(m0:Character {name: 'Lady Wang'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasSpouse]-(m1:Character {name: 'Lady He'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many characters either have a mother relationship with Lady Wang or are married to Lady He?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Character)-[r0:hasMother]->(m0:Character {name: 'Lady Wang'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasSpouse]-(m1:Character {name: 'Lady He'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Character)<-[r0:hasMother]-(m0:Character {name: 'Lady Wang'}) RETURN n, m0 as m UNION MATCH (n:Character)-[r1:hasSpouse]->(m1:Character {name: 'Lady He'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-2416064f",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasFather",
+      "corrupted_element": "hasFather (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasFather (forward)",
+        "hasFather (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "ab1720b7-a2f9-4e62-905b-f971b2add39c",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the unique countries of citizenship for characters who have a father?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:hasFather]->(m0:Character) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop",
+    "corrupted_nl_question": "What are the unique countries of citizenship for characters in a father relationship?",
+    "valid_cyphers": [
+      "MATCH (n:Character)-[r0:hasFather]->(m0:Character) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop",
+      "MATCH (n:Character)<-[r0:hasFather]-(m0:Character) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-53709560",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "killedBy",
+      "corrupted_element": "killedBy (direction ambiguous)",
+      "candidate_interpretations": [
+        "killedBy (forward)",
+        "killedBy (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "197a8a64-9c77-4d0d-bf13-df25e7b4727e",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names of individuals who were killed by their fathers?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:hasFather]->(m0:Character),(n:Character)-[r1:killedBy]->(m0:Character) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of individuals who had a deadly encounter with their fathers?",
+    "valid_cyphers": [
+      "MATCH (n:Character)-[r0:hasFather]->(m0:Character),(n:Character)-[r1:killedBy]->(m0:Character) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Character)<-[r0:hasFather]-(m0:Character),(n:Character)<-[r1:killedBy]-(m0:Character) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-7f43af40",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasStudent",
+      "corrupted_element": "hasStudent (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasStudent (forward)",
+        "hasStudent (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "dfbddc16-43f3-4a81-a5eb-a09136affe89",
+    "original_graph": "fictional_character",
+    "original_nl_question": "List the names of students who killed their teachers.",
+    "original_gold_cypher": "MATCH (n:Character)<-[r0:hasStudent]-(m0:Character),(n:Character)<-[r1:killedBy]-(m0:Character) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "List the names of characters who killed someone they shared a student-teacher relationship with.",
+    "valid_cyphers": [
+      "MATCH (n:Character)<-[r0:hasStudent]-(m0:Character),(n:Character)<-[r1:killedBy]-(m0:Character) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Character)-[r0:hasStudent]->(m0:Character),(n:Character)-[r1:killedBy]->(m0:Character) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-95bd9728",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasMother",
+      "corrupted_element": "hasMother (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasMother (forward)",
+        "hasMother (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "643c3b69-54b9-49b7-882f-b0a134e925db",
+    "original_graph": "fictional_character",
+    "original_nl_question": "Provide the names of all characters whose mother is Jacqueline Bouvier, along with the count of characters who have each of them as a mother.",
+    "original_gold_cypher": "MATCH (n:Character)-[r1:hasMother]->(m1:Character {name: 'Jacqueline Bouvier'}) OPTIONAL MATCH (n:Character)<-[r0:hasMother]-(m0:Character) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of all characters who are in a mother-child relationship with Jacqueline Bouvier, along with the count of characters who are in a mother-child relationship with each of them.",
+    "valid_cyphers": [
+      "MATCH (n:Character)-[r1:hasMother]->(m1:Character {name: 'Jacqueline Bouvier'}) OPTIONAL MATCH (n:Character)<-[r0:hasMother]-(m0:Character) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Character)<-[r1:hasMother]-(m1:Character {name: 'Jacqueline Bouvier'}) OPTIONAL MATCH (n:Character)-[r0:hasMother]->(m0:Character) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-2fb69dd5",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasFather",
+      "corrupted_element": "hasFather (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasFather (forward)",
+        "hasFather (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "5ed19b70-ee31-4177-aee2-1463d3076ddc",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many distinct locations are there where a child of Maekar I Targaryen died?",
+    "original_gold_cypher": "MATCH (n:Location)<-[r0:diedIn]-(m0:Character)-[r1:hasFather]->(m1:Character {name: 'Maekar I Targaryen'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many distinct locations are there where someone in a father-child relationship with Maekar I Targaryen died?",
+    "valid_cyphers": [
+      "MATCH (n:Location)<-[r0:diedIn]-(m0:Character)-[r1:hasFather]->(m1:Character {name: 'Maekar I Targaryen'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:Location)-[r0:diedIn]->(m0:Character)<-[r1:hasFather]-(m1:Character {name: 'Maekar I Targaryen'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-f9b07a6e",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "killedBy",
+      "corrupted_element": "killedBy (direction ambiguous)",
+      "candidate_interpretations": [
+        "killedBy (forward)",
+        "killedBy (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "dd1c9715-d580-4c63-b929-9aa1f913ac86",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many different genders are there among characters from the World of Ice and Fire who were killed by Ellaria Sand?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:fromUniverse]->(m0:FictionalUniverse {name: 'World of Ice and Fire'}),(n:Character)-[r1:killedBy]->(m1:Character {name: 'Ellaria Sand'}) WITH DISTINCT n RETURN count(DISTINCT n.gender)",
+    "corrupted_nl_question": "How many different genders are there among characters from the World of Ice and Fire who had a fatal encounter with Ellaria Sand?",
+    "valid_cyphers": [
+      "MATCH (n:Character)-[r0:fromUniverse]->(m0:FictionalUniverse {name: 'World of Ice and Fire'}),(n:Character)-[r1:killedBy]->(m1:Character {name: 'Ellaria Sand'}) WITH DISTINCT n RETURN count(DISTINCT n.gender)",
+      "MATCH (n:Character)<-[r0:fromUniverse]-(m0:FictionalUniverse {name: 'World of Ice and Fire'}),(n:Character)<-[r1:killedBy]-(m1:Character {name: 'Ellaria Sand'}) WITH DISTINCT n RETURN count(DISTINCT n.gender)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-7fd03e3a",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasStudent",
+      "corrupted_element": "hasStudent (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasStudent (forward)",
+        "hasStudent (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "8fd2bcd1-50d1-4193-938a-326fb83cf2b8",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names of characters who were killed by their students?",
+    "original_gold_cypher": "MATCH (n:Character)-[r0:hasStudent]->(m0:Character),(n:Character)-[r1:killedBy]->(m0:Character) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of characters who were killed by someone they shared a student-teacher relationship with?",
+    "valid_cyphers": [
+      "MATCH (n:Character)-[r0:hasStudent]->(m0:Character),(n:Character)-[r1:killedBy]->(m0:Character) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Character)<-[r0:hasStudent]-(m0:Character),(n:Character)<-[r1:killedBy]-(m0:Character) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-38006822",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasMother",
+      "corrupted_element": "hasMother (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasMother (forward)",
+        "hasMother (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "938f7fd8-9047-4677-89f9-da471e733a97",
+    "original_graph": "fictional_character",
+    "original_nl_question": "What are the names of characters who are either married to Cersei Lannister or have Cassana Baratheon as their mother?",
+    "original_gold_cypher": "CALL { MATCH (n:Character)-[r0:hasSpouse]->(m0:Character {name: 'Cersei Lannister'}) RETURN n, m0 as m UNION MATCH (n:Character)-[r1:hasMother]->(m1:Character {name: 'Cassana Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of characters who are either married to Cersei Lannister or have a mother-child relationship with Cassana Baratheon?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Character)-[r0:hasSpouse]->(m0:Character {name: 'Cersei Lannister'}) RETURN n, m0 as m UNION MATCH (n:Character)-[r1:hasMother]->(m1:Character {name: 'Cassana Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Character)<-[r0:hasSpouse]-(m0:Character {name: 'Cersei Lannister'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasMother]-(m1:Character {name: 'Cassana Baratheon'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-fictional_character-8c29822a",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasFather",
+      "corrupted_element": "hasFather (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasFather (forward)",
+        "hasFather (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "f195dc56-28b5-4c3d-859f-7b9b2bcedb84",
+    "original_graph": "fictional_character",
+    "original_nl_question": "How many characters have Corlys Velaryon as their father or are married to Daemon Targaryen?",
+    "original_gold_cypher": "CALL { MATCH (n:Character)-[r0:hasFather]->(m0:Character {name: 'Corlys Velaryon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasSpouse]-(m1:Character {name: 'Daemon Targaryen'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many characters have a father relationship with Corlys Velaryon or are married to Daemon Targaryen?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Character)-[r0:hasFather]->(m0:Character {name: 'Corlys Velaryon'}) RETURN n, m0 as m UNION MATCH (n:Character)<-[r1:hasSpouse]-(m1:Character {name: 'Daemon Targaryen'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Character)<-[r0:hasFather]-(m0:Character {name: 'Corlys Velaryon'}) RETURN n, m0 as m UNION MATCH (n:Character)-[r1:hasSpouse]->(m1:Character {name: 'Daemon Targaryen'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

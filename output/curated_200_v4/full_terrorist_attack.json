@@ -1,0 +1,332 @@
+[
+  {
+    "corruption_id": "A2-terrorist_attack-076ca6ee",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "from",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "0d02acd7-4965-4845-a4cc-79793818b45a",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "Where was Abdullakh Anzorov born?",
+    "original_gold_cypher": "MATCH (n:Terrorist {name: 'Abdullakh Anzorov'}) WITH DISTINCT n RETURN n.place_of_birth",
+    "corrupted_nl_question": "Where is Abdullakh Anzorov from?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist {name: 'Abdullakh Anzorov'}) WITH DISTINCT n RETURN n.country_of_citizenship",
+      "MATCH (n:Terrorist {name: 'Abdullakh Anzorov'}) WITH DISTINCT n RETURN n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-65104e5b",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "country_of_citizenship",
+      "corrupted_element": "country of origin",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "dbac3ec8-69be-42fb-b14f-391594485af7",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and countries of citizenship of terrorists involved in the same attack as Bilal Abdullah?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+    "corrupted_nl_question": "What is the name and country of origin of a terrorist involved in the same attack as Bilal Abdullah?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-5eab53e5",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "country_of_citizenship",
+      "corrupted_element": "origin",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "bc57720c-6c96-42e2-9f12-ec9e12c4e403",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "Which country is Francesca Mambro a citizen of?",
+    "original_gold_cypher": "MATCH (n:Terrorist {name: 'Francesca Mambro'}) WITH DISTINCT n RETURN n.country_of_citizenship",
+    "corrupted_nl_question": "What is Francesca Mambro's country of origin?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist {name: 'Francesca Mambro'}) WITH DISTINCT n RETURN n.country_of_citizenship",
+      "MATCH (n:Terrorist {name: 'Francesca Mambro'}) WITH DISTINCT n RETURN n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-3cf3d648",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "homeland",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "122f4007-f861-4889-b4db-99d03c100ffa",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "Who are the terrorists responsible for attacks targeting the Linwood Islamic Centre, and where were they born?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:targets]->(m1:Target {name: 'Linwood Islamic Centre'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Who is the terrorist responsible for the attack targeting the Linwood Islamic Centre, and what is their homeland?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:targets]->(m1:Target {name: 'Linwood Islamic Centre'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:targets]->(m1:Target {name: 'Linwood Islamic Centre'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-e2e95252",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "origin",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "9b907018-fce1-437b-baa7-f80dc6c2a802",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and birthplaces of terrorists involved in the same attack as Bilal Abdullah?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "What is the name and origin of the terrorist involved in the same attack as Bilal Abdullah?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Bilal Abdullah'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-ff071aca",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "country_of_citizenship",
+      "corrupted_element": "homeland",
+      "candidate_interpretations": [
+        "country_of_citizenship",
+        "place_of_birth"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "440ae6ee-1963-4226-9383-82e16e7a40e1",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "Who are the terrorists responsible for the 1984 Montreal bombing, and what are their countries of citizenship?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack {name: '1984 Montreal bombing'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+    "corrupted_nl_question": "Who is the terrorist responsible for the 1984 Montreal bombing, and what is their homeland?",
+    "valid_cyphers": [
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack {name: '1984 Montreal bombing'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+      "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack {name: '1984 Montreal bombing'}) WITH DISTINCT n RETURN n.name, n.place_of_birth"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-36d66abe",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "number_of_deaths",
+      "corrupted_element": "casualties",
+      "candidate_interpretations": [
+        "number_of_injuries",
+        "number_of_deaths"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "1360eca6-3159-4b6a-8c52-063f82d313b4",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and death tolls of terrorist attacks that used a bomb and targeted St. Sebastian’s Church?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:employs]->(m0:Weapon {name: 'bomb'}),(n:TerroristAttack)-[r1:targets]->(m1:Target {name: 'St. Sebastian’s Church'}) WITH DISTINCT n RETURN n.name, n.number_of_deaths",
+    "corrupted_nl_question": "What is the name and casualty count of the terrorist attack that used a bomb and targeted St. Sebastian’s Church?",
+    "valid_cyphers": [
+      "MATCH (n:TerroristAttack)-[r0:employs]->(m0:Weapon {name: 'bomb'}),(n:TerroristAttack)-[r1:targets]->(m1:Target {name: 'St. Sebastian’s Church'}) WITH DISTINCT n RETURN n.name, n.number_of_injuries",
+      "MATCH (n:TerroristAttack)-[r0:employs]->(m0:Weapon {name: 'bomb'}),(n:TerroristAttack)-[r1:targets]->(m1:Target {name: 'St. Sebastian’s Church'}) WITH DISTINCT n RETURN n.name, n.number_of_deaths"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-terrorist_attack-8cdbad34",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "date",
+      "corrupted_element": "property_damage_estimate",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'property_damage_estimate' does not exist on entity type 'TerroristAttack'. Existing: number_of_injuries, number_of_deaths, date, locations"
+    },
+    "original_qid": "c2dbe85d-9e3f-4a12-873c-02052488ae41",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorist attacks that happened in the same country as the Via dei Georgofili bombing, listed from the most recent to the oldest?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:occursIn]->(m0:Country)<-[r1:occursIn]-(m1:TerroristAttack {name: 'Via dei Georgofili bombing'}) WITH DISTINCT n RETURN n.name ORDER BY n.date DESC",
+    "corrupted_nl_question": "What are the names of terrorist attacks that happened in the same country as the Via dei Georgofili bombing, listed from the highest to the lowest property damage estimate?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-terrorist_attack-fef6cc50",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "date_of_birth",
+      "corrupted_element": "primary_ideology",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'primary_ideology' does not exist on entity type 'Terrorist'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth"
+    },
+    "original_qid": "8a366952-9c22-4042-8802-739e9fbfa443",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorists, sorted by their date of birth from the earliest to the latest?",
+    "original_gold_cypher": "MATCH (n:Terrorist) WITH DISTINCT n RETURN n.name ORDER BY n.date_of_birth ASC",
+    "corrupted_nl_question": "What are the names of terrorists, sorted by their primary ideology?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-terrorist_attack-67521c10",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "employs",
+      "corrupted_element": "leavesBehind",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'leavesBehind' does not exist. Existing: perpetratedBy, occursIn, employs, targets"
+    },
+    "original_qid": "3e3dc2e9-c719-400b-bb1a-be7a29d4604d",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and dates of terrorist attacks that involved a rifle and were carried out by Thomas Mair?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:employs]->(m0:Weapon {name: 'rifle'}),(n:TerroristAttack)-[r1:perpetratedBy]->(m1:Terrorist {name: 'Thomas Mair'}) WITH DISTINCT n RETURN n.name, n.date",
+    "corrupted_nl_question": "What are the names and dates of terrorist attacks that left behind a rifle and were carried out by Thomas Mair?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-terrorist_attack-ebc1cb87",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "occursIn",
+      "corrupted_element": "sponsoredBy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'sponsoredBy' does not exist. Existing: perpetratedBy, occursIn, employs, targets"
+    },
+    "original_qid": "012e19ed-fadc-43c2-ac2e-2b6e30e3e95c",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and injury counts of terrorist attacks that took place in Lithuania?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:occursIn]->(m0:Country {name: 'Lithuania'}) WITH DISTINCT n RETURN n.name, n.number_of_injuries",
+    "corrupted_nl_question": "What are the names and injury counts of terrorist attacks that were sponsored by Lithuania?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-terrorist_attack-56679030",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Terrorist",
+      "corrupted_element": "TrainingCamp",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'TrainingCamp' does not exist. Existing: TerroristAttack, Terrorist, Target, Country, Weapon"
+    },
+    "original_qid": "33b10931-5507-4d00-942d-347d26164673",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names and countries of citizenship of terrorists involved in attacks that took place in France?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:occursIn]->(m1:Country {name: 'France'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship",
+    "corrupted_nl_question": "What are the names and host countries of training camps linked to attacks that took place in France?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-e95398e9",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "number_of_deaths",
+      "corrupted_element": "was_claimed",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'was_claimed' does not exist on 'TerroristAttack'. Existing: number_of_injuries, number_of_deaths, date, locations"
+    },
+    "original_qid": "13ad3e54-a268-4fe6-9d9c-efb5a4be47a8",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorist attacks that took place in Ukraine and resulted in exactly 59 deaths?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:occursIn]->(m0:Country {name: 'Ukraine'}) WITH DISTINCT n WHERE n.number_of_deaths = 59 RETURN n.name",
+    "corrupted_nl_question": "What are the names of terrorist attacks that took place in Ukraine and were claimed?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-a02869d4",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "place_of_birth",
+      "corrupted_element": "affiliated_organization",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'affiliated_organization' does not exist on 'Terrorist'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth"
+    },
+    "original_qid": "6d0294fa-7031-4c2e-8905-3f445b16aee7",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorists born in Lutherstadt Eisleben?",
+    "original_gold_cypher": "MATCH (n:Terrorist) WITH DISTINCT n WHERE n.place_of_birth = 'Lutherstadt Eisleben' RETURN n.name",
+    "corrupted_nl_question": "What are the names of terrorists affiliated with Al-Qaeda?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-44d34248",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "date_of_birth",
+      "corrupted_element": "operational_role",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'operational_role' does not exist on 'Terrorist'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth"
+    },
+    "original_qid": "36276d97-6304-43d9-91c9-42ef08a6ef65",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorists born before March 9, 1964, who have carried out attacks in Japan?",
+    "original_gold_cypher": "MATCH (n:Terrorist)<-[r0:perpetratedBy]-(m0:TerroristAttack)-[r1:occursIn]->(m1:Country {name: 'Japan'}) WITH DISTINCT n WHERE n.date_of_birth < date('1964-03-09') RETURN n.name",
+    "corrupted_nl_question": "What are the names of terrorists whose operational role is bomb maker and who have carried out attacks in Japan?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-2d39fd96",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "date",
+      "corrupted_element": "prior_warning_given",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'prior_warning_given' does not exist on 'TerroristAttack'. Existing: number_of_injuries, number_of_deaths, date, locations"
+    },
+    "original_qid": "84649b0c-404b-4a87-99df-5646afc6216b",
+    "original_graph": "terrorist_attack",
+    "original_nl_question": "What are the names of terrorist attacks using cold weapons that occurred after the year 2018?",
+    "original_gold_cypher": "MATCH (n:TerroristAttack)-[r0:employs]->(m0:Weapon {name: 'cold weapon'}) WITH DISTINCT n WHERE n.date.year > 2018 RETURN n.name",
+    "corrupted_nl_question": "What are the names of terrorist attacks using cold weapons where a prior warning was given?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  }
+]

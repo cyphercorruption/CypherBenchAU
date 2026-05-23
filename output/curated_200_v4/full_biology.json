@@ -1,0 +1,338 @@
+[
+  {
+    "corruption_id": "A5-biology-daca69fe",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "feedsOn",
+      "corrupted_element": "feedsOn (direction ambiguous)",
+      "candidate_interpretations": [
+        "feedsOn (forward)",
+        "feedsOn (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "02f9cca7-2d79-4a1e-9954-5c6636160a6c",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of taxa that feed on other taxa?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of taxa that have feeding relationships with other taxa?",
+    "valid_cyphers": [
+      "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Taxon)<-[r0:feedsOn]-(m0:Taxon) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-biology-1b14c09e",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "diel_cycle",
+      "corrupted_element": "thermoregulation_strategy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'thermoregulation_strategy' does not exist on entity type 'Taxon'. Existing: taxon_name, diel_cycle, avg_gestation_period_days, longest_lifespan_years"
+    },
+    "original_qid": "d2fcd4fb-4d56-4bd6-a0eb-f3c80dab4a1e",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and diel cycles of taxa that have Solanum as a parent and are fed on by Scrobipalpa ergasima?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:hasParent]->(m0:Taxon {name: 'Solanum'}),(n:Taxon)<-[r1:feedsOn]-(m1:Taxon {name: 'Scrobipalpa ergasima'}) WITH DISTINCT n RETURN n.name, n.diel_cycle",
+    "corrupted_nl_question": "What are the names and thermoregulation strategies of taxa that have Solanum as a parent and are fed on by Scrobipalpa ergasima?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-biology-26fbb43b",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "longest_lifespan_years",
+      "corrupted_element": "reproduction_method",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'reproduction_method' does not exist on entity type 'Taxon'. Existing: taxon_name, diel_cycle, avg_gestation_period_days, longest_lifespan_years"
+    },
+    "original_qid": "76129381-40ca-4f42-a111-9ec5ff06e08c",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and longest lifespans of parents of taxa with a conservation status of Vulnerable?",
+    "original_gold_cypher": "MATCH (n:Taxon)<-[r0:hasParent]-(m0:Taxon)-[r1:hasConservationStatus]->(m1:ConservationStatus {name: 'Vulnerable'}) WITH DISTINCT n RETURN n.name, n.longest_lifespan_years",
+    "corrupted_nl_question": "What are the names and reproduction methods of parents of taxa with a conservation status of Vulnerable?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-biology-72aeb446",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "longest_lifespan_years",
+      "corrupted_element": "average_adult_mass_kg",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'average_adult_mass_kg' does not exist on entity type 'Taxon'. Existing: taxon_name, diel_cycle, avg_gestation_period_days, longest_lifespan_years"
+    },
+    "original_qid": "e1469978-4f8b-4cb0-b445-6e15bc9ade72",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and longest lifespans in years of taxa that are classified as a class and are preyed upon by the Sumba Boobook?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:hasRank]->(m0:TaxonRank {name: 'class'}),(n:Taxon)<-[r1:feedsOn]-(m1:Taxon {name: 'Sumba Boobook'}) WITH DISTINCT n RETURN n.name, n.longest_lifespan_years",
+    "corrupted_nl_question": "What are the names and average adult masses in kg of taxa that are classified as a class and are preyed upon by the Sumba Boobook?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-biology-6f39c316",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "feedsOn",
+      "corrupted_element": "isHostTo",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'isHostTo' does not exist. Existing: hasRank, hasParent, inhabits, feedsOn, hasConservationStatus"
+    },
+    "original_qid": "7ba35960-be0d-450a-8a3d-48ce84db98ce",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and diel cycles of taxa that live in grasslands and are preyed upon by Efferia?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:inhabits]->(m0:Habitat {name: 'grassland'}),(n:Taxon)<-[r1:feedsOn]-(m1:Taxon {name: 'Efferia'}) WITH DISTINCT n RETURN n.name, n.diel_cycle",
+    "corrupted_nl_question": "What are the names and diel cycles of taxa that live in grasslands and are hosted by Efferia?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-biology-f0023f6c",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "hasParent",
+      "corrupted_element": "competesWith",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'competesWith' does not exist. Existing: hasRank, hasParent, inhabits, feedsOn, hasConservationStatus"
+    },
+    "original_qid": "f38978d0-8238-4b8c-adc4-379ce612c102",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and average gestation periods in days of the offspring of Agromyza?",
+    "original_gold_cypher": "MATCH (n:Taxon)<-[r0:hasParent]-(m0:Taxon {name: 'Agromyza'}) WITH DISTINCT n RETURN n.name, n.avg_gestation_period_days",
+    "corrupted_nl_question": "What are the names and average gestation periods in days of the competitors of Agromyza?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-biology-0b11e3fb",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Taxon",
+      "corrupted_element": "ReproductiveStrategy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'ReproductiveStrategy' does not exist. Existing: Taxon, TaxonRank, ConservationStatus, Habitat"
+    },
+    "original_qid": "05132e9c-c430-47ca-860a-d3bfd22696e3",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of taxa that feed on species living in forests, and how many forest-dwelling species does each of them consume?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon)-[r1:inhabits]->(m1:Habitat {name: 'forest'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of reproductive strategies that are employed by species living in forests, and how many forest-dwelling species employ each of them?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-biology-776f2339",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "taxon_name",
+      "corrupted_element": "primary_diet_type",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'primary_diet_type' does not exist on 'Taxon'. Existing: taxon_name, diel_cycle, avg_gestation_period_days, longest_lifespan_years"
+    },
+    "original_qid": "470c6742-b2af-4bdc-b607-9e84b9e0caf2",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of taxa that share a habitat with Speranskia tuberculata, excluding those named Primulina beiliuensis?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:inhabits]->(m0:Habitat)<-[r1:inhabits]-(m1:Taxon {name: 'Speranskia tuberculata'}) WITH DISTINCT n WHERE n.taxon_name <> 'Primulina beiliuensis' RETURN n.name",
+    "corrupted_nl_question": "What are the names of taxa that share a habitat with Speranskia tuberculata, excluding those whose primary diet type is carnivore?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-biology-ac957d89",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "taxon_name",
+      "corrupted_element": "reproduction_method",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'reproduction_method' does not exist on 'Taxon'. Existing: taxon_name, diel_cycle, avg_gestation_period_days, longest_lifespan_years"
+    },
+    "original_qid": "8128ccf7-e98a-4d89-bb1d-74d105d09367",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of taxa with the taxon name Primulina carinata that share a habitat with Ficus altissima?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:inhabits]->(m0:Habitat)<-[r1:inhabits]-(m1:Taxon {name: 'Ficus altissima'}) WITH DISTINCT n WHERE n.taxon_name = 'Primulina carinata' RETURN n.name",
+    "corrupted_nl_question": "What are the names of taxa with the reproduction method of budding that share a habitat with Ficus altissima?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-biology-f140512b",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "hasConservationStatus",
+      "corrupted_element": "hasConservationStatus (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasConservationStatus' between Taxon and ConservationStatus has no temporal properties. Properties: none"
+    },
+    "original_qid": "644ea2e1-8d60-404e-a442-aa98d76ff995",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and diel cycles of taxa that are critically endangered and inhabit rivers?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:hasConservationStatus]->(m0:ConservationStatus {name: 'Critically Endangered'}),(n:Taxon)-[r1:inhabits]->(m1:Habitat {name: 'river'}) WITH DISTINCT n RETURN n.name, n.diel_cycle",
+    "corrupted_nl_question": "In what year were the taxa that inhabit rivers classified as critically endangered, and what are their names and diel cycles?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-biology-0ac594a5",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "hasRank",
+      "corrupted_element": "hasRank (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasRank' between Taxon and TaxonRank has no temporal properties. Properties: none"
+    },
+    "original_qid": "6dbde106-be54-4f3c-8287-972cf65f5d6f",
+    "original_graph": "biology",
+    "original_nl_question": "How many unique diel cycles are there for taxa with the rank of series?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:hasRank]->(m0:TaxonRank {name: 'series'}) WITH DISTINCT n RETURN count(DISTINCT n.diel_cycle)",
+    "corrupted_nl_question": "How many unique diel cycles are there for taxa that were assigned the rank of series in the year 2015?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-biology-9b279d4d",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "feedsOn",
+      "corrupted_element": "feedsOn (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'feedsOn' between Taxon and Taxon has no temporal properties. Properties: none"
+    },
+    "original_qid": "c78bd07c-9ea3-4419-95ff-128b95c0fe40",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of species that feed on Diaphorina citri?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon {name: 'Diaphorina citri'}),(n:Taxon)-[r1:hasRank]->(m1:TaxonRank {name: 'species'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of species that were recorded feeding on Diaphorina citri in 2022?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-biology-fbc54b5d",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "inhabits",
+      "corrupted_element": "inhabits (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'inhabits' between Taxon and Habitat has no temporal properties. Properties: none"
+    },
+    "original_qid": "e335c605-8ce9-42d9-a876-ad69e1dbc497",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of taxa that live in both road verges and pastures?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:inhabits]->(m0:Habitat {name: 'road verge'}),(n:Taxon)-[r1:inhabits]->(m1:Habitat {name: 'pasture'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year did the taxa that live in both road verges and pastures first begin inhabiting those environments?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A5-biology-178fe0eb",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasParent",
+      "corrupted_element": "hasParent (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasParent (forward)",
+        "hasParent (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "1b524418-a20a-4288-ad40-c11ec8f4bd13",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names of all taxa that have Molossinae as a parent, and how many taxa consider each of them as a parent?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r1:hasParent]->(m1:Taxon {name: 'Molossinae'}) OPTIONAL MATCH (n:Taxon)<-[r0:hasParent]-(m0:Taxon) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of all taxa associated with Molossinae as a parent, and how many taxa are associated with each of them as a parent?",
+    "valid_cyphers": [
+      "MATCH (n:Taxon)-[r1:hasParent]->(m1:Taxon {name: 'Molossinae'}) OPTIONAL MATCH (n:Taxon)<-[r0:hasParent]-(m0:Taxon) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Taxon)<-[r1:hasParent]-(m1:Taxon {name: 'Molossinae'}) OPTIONAL MATCH (n:Taxon)-[r0:hasParent]->(m0:Taxon) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-biology-a27268cc",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "feedsOn",
+      "corrupted_element": "feedsOn (direction ambiguous)",
+      "candidate_interpretations": [
+        "feedsOn (forward)",
+        "feedsOn (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d790afee-161a-46fe-8923-85a4332dcdf5",
+    "original_graph": "biology",
+    "original_nl_question": "How many taxa feed on organisms that consume Arachnida?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon)-[r1:feedsOn]->(m1:Taxon {name: 'Arachnida'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many taxa share a feeding relationship with organisms that share a feeding relationship with Arachnida?",
+    "valid_cyphers": [
+      "MATCH (n:Taxon)-[r0:feedsOn]->(m0:Taxon)-[r1:feedsOn]->(m1:Taxon {name: 'Arachnida'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:Taxon)<-[r0:feedsOn]-(m0:Taxon)<-[r1:feedsOn]-(m1:Taxon {name: 'Arachnida'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-biology-14fd9f75",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasParent",
+      "corrupted_element": "hasParent (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasParent (forward)",
+        "hasParent (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "ce75fc6a-a7d5-4488-b95e-8bbc0f95a442",
+    "original_graph": "biology",
+    "original_nl_question": "What are the names and average gestation periods in days of taxa that have Carangaria as a parent?",
+    "original_gold_cypher": "MATCH (n:Taxon)-[r0:hasParent]->(m0:Taxon {name: 'Carangaria'}) WITH DISTINCT n RETURN n.name, n.avg_gestation_period_days",
+    "corrupted_nl_question": "What are the names and average gestation periods in days of taxa that have a parent relationship with Carangaria?",
+    "valid_cyphers": [
+      "MATCH (n:Taxon)-[r0:hasParent]->(m0:Taxon {name: 'Carangaria'}) WITH DISTINCT n RETURN n.name, n.avg_gestation_period_days",
+      "MATCH (n:Taxon)<-[r0:hasParent]-(m0:Taxon {name: 'Carangaria'}) WITH DISTINCT n RETURN n.name, n.avg_gestation_period_days"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-biology-28f52c13",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "hasParent",
+      "corrupted_element": "hasParent (direction ambiguous)",
+      "candidate_interpretations": [
+        "hasParent (forward)",
+        "hasParent (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "a9685ccd-b2c2-4439-aac8-3b0c38fa51a3",
+    "original_graph": "biology",
+    "original_nl_question": "How many habitats are inhabited by taxa that have Ducula as a parent?",
+    "original_gold_cypher": "MATCH (n:Habitat)<-[r0:inhabits]-(m0:Taxon)-[r1:hasParent]->(m1:Taxon {name: 'Ducula'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many habitats are inhabited by taxa that have a parent-child relationship with Ducula?",
+    "valid_cyphers": [
+      "MATCH (n:Habitat)<-[r0:inhabits]-(m0:Taxon)-[r1:hasParent]->(m1:Taxon {name: 'Ducula'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:Habitat)-[r0:inhabits]->(m0:Taxon)<-[r1:hasParent]-(m1:Taxon {name: 'Ducula'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

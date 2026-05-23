@@ -1,0 +1,162 @@
+[
+  {
+    "corruption_id": "A2-terrorist_attack-076ca6ee",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The word 'from' is used to ask about a person's origin.\n2. Interpretations: In everyday language, asking where someone is 'from' can refer to either where they were born (place_of_birth) or what country they are a citizen of (country_of_citizenship). Both properties exist on the Terrorist entity in the schema.\n3. Exclusivity: Querying `place_of_birth` vs `country_of_citizenship` would result in different Cypher queries and potentially different answers (e.g., a city vs a country, or different countries if the person immigrated).\n4. Balance: Both interpretations are equally common and plausible when asking about a person's origins.\n5. Naturalness: 'Where is [Person] from?' is a perfectly natural and common way to ask this question.\n6. Irresolvability: There are no context clues in the short question to indicate whether the user specifically wants the birthplace or the citizenship.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-65104e5b",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'country of origin' is used to ask for a property of the Terrorist entity.\n2. Check interpretations against schema: The Terrorist entity has two properties that could match this: 'country_of_citizenship' and 'place_of_birth'. \n3. Exclusivity and Balance: 'Country of origin' is a common phrase that is frequently used to mean either the country where a person was born or the country where they hold citizenship. Both interpretations are equally plausible and would require querying different properties, leading to different results.\n4. Naturalness: The question is phrased naturally and sounds like a typical user query.\n5. Irresolvability: There are no context clues in the question to indicate whether the user specifically wants the birth place or the citizenship. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-5eab53e5",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'country of origin'.\n2. Schema check: The `Terrorist` entity has both `country_of_citizenship` and `place_of_birth` properties. \n3. Exclusivity: A person's place of birth and country of citizenship can be different, meaning queries targeting these two different properties would yield different results.\n4. Balance: 'Country of origin' is a common phrase that is frequently used to refer to either a person's nationality/citizenship or their birthplace. Both interpretations are equally plausible.\n5. Naturalness: The question is perfectly natural and sounds like a typical user query.\n6. Irresolvability: There are no context clues in the short question to indicate whether the user is asking for the birthplace or the citizenship. The ambiguity is genuine and irresolvable without follow-up.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-3cf3d648",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'homeland' is used to ask about the origin or nationality of the terrorist.\n2. Check interpretations against schema: The `Terrorist` entity has two properties that could correspond to 'homeland': `country_of_citizenship` and `place_of_birth`. \n3. Exclusivity: Querying `country_of_citizenship` vs `place_of_birth` would result in different Cypher queries returning different properties.\n4. Balance: Both interpretations are equally plausible. 'Homeland' is commonly used to refer to both the country where someone was born and the country of their citizenship/nationality.\n5. Naturalness: The question is phrased naturally and sounds like a typical user query.\n6. Irresolvability: There is no additional context in the question that would allow a user or system to definitively choose between birth place and citizenship.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-e2e95252",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'origin' is used to ask about the terrorist.\n2. Check interpretations against schema: In the context of a person (Terrorist), 'origin' could refer to where they were born (place_of_birth) or their nationality/citizenship (country_of_citizenship). Both properties exist on the Terrorist entity.\n3. Exclusivity: Querying for place_of_birth (a string) versus country_of_citizenship (a list of strings) would result in different Cypher queries and different answers.\n4. Balance: Both interpretations are highly plausible and commonly used in everyday language when asking about someone's 'origin'.\n5. Naturalness: The question is phrased naturally and sounds like a realistic user query.\n6. Irresolvability: There are no context clues in the question to indicate whether the user specifically wants the birthplace or the citizenship. The ambiguity is genuine and irresolvable without asking for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-ff071aca",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'homeland' is used to ask for a location associated with the terrorist.\n2. Check against schema: The `Terrorist` entity has two properties that could match 'homeland': `country_of_citizenship` and `place_of_birth`. \n3. Exclusivity: Querying `country_of_citizenship` returns a list of strings (countries), while querying `place_of_birth` returns a string. These would result in different Cypher queries and different answers.\n4. Balance: 'Homeland' is a naturally vague term that is commonly used to refer to either the country where someone was born or the country of their nationality/citizenship. Both interpretations are equally plausible.\n5. Naturalness: The question flows perfectly and sounds like a natural query a user might type.\n6. Irresolvability: There are no context clues in the question to indicate whether the user specifically wants the birth place or the citizenship. The ambiguity is genuine and irresolvable without asking the user for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-terrorist_attack-36d66abe",
+    "corruption_type": "A2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The term 'casualty count' is ambiguous in the context of this schema. While 'casualties' technically refers to the sum of deaths and injuries, casual speakers often use it to mean just 'deaths' (fatalities). Since the schema explicitly separates `number_of_deaths` and `number_of_injuries` but lacks a general `casualties` property, a system could interpret the request as asking for `number_of_deaths`, `number_of_injuries`, or the sum of both. These interpretations would lead to different queries and results. The question is also perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-terrorist_attack-8cdbad34",
+    "corruption_type": "U1",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks to sort terrorist attacks by 'property damage estimate'. Looking at the schema, the 'TerroristAttack' entity only has properties for 'number_of_injuries', 'number_of_deaths', 'date', and 'locations'. There is no property related to property damage or financial cost. Furthermore, this information cannot be derived from any other entities or relationships in the schema. The fake property is highly plausible for the domain of terrorist attacks and is clearly distinct from human casualty metrics like injuries and deaths. The question is perfectly natural and genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-terrorist_attack-fef6cc50",
+    "corruption_type": "U1",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks to sort terrorists by their primary ideology. The schema contains properties for terrorists like country_of_citizenship, place_of_birth, gender, and date_of_birth, but nothing related to ideology. There is no alternative path to derive a terrorist's ideology from the given schema (e.g., targets or weapons do not definitively provide ideology). The fake property is highly plausible for the domain and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-terrorist_attack-67521c10",
+    "corruption_type": "U2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks for terrorist attacks that 'left behind' a rifle. The schema only contains the relationship `employs` between `TerroristAttack` and `Weapon`, which indicates that a weapon was used during the attack. However, 'employing' a weapon does not necessarily mean it was 'left behind' at the scene (it could have been taken by the perpetrator). Since there are no properties or relationships in the schema that track the post-attack status, recovery, or abandonment of weapons, this specific condition cannot be evaluated. The fake relationship is highly plausible in the domain of crime and terrorism, and it is distinct enough from 'employs' to make the question genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-terrorist_attack-ebc1cb87",
+    "corruption_type": "U2",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks for terrorist attacks 'sponsored by' a specific country (Lithuania). The schema contains relationships for where an attack occurs (`occursIn`), who perpetrated it (`perpetratedBy` -> `Terrorist`), what weapons were used (`employs`), and the targets (`targets`). There is no relationship or property indicating state sponsorship, funding, or backing of an attack by a country. While one could potentially find attacks perpetrated by citizens of Lithuania (using `country_of_citizenship`), this is semantically distinct from state sponsorship. Therefore, the question is genuinely unanswerable using the provided schema. The fake relationship is highly plausible for the domain of terrorism and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-terrorist_attack-56679030",
+    "corruption_type": "U3",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The schema does not contain any entity or property representing 'TrainingCamp' or 'host countries of training camps'. 2. No alternative path: There is no way to derive training camps from the existing entities (TerroristAttack, Terrorist, Target, Country, Weapon) or their properties. 3. Plausibility: Training camps are highly relevant to the domain of terrorism, making it a plausible user query. 4. Naturalness: The question is grammatically correct and sounds natural. 5. Distinctness: 'TrainingCamp' is clearly distinct from existing entities like 'Target' or 'Country'.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-e95398e9",
+    "corruption_type": "U4",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for terrorist attacks that 'were claimed'. The schema contains entities like TerroristAttack, Terrorist, Country, etc., but lacks any property (like 'is_claimed') or relationship (like 'claimedBy') to indicate if an attack was publicly claimed.\n2. No alternative path: The schema includes a 'perpetratedBy' relationship linking TerroristAttack to Terrorist. However, knowing who perpetrated an attack (often determined by intelligence or investigation) is distinct from whether the attack was publicly 'claimed' by a group or individual. Thus, there is no way to filter attacks by this specific criterion.\n3. Plausibility: In the domain of terrorism, whether an attack was claimed by an organization is a very common and realistic data point to track.\n4. Naturalness: The question is grammatically correct, clear, and sounds like a natural query a user would make.\n5. Distinctness: 'were claimed' is conceptually distinct from 'perpetratedBy' or any other existing schema element.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-a02869d4",
+    "corruption_type": "U4",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks for terrorists affiliated with a specific organization (Al-Qaeda). Looking at the schema, the 'Terrorist' entity only has properties for country_of_citizenship, place_of_birth, gender, and date_of_birth. There are no entities or relationships representing terrorist organizations or groups. There is no alternative path to derive a terrorist's organizational affiliation from the existing schema elements (Target, Country, Weapon, TerroristAttack). The question is highly plausible for the domain and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-44d34248",
+    "corruption_type": "U4",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks for terrorists with a specific 'operational role' (bomb maker). Looking at the schema, the `Terrorist` entity only has properties for `country_of_citizenship`, `place_of_birth`, `gender`, and `date_of_birth`. There is no property for operational role. While we could potentially find attacks that employed a 'Bomb' as a `Weapon`, this does not confirm the terrorist's operational role was 'bomb maker' (they could have just planted it, or the schema simply doesn't capture roles). Therefore, the question is genuinely unanswerable. The fake property is highly plausible for the domain and distinct from existing properties.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-terrorist_attack-2d39fd96",
+    "corruption_type": "U4",
+    "graph": "terrorist_attack",
+    "verdict": "pass",
+    "reasoning": "The question asks for terrorist attacks where a 'prior warning was given'. Looking at the schema, the TerroristAttack entity only has properties for number_of_injuries, number_of_deaths, date, and locations. There are no properties or relationships in the schema that capture whether a warning was given before an attack. This concept cannot be derived from any other existing properties or relationships. The fake element is highly plausible in the domain of terrorism (as warnings are sometimes given before bombings or other attacks) and the question is phrased naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

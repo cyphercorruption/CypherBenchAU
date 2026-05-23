@@ -1,0 +1,578 @@
+[
+  {
+    "corruption_id": "A1-company-3800ecbc",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "top management",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "fb1c2211-aaf4-478a-b662-7c7f145843e0",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of individuals who have both founded a company and served on its board, but are not citizens of Austria?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company),(n:Person)<-[r1:hasBoardMember]-(m0:Company) WITH DISTINCT n WHERE NOT 'Austria' IN n.country_of_citizenship RETURN n.name",
+    "corrupted_nl_question": "What are the names of individuals who have both founded a company and held a top leadership position in it, but are not citizens of Austria?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company),(n:Person)<-[r1:hasCEO]-(m0:Company) WITH DISTINCT n WHERE NOT 'Austria' IN n.country_of_citizenship RETURN n.name",
+      "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company),(n:Person)<-[r1:hasBoardMember]-(m0:Company) WITH DISTINCT n WHERE NOT 'Austria' IN n.country_of_citizenship RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-company-074989ed",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "place_of_birth",
+      "corrupted_element": "country of origin",
+      "candidate_interpretations": [
+        "place_of_birth",
+        "country_of_citizenship"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d9117bb2-c81a-434c-ba3a-9e385cecfd86",
+    "original_graph": "company",
+    "original_nl_question": "Who are the CEOs, past or present, of companies that are subsidiaries of Vinci, and where were they born?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Vinci'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Who is a past or present CEO of a subsidiary of Vinci, and what is their country of origin?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Vinci'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Vinci'}) WITH DISTINCT n RETURN n.name, n.country_of_citizenship"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-company-4efdabd5",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (direction ambiguous)",
+      "candidate_interpretations": [
+        "subsidiaryOf (forward)",
+        "subsidiaryOf (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "7c0bcad4-b4fd-408a-85ba-809403fdd14c",
+    "original_graph": "company",
+    "original_nl_question": "What is the earliest launch year among companies that have subsidiaries?",
+    "original_gold_cypher": "MATCH (n:Company)<-[r0:subsidiaryOf]-(m0:Company) WITH DISTINCT n RETURN min(n.launch_year)",
+    "corrupted_nl_question": "What is the earliest launch year among companies in a subsidiary relationship?",
+    "valid_cyphers": [
+      "MATCH (n:Company)<-[r0:subsidiaryOf]-(m0:Company) WITH DISTINCT n RETURN min(n.launch_year)",
+      "MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company) WITH DISTINCT n RETURN min(n.launch_year)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-company-9a840b77",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (direction ambiguous)",
+      "candidate_interpretations": [
+        "subsidiaryOf (forward)",
+        "subsidiaryOf (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "847405aa-4feb-4d64-97d9-6670ba228994",
+    "original_graph": "company",
+    "original_nl_question": "How many companies are either subsidiaries of Adidas AG or operate in the textile industry?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'Adidas AG'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'textile industry'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many companies are either in a subsidiary relationship with Adidas AG or operate in the textile industry?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'Adidas AG'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'textile industry'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Company)<-[r0:subsidiaryOf]-(m0:Company {name: 'Adidas AG'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:operatesIn]-(m1:Industry {name: 'textile industry'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-company-61804a96",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "place_of_birth",
+      "corrupted_element": "eye_color",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'eye_color' does not exist on entity type 'Person'. Existing: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, gender"
+    },
+    "original_qid": "d9117bb2-c81a-434c-ba3a-9e385cecfd86",
+    "original_graph": "company",
+    "original_nl_question": "Who are the CEOs, past or present, of companies that are subsidiaries of Vinci, and where were they born?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Vinci'}) WITH DISTINCT n RETURN n.name, n.place_of_birth",
+    "corrupted_nl_question": "Who are the CEOs, past or present, of companies that are subsidiaries of Vinci, and what is their eye color?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-company-dc566282",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "launch_year",
+      "corrupted_element": "annual_revenue",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'annual_revenue' does not exist on entity type 'Company'. Existing: launch_year"
+    },
+    "original_qid": "b21a1191-dc66-48e1-9a44-a3e3d7c95521",
+    "original_graph": "company",
+    "original_nl_question": "What are the names and launch years of companies involved in academic publishing?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:operatesIn]->(m0:Industry {name: 'academic publishing'}) WITH DISTINCT n RETURN n.name, n.launch_year",
+    "corrupted_nl_question": "What are the names and annual revenues of companies involved in academic publishing?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-company-f0bc8eed",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "gender",
+      "corrupted_element": "eye_color",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'eye_color' does not exist on entity type 'Person'. Existing: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, gender"
+    },
+    "original_qid": "cc275fb4-1ce0-485d-92dc-0ed4835668b2",
+    "original_graph": "company",
+    "original_nl_question": "What are the unique genders of individuals who have both founded and served as CEO of a company at some point?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company),(n:Person)<-[r1:hasCEO]-(m0:Company) WITH DISTINCT n RETURN DISTINCT n.gender",
+    "corrupted_nl_question": "What are the unique eye colors of individuals who have both founded and served as CEO of a company at some point?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-company-9b3ed9d7",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "operatesIn",
+      "corrupted_element": "pioneered",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'pioneered' does not exist. Existing: subsidiaryOf, hasCEO, hasBoardMember, foundedBy, basedIn, operatesIn"
+    },
+    "original_qid": "b21a1191-dc66-48e1-9a44-a3e3d7c95521",
+    "original_graph": "company",
+    "original_nl_question": "What are the names and launch years of companies involved in academic publishing?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:operatesIn]->(m0:Industry {name: 'academic publishing'}) WITH DISTINCT n RETURN n.name, n.launch_year",
+    "corrupted_nl_question": "What are the names and launch years of companies that pioneered academic publishing?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-company-017d2627",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "hasBrandAmbassador",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasBrandAmbassador' does not exist. Existing: subsidiaryOf, hasCEO, hasBoardMember, foundedBy, basedIn, operatesIn"
+    },
+    "original_qid": "60d51302-c070-4981-a0ad-93488ddbf28c",
+    "original_graph": "company",
+    "original_nl_question": "Provide the names of all individuals who have served on the board of Berkshire Hathaway, along with the number of companies each of them has founded.",
+    "original_gold_cypher": "MATCH (n:Person)<-[r1:hasBoardMember]-(m1:Company {name: 'Berkshire Hathaway'}) OPTIONAL MATCH (n:Person)<-[r0:foundedBy]-(m0:Company) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of all individuals who have served as brand ambassadors for Berkshire Hathaway, along with the number of companies each of them has founded.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-company-289ee8e3",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "basedIn",
+      "corrupted_element": "exportsTo",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'exportsTo' does not exist. Existing: subsidiaryOf, hasCEO, hasBoardMember, foundedBy, basedIn, operatesIn"
+    },
+    "original_qid": "49bdb60c-4461-4cfb-90e8-fceb30cc594c",
+    "original_graph": "company",
+    "original_nl_question": "Who are the individuals who have founded companies based in France, and how many such companies has each person founded?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company)-[r1:basedIn]->(m1:Country {name: 'France'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Who are the individuals who have founded companies that export to France, and how many such companies has each person founded?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-company-c6d8004d",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "hasShareholder",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasShareholder' does not exist. Existing: subsidiaryOf, hasCEO, hasBoardMember, foundedBy, basedIn, operatesIn"
+    },
+    "original_qid": "8536d1ef-cb04-4bc6-8f9a-4aff1279dc0f",
+    "original_graph": "company",
+    "original_nl_question": "Who is the youngest individual who has ever been a board member of a company?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company) WITH DISTINCT n RETURN n.name ORDER BY n.date_of_birth DESC LIMIT 1",
+    "corrupted_nl_question": "Who is the youngest individual who has ever been a shareholder of a company?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-company-4350f519",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "foundedBy",
+      "corrupted_element": "hasMajorityShareholder",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasMajorityShareholder' does not exist. Existing: subsidiaryOf, hasCEO, hasBoardMember, foundedBy, basedIn, operatesIn"
+    },
+    "original_qid": "5845e6b2-a6dc-4e5e-b77d-b8f2597f71b8",
+    "original_graph": "company",
+    "original_nl_question": "List the names of companies founded by individuals who also founded DreamWorks, and for each company, provide the number of such individuals.",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:foundedBy]->(m0:Person)<-[r1:foundedBy]-(m1:Company {name: 'DreamWorks'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "List the names of companies that have as majority shareholders individuals who are also majority shareholders of DreamWorks, and for each company, provide the number of such individuals.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-company-dbb22c62",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Company",
+      "corrupted_element": "StockExchange",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'StockExchange' does not exist. Existing: Company, Country, Person, Industry"
+    },
+    "original_qid": "4689eeee-6cb9-4785-b16f-f69646773b26",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of companies that are either subsidiaries of DuPont or have had Ajaypal Singh Banga as a board member at some point?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'DuPont'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:hasBoardMember]->(m1:Person {name: 'Ajaypal Singh Banga'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of stock exchanges that are either subsidiaries of DuPont or have had Ajaypal Singh Banga as a board member at some point?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-company-3f159042",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Industry",
+      "corrupted_element": "IndustryStandard",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'IndustryStandard' does not exist. Existing: Company, Country, Person, Industry"
+    },
+    "original_qid": "b21a1191-dc66-48e1-9a44-a3e3d7c95521",
+    "original_graph": "company",
+    "original_nl_question": "What are the names and launch years of companies involved in academic publishing?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:operatesIn]->(m0:Industry {name: 'academic publishing'}) WITH DISTINCT n RETURN n.name, n.launch_year",
+    "corrupted_nl_question": "What are the names and launch years of companies involved in developing the Bluetooth standard?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-company-ebeaaffa",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "place_of_birth",
+      "corrupted_element": "occupation",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'occupation' does not exist on 'Person'. Existing: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, gender"
+    },
+    "original_qid": "1c41eb5f-64cb-4aec-92dc-91fdd544a81f",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of individuals who founded Twinkl and were born in Huntingdon?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company {name: 'Twinkl'}) WITH DISTINCT n WHERE n.place_of_birth = 'Huntingdon' RETURN n.name",
+    "corrupted_nl_question": "What are the names of individuals who founded Twinkl and work as teachers?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-company-58d9fe14",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "basedIn",
+      "corrupted_element": "basedIn (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'basedIn' between Company and Country has no temporal properties. Properties: none"
+    },
+    "original_qid": "5cd76710-ab3b-4043-8c2a-7250b5120315",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of companies that are headquartered in Switzerland and were founded by Georges Favre-Jacot?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:basedIn]->(m0:Country {name: 'Switzerland'}),(n:Company)-[r1:foundedBy]->(m1:Person {name: 'Georges Favre-Jacot'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year did the companies founded by Georges Favre-Jacot establish their headquarters in Switzerland?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-company-3262d0f4",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'subsidiaryOf' between Company and Company has no temporal properties. Properties: none"
+    },
+    "original_qid": "6206308a-d233-42fe-93e7-ff4b66fab0dc",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of subsidiaries of SIE Worldwide Studios that had Andy Gavin as their CEO at some point?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'SIE Worldwide Studios'}),(n:Company)-[r1:hasCEO]->(m1:Person {name: 'Andy Gavin'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "In what year did the companies that had Andy Gavin as CEO become subsidiaries of SIE Worldwide Studios?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A1-company-fe2fab5e",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasCEO",
+      "corrupted_element": "leaders",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "e223a46d-65d5-41c8-a447-22393427358b",
+    "original_graph": "company",
+    "original_nl_question": "How many companies have had either Thierry Desmarest or Marcel Champin as their CEO at some point?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Thierry Desmarest'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:hasCEO]->(m1:Person {name: 'Marcel Champin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many companies have had either Thierry Desmarest or Marcel Champin as a leader at some point?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Thierry Desmarest'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:hasCEO]->(m1:Person {name: 'Marcel Champin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Company)-[r0:hasBoardMember]->(m0:Person {name: 'Thierry Desmarest'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:hasBoardMember]->(m1:Person {name: 'Marcel Champin'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-8eb07203",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "leadership",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember",
+        "foundedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "becaf6a1-ca37-4fa6-84a2-a7df4d49f8ed",
+    "original_graph": "company",
+    "original_nl_question": "Provide the names of all individuals who have served as board members for Goldman Sachs, along with the number of companies where each has held a board member position.",
+    "original_gold_cypher": "MATCH (n:Person)<-[r1:hasBoardMember]-(m1:Company {name: 'Goldman Sachs'}) OPTIONAL MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of all individuals who have served in a leadership role for Goldman Sachs, along with the number of companies where each has held that same role.",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r1:hasCEO]-(m1:Company {name: 'Goldman Sachs'}) OPTIONAL MATCH (n:Person)<-[r0:hasCEO]-(m0:Company) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Person)<-[r1:hasBoardMember]-(m1:Company {name: 'Goldman Sachs'}) OPTIONAL MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Person)<-[r1:foundedBy]-(m1:Company {name: 'Goldman Sachs'}) OPTIONAL MATCH (n:Person)<-[r0:foundedBy]-(m0:Company) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-669f2d3f",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasCEO",
+      "corrupted_element": "top management",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "b9844f8a-7631-4dcc-880a-a5b9324dd02b",
+    "original_graph": "company",
+    "original_nl_question": "How many companies are subsidiaries of a company that has had Ulrich Bez as CEO at some point?",
+    "original_gold_cypher": "MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company)-[r1:hasCEO]->(m1:Person {name: 'Ulrich Bez'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "How many companies are subsidiaries of a company that has had Ulrich Bez in a top leadership role at some point?",
+    "valid_cyphers": [
+      "MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company)-[r1:hasCEO]->(m1:Person {name: 'Ulrich Bez'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+      "MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company)-[r1:hasBoardMember]->(m1:Person {name: 'Ulrich Bez'}) WITH DISTINCT n RETURN count(DISTINCT n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-50b48552",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "foundedBy",
+      "corrupted_element": "person behind",
+      "candidate_interpretations": [
+        "hasCEO",
+        "foundedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "f62f09d8-7e16-4c01-a8a8-ebac7d043c24",
+    "original_graph": "company",
+    "original_nl_question": "What are the unique countries of citizenship of individuals who have both served as CEO and founded a company?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company),(n:Person)<-[r1:foundedBy]-(m0:Company) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop",
+    "corrupted_nl_question": "What are the unique countries of citizenship of the person behind a company?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company),(n:Person)<-[r1:hasCEO]-(m0:Company) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop",
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company),(n:Person)<-[r1:foundedBy]-(m0:Company) WITH DISTINCT n UNWIND n.country_of_citizenship AS prop RETURN DISTINCT prop"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-db828ec8",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasCEO",
+      "corrupted_element": "heads",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "2de41510-aef6-4d3c-a90d-febc402f60ff",
+    "original_graph": "company",
+    "original_nl_question": "Who are the CEOs, past or present, of companies headquartered in the Czech Republic?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:basedIn]->(m1:Country {name: 'Czech Republic'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "Who is a past or present director of a company headquartered in the Czech Republic?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:basedIn]->(m1:Country {name: 'Czech Republic'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company)-[r1:basedIn]->(m1:Country {name: 'Czech Republic'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-4e27bd5d",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "people behind",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember",
+        "foundedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d4c18c0d-8778-4ab2-8bdb-d6a121f8ef0e",
+    "original_graph": "company",
+    "original_nl_question": "Who are the individuals who have served as board members for companies in the petroleum extraction industry, and how many such companies has each individual been a board member of?",
+    "original_gold_cypher": "MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company)-[r1:operatesIn]->(m1:Industry {name: 'extraction of petroleum'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Who is the person behind each company in the petroleum extraction industry, and how many such companies is each person behind?",
+    "valid_cyphers": [
+      "MATCH (n:Person)<-[r0:hasCEO]-(m0:Company)-[r1:operatesIn]->(m1:Industry {name: 'extraction of petroleum'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Person)<-[r0:hasBoardMember]-(m0:Company)-[r1:operatesIn]->(m1:Industry {name: 'extraction of petroleum'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Person)<-[r0:foundedBy]-(m0:Company)-[r1:operatesIn]->(m1:Industry {name: 'extraction of petroleum'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-company-0a00063e",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasBoardMember",
+      "corrupted_element": "key figures",
+      "candidate_interpretations": [
+        "hasCEO",
+        "hasBoardMember",
+        "foundedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "37838f6b-fa4b-413c-995e-2704923428b4",
+    "original_graph": "company",
+    "original_nl_question": "Provide the names of companies operating in the chemical industry, along with the number of individuals who have served on their boards, either currently or in the past.",
+    "original_gold_cypher": "MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'chemical industry'}) OPTIONAL MATCH (n:Company)-[r0:hasBoardMember]->(m0:Person) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of companies operating in the chemical industry, along with the number of individuals who have served as a key figure for them, either currently or in the past.",
+    "valid_cyphers": [
+      "MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'chemical industry'}) OPTIONAL MATCH (n:Company)-[r0:hasCEO]->(m0:Person) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'chemical industry'}) OPTIONAL MATCH (n:Company)-[r0:hasBoardMember]->(m0:Person) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+      "MATCH (n:Company)-[r1:operatesIn]->(m1:Industry {name: 'chemical industry'}) OPTIONAL MATCH (n:Company)-[r0:foundedBy]->(m0:Person) WITH n, count(DISTINCT m0) AS num RETURN n.name, num"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-company-86235f2a",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (direction ambiguous)",
+      "candidate_interpretations": [
+        "subsidiaryOf (forward)",
+        "subsidiaryOf (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "37d8e851-2887-469e-99f9-b157f896c042",
+    "original_graph": "company",
+    "original_nl_question": "How many companies have either had Tidjane Thiam as CEO at some point or are subsidiaries of UBS?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Tidjane Thiam'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'UBS'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many companies have either had Tidjane Thiam as CEO at some point or have a subsidiary relationship with UBS?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Tidjane Thiam'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'UBS'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Company)<-[r0:hasCEO]-(m0:Person {name: 'Tidjane Thiam'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:subsidiaryOf]-(m1:Company {name: 'UBS'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-company-f4ea7b93",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (direction ambiguous)",
+      "candidate_interpretations": [
+        "subsidiaryOf (forward)",
+        "subsidiaryOf (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "ff3a6f58-d65f-4a2d-a396-46f6124910a3",
+    "original_graph": "company",
+    "original_nl_question": "What are the names of companies that are subsidiaries of Marvel Entertainment or have Marvel Music as a subsidiary?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'Marvel Entertainment'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:subsidiaryOf]-(m1:Company {name: 'Marvel Music'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of companies that have a subsidiary relationship with Marvel Entertainment or Marvel Music?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Company)-[r0:subsidiaryOf]->(m0:Company {name: 'Marvel Entertainment'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:subsidiaryOf]-(m1:Company {name: 'Marvel Music'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Company)<-[r0:subsidiaryOf]-(m0:Company {name: 'Marvel Entertainment'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Marvel Music'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A5-company-3808fed3",
+    "corruption": {
+      "corruption_type": "A5",
+      "corruption_category": "ambiguity",
+      "original_element": "subsidiaryOf",
+      "corrupted_element": "subsidiaryOf (direction ambiguous)",
+      "candidate_interpretations": [
+        "subsidiaryOf (forward)",
+        "subsidiaryOf (reverse)"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "787b92f5-b202-49e2-b3bf-cf457d556d08",
+    "original_graph": "company",
+    "original_nl_question": "How many companies have either had Stefan Hartung as CEO at some point or own Bosch (China) Investment?",
+    "original_gold_cypher": "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Stefan Hartung'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:subsidiaryOf]-(m1:Company {name: 'Bosch (China) Investment'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many companies have either had Stefan Hartung as CEO at some point or have a parent-subsidiary relationship with Bosch (China) Investment?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Company)-[r0:hasCEO]->(m0:Person {name: 'Stefan Hartung'}) RETURN n, m0 as m UNION MATCH (n:Company)<-[r1:subsidiaryOf]-(m1:Company {name: 'Bosch (China) Investment'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Company)<-[r0:hasCEO]-(m0:Person {name: 'Stefan Hartung'}) RETURN n, m0 as m UNION MATCH (n:Company)-[r1:subsidiaryOf]->(m1:Company {name: 'Bosch (China) Investment'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

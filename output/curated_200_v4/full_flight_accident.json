@@ -1,0 +1,496 @@
+[
+  {
+    "corruption_id": "A1-flight_accident-bdf99af9",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "destinedFor",
+      "corrupted_element": "route",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "916f5e4c-3cf6-4c00-aa24-5f3497f1ccc1",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names of airports that were the destination for flight accidents involving the Ford Trimotor?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident)-[r1:involves]->(m1:AircraftModel {name: 'Ford Trimotor'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the airport on the route for the flight accident involving the Ford Trimotor?",
+    "valid_cyphers": [
+      "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident)-[r1:involves]->(m1:AircraftModel {name: 'Ford Trimotor'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident)-[r1:involves]->(m1:AircraftModel {name: 'Ford Trimotor'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-flight_accident-e40fb1c5",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "departsFrom",
+      "corrupted_element": "route",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "62032476-9450-40a3-a93b-35153b58479d",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the name of the airport from which South African Airways Flight 201 departed?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident {name: 'South African Airways Flight 201'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the airport that handled South African Airways Flight 201?",
+    "valid_cyphers": [
+      "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident {name: 'South African Airways Flight 201'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident {name: 'South African Airways Flight 201'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-c270b0d7",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "service_entry",
+      "corrupted_element": "came out",
+      "candidate_interpretations": [
+        "first_flight",
+        "service_entry"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "3b544fc4-bb90-4859-afc8-914365f137fc",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and service entry dates of aircraft models involved in the Pegasus Airlines Flight 2193 accident?",
+    "original_gold_cypher": "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: 'Pegasus Airlines Flight 2193'}) WITH DISTINCT n RETURN n.name, n.service_entry",
+    "corrupted_nl_question": "What is the name of the aircraft model involved in the Pegasus Airlines Flight 2193 accident, and when did it come out?",
+    "valid_cyphers": [
+      "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: 'Pegasus Airlines Flight 2193'}) WITH DISTINCT n RETURN n.name, n.first_flight",
+      "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: 'Pegasus Airlines Flight 2193'}) WITH DISTINCT n RETURN n.name, n.service_entry"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-067e6821",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "icao_code",
+      "corrupted_element": "code",
+      "candidate_interpretations": [
+        "iata_code",
+        "icao_code"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "7b450f61-fad7-4ca7-b408-1a6ebdfc098a",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the ICAO code for Iwakuni Air Base?",
+    "original_gold_cypher": "MATCH (n:Airport {name: 'Iwakuni Air Base'}) WITH DISTINCT n RETURN n.icao_code",
+    "corrupted_nl_question": "What is the code for Iwakuni Air Base?",
+    "valid_cyphers": [
+      "MATCH (n:Airport {name: 'Iwakuni Air Base'}) WITH DISTINCT n RETURN n.iata_code",
+      "MATCH (n:Airport {name: 'Iwakuni Air Base'}) WITH DISTINCT n RETURN n.icao_code"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-65f10762",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "wingspan_metre",
+      "corrupted_element": "dimensions",
+      "candidate_interpretations": [
+        "wingspan_metre",
+        "length_metre"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d05655b0-454b-47e7-862f-5c6f362405f8",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and wingspans in meters of aircraft models produced by PZL Mielec?",
+    "original_gold_cypher": "MATCH (n:AircraftModel)-[r0:manufacturedBy]->(m0:AircraftManufacturer {name: 'PZL Mielec'}) WITH DISTINCT n RETURN n.name, n.wingspan_metre",
+    "corrupted_nl_question": "What is the name and dimension in meters of the aircraft model produced by PZL Mielec?",
+    "valid_cyphers": [
+      "MATCH (n:AircraftModel)-[r0:manufacturedBy]->(m0:AircraftManufacturer {name: 'PZL Mielec'}) WITH DISTINCT n RETURN n.name, n.wingspan_metre",
+      "MATCH (n:AircraftModel)-[r0:manufacturedBy]->(m0:AircraftManufacturer {name: 'PZL Mielec'}) WITH DISTINCT n RETURN n.name, n.length_metre"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-fd8d3ac3",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "length_metre",
+      "corrupted_element": "measurements",
+      "candidate_interpretations": [
+        "wingspan_metre",
+        "length_metre",
+        "height_metre"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "34556a91-40cb-42d8-a297-7f112afb6a8b",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the difference in length, in meters, between the Dash 7 and the Bell 206?",
+    "original_gold_cypher": "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN n.length_metre - m0.length_metre AS answer",
+    "corrupted_nl_question": "What is the difference in dimension, in meters, between the Dash 7 and the Bell 206?",
+    "valid_cyphers": [
+      "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN n.wingspan_metre - m0.wingspan_metre AS answer",
+      "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN n.length_metre - m0.length_metre AS answer",
+      "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN n.height_metre - m0.height_metre AS answer"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-b85224ab",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "length_metre",
+      "corrupted_element": "dimensions",
+      "candidate_interpretations": [
+        "wingspan_metre",
+        "length_metre"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "2c69cbfb-5586-4fea-9362-dfca8d2b3974",
+    "original_graph": "flight_accident",
+    "original_nl_question": "Which aircraft model is longer, the Dash 7 or the Bell 206?",
+    "original_gold_cypher": "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN CASE WHEN n.length_metre > m0.length_metre THEN n.name ELSE m0.name END AS answer",
+    "corrupted_nl_question": "Which aircraft model has a greater dimension, the Dash 7 or the Bell 206?",
+    "valid_cyphers": [
+      "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN CASE WHEN n.wingspan_metre > m0.wingspan_metre THEN n.name ELSE m0.name END AS answer",
+      "MATCH (n:AircraftModel {name: 'Dash 7'}), (m0:AircraftModel {name: 'Bell 206'}) RETURN CASE WHEN n.length_metre > m0.length_metre THEN n.name ELSE m0.name END AS answer"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-flight_accident-893da934",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "length_metre",
+      "corrupted_element": "size",
+      "candidate_interpretations": [
+        "wingspan_metre",
+        "length_metre"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "79a90866-e0fd-457c-9977-ec710fb6899e",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and lengths in meters of aircraft models involved in the 2015 Juba plane crash?",
+    "original_gold_cypher": "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: '2015 Juba plane crash'}) WITH DISTINCT n RETURN n.name, n.length_metre",
+    "corrupted_nl_question": "What is the name and size in meters of the aircraft model involved in the 2015 Juba plane crash?",
+    "valid_cyphers": [
+      "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: '2015 Juba plane crash'}) WITH DISTINCT n RETURN n.name, n.wingspan_metre",
+      "MATCH (n:AircraftModel)<-[r0:involves]-(m0:FlightAccident {name: '2015 Juba plane crash'}) WITH DISTINCT n RETURN n.name, n.length_metre"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-flight_accident-06f4c8c0",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "date",
+      "corrupted_element": "aircraft_registration",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'aircraft_registration' does not exist on entity type 'FlightAccident'. Existing: number_of_survivors, number_of_injuries, number_of_deaths, date, location, flight_number"
+    },
+    "original_qid": "c5f302f2-26cd-4733-a6f8-fe6fb410bc99",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and dates of aviation accidents involving Korean Air that were headed to Mactan–Cebu International Airport?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:operatedBy]->(m0:Operator {name: 'Korean Air'}),(n:FlightAccident)-[r1:destinedFor]->(m1:Airport {name: 'Mactan–Cebu International Airport'}) WITH DISTINCT n RETURN n.name, n.date",
+    "corrupted_nl_question": "What are the names and aircraft registrations of aviation accidents involving Korean Air that were headed to Mactan–Cebu International Airport?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-flight_accident-75268dcc",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "service_entry",
+      "corrupted_element": "max_takeoff_weight_kg",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'max_takeoff_weight_kg' does not exist on entity type 'AircraftModel'. Existing: first_flight, service_entry, range_km, wingspan_metre, length_metre, height_metre"
+    },
+    "original_qid": "69c6a32c-d7da-44b1-ba9f-ae0cf6590f18",
+    "original_graph": "flight_accident",
+    "original_nl_question": "Which aircraft entered service later, the Lockheed L-1011 TriStar or the Vought A-7 Corsair II?",
+    "original_gold_cypher": "MATCH (n:AircraftModel {name: 'Lockheed L-1011 TriStar'}), (m0:AircraftModel {name: 'Vought A-7 Corsair II'}) RETURN CASE WHEN n.service_entry > m0.service_entry THEN n.name ELSE m0.name END AS answer",
+    "corrupted_nl_question": "Which aircraft has a higher max takeoff weight in kg, the Lockheed L-1011 TriStar or the Vought A-7 Corsair II?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-flight_accident-1d078327",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "destinedFor",
+      "corrupted_element": "emergencyLandedAt",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'emergencyLandedAt' does not exist. Existing: operatedBy, involves, manufacturedBy, departsFrom, destinedFor"
+    },
+    "original_qid": "f15ff5e2-410d-4c32-b354-840affddc3ca",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and locations of airports that were the intended destinations of flight accidents?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident) WITH DISTINCT n RETURN n.name, n.location",
+    "corrupted_nl_question": "What are the names and locations of airports that were the emergency landing sites of flight accidents?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-flight_accident-1dc2ae44",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "manufacturedBy",
+      "corrupted_element": "supportedBy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'supportedBy' does not exist. Existing: operatedBy, involves, manufacturedBy, departsFrom, destinedFor"
+    },
+    "original_qid": "d05655b0-454b-47e7-862f-5c6f362405f8",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and wingspans in meters of aircraft models produced by PZL Mielec?",
+    "original_gold_cypher": "MATCH (n:AircraftModel)-[r0:manufacturedBy]->(m0:AircraftManufacturer {name: 'PZL Mielec'}) WITH DISTINCT n RETURN n.name, n.wingspan_metre",
+    "corrupted_nl_question": "What are the names and wingspans in meters of aircraft models supported by PZL Mielec?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U2-flight_accident-d915cd66",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "operatedBy",
+      "corrupted_element": "reportedBy",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'reportedBy' does not exist. Existing: operatedBy, involves, manufacturedBy, departsFrom, destinedFor"
+    },
+    "original_qid": "0548c291-bf76-4df1-b9ef-8ec933b067f9",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and flight numbers of aviation accidents involving the Bombardier CRJ100/200 and operated by Endeavor Air?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:involves]->(m0:AircraftModel {name: 'Bombardier CRJ100/200'}),(n:FlightAccident)-[r1:operatedBy]->(m1:Operator {name: 'Endeavor Air'}) WITH DISTINCT n RETURN n.name, n.flight_number",
+    "corrupted_nl_question": "What are the names and flight numbers of aviation accidents involving the Bombardier CRJ100/200 and reported by Endeavor Air?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-flight_accident-8d925712",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Airport",
+      "corrupted_element": "NavigationalAid",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'NavigationalAid' does not exist. Existing: FlightAccident, AircraftModel, Operator, Airport, AircraftManufacturer"
+    },
+    "original_qid": "9e39d828-775a-4b5a-9d81-6729fd59d7a3",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and dates of aviation accidents that departed from the same airport as Austral Líneas Aéreas Flight 046?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:departsFrom]->(m0:Airport)<-[r1:departsFrom]-(m1:FlightAccident {name: 'Austral Líneas Aéreas Flight 046'}) WITH DISTINCT n RETURN n.name, n.date",
+    "corrupted_nl_question": "What are the names and dates of aviation accidents that used the same navigational aid as Austral Líneas Aéreas Flight 046?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-flight_accident-b3745a33",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "AircraftModel",
+      "corrupted_element": "AircraftComponent",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'AircraftComponent' does not exist. Existing: FlightAccident, AircraftModel, Operator, Airport, AircraftManufacturer"
+    },
+    "original_qid": "45d72249-f82d-4f74-b7fe-c04d94496fc7",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the difference in wingspan, in meters, between the North American P-51 Mustang and the Boeing 737-500?",
+    "original_gold_cypher": "MATCH (n:AircraftModel {name: 'North American P-51 Mustang'}), (m0:AircraftModel {name: 'Boeing 737-500'}) RETURN n.wingspan_metre - m0.wingspan_metre AS answer",
+    "corrupted_nl_question": "What is the difference in length, in meters, between the Rolls-Royce Merlin engine and the General Electric GE90 engine?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-flight_accident-b594fc70",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "AircraftModel",
+      "corrupted_element": "EngineModel",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'EngineModel' does not exist. Existing: FlightAccident, AircraftModel, Operator, Airport, AircraftManufacturer"
+    },
+    "original_qid": "e1f0ed29-4284-47eb-8895-37bbdca8e0d6",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the difference in wingspan, in meters, between the Constellation and the Anson aircraft models?",
+    "original_gold_cypher": "MATCH (n:AircraftModel {name: 'Constellation'}), (m0:AircraftModel {name: 'Anson'}) RETURN n.wingspan_metre - m0.wingspan_metre AS answer",
+    "corrupted_nl_question": "What is the difference in thrust, in kilonewtons, between the GE90 and the Trent 800 engine models?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-flight_accident-737c90b9",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Operator",
+      "corrupted_element": "FlightCrew",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'FlightCrew' does not exist. Existing: FlightAccident, AircraftModel, Operator, Airport, AircraftManufacturer"
+    },
+    "original_qid": "6170926e-3f5e-4f07-ac53-0df9f2390ee5",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What is the lowest number of injuries in flight accidents operated by LOT Polish Airlines?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:operatedBy]->(m0:Operator {name: 'LOT Polish Airlines'}) WITH DISTINCT n RETURN min(n.number_of_injuries)",
+    "corrupted_nl_question": "What is the lowest number of injuries in flight accidents involving flight crew member Chesley Sullenberger?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U4-flight_accident-4025a8ad",
+    "corruption": {
+      "corruption_type": "U4",
+      "corruption_category": "unanswerability",
+      "original_element": "icao_code",
+      "corrupted_element": "number_of_runways",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'number_of_runways' does not exist on 'Airport'. Existing: iata_code, icao_code, location, country"
+    },
+    "original_qid": "eadf52cf-f7c1-4b3a-a17d-176f98ad249b",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names of airports that were destinations for flight accidents, excluding those with the ICAO code OMAA?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident) WITH DISTINCT n WHERE n.icao_code <> 'OMAA' RETURN n.name",
+    "corrupted_nl_question": "What are the names of airports that were destinations for flight accidents, excluding those with 2 runways?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "A1-flight_accident-255ffe3c",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "departsFrom",
+      "corrupted_element": "route",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "c79f6f7a-52ee-4d7b-b420-802c19a7c0e2",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and countries of airports from which a flight accident operated by Conviasa departed?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident)-[r1:operatedBy]->(m1:Operator {name: 'Conviasa'}) WITH DISTINCT n RETURN n.name, n.country",
+    "corrupted_nl_question": "What is the name and country of the airport on the route of the flight accident operated by Conviasa?",
+    "valid_cyphers": [
+      "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident)-[r1:operatedBy]->(m1:Operator {name: 'Conviasa'}) WITH DISTINCT n RETURN n.name, n.country",
+      "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident)-[r1:operatedBy]->(m1:Operator {name: 'Conviasa'}) WITH DISTINCT n RETURN n.name, n.country"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-flight_accident-d7484d34",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "destinedFor",
+      "corrupted_element": "flight path",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "23c6b9bd-a6c1-4c0d-a1c9-d45625b56f6e",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names of aviation accidents that were headed to Heathrow Airport, sorted by the number of injuries from highest to lowest?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:destinedFor]->(m0:Airport {name: 'Heathrow Airport'}) WITH DISTINCT n RETURN n.name ORDER BY n.number_of_injuries DESC",
+    "corrupted_nl_question": "What are the names of aviation accidents on the Heathrow Airport flight path, sorted by the number of injuries from highest to lowest?",
+    "valid_cyphers": [
+      "MATCH (n:FlightAccident)-[r0:departsFrom]->(m0:Airport {name: 'Heathrow Airport'}) WITH DISTINCT n RETURN n.name ORDER BY n.number_of_injuries DESC",
+      "MATCH (n:FlightAccident)-[r0:destinedFor]->(m0:Airport {name: 'Heathrow Airport'}) WITH DISTINCT n RETURN n.name ORDER BY n.number_of_injuries DESC"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-flight_accident-9ffbd552",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "departsFrom",
+      "corrupted_element": "endpoints",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "281f4568-2e58-4d3f-8dff-1ce04afbc0df",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names of airports from which either Sriwijaya Air Flight 182 or Adam Air Flight 574 departed?",
+    "original_gold_cypher": "CALL { MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident {name: 'Sriwijaya Air Flight 182'}) RETURN n, m0 as m UNION MATCH (n:Airport)<-[r1:departsFrom]-(m1:FlightAccident {name: 'Adam Air Flight 574'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the endpoint airport for either Sriwijaya Air Flight 182 or Adam Air Flight 574?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident {name: 'Sriwijaya Air Flight 182'}) RETURN n, m0 as m UNION MATCH (n:Airport)<-[r1:departsFrom]-(m1:FlightAccident {name: 'Adam Air Flight 574'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident {name: 'Sriwijaya Air Flight 182'}) RETURN n, m0 as m UNION MATCH (n:Airport)<-[r1:destinedFor]-(m1:FlightAccident {name: 'Adam Air Flight 574'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-flight_accident-fa6d8874",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "destinedFor",
+      "corrupted_element": "flying between",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "498e4613-6c00-4e1c-aad4-8ef3857a775e",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and countries of the airports that were the destination for Air Ontario Flight 1363?",
+    "original_gold_cypher": "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident {name: 'Air Ontario Flight 1363'}) WITH DISTINCT n RETURN n.name, n.country",
+    "corrupted_nl_question": "What is the name and country of the airport for Air Ontario Flight 1363?",
+    "valid_cyphers": [
+      "MATCH (n:Airport)<-[r0:departsFrom]-(m0:FlightAccident {name: 'Air Ontario Flight 1363'}) WITH DISTINCT n RETURN n.name, n.country",
+      "MATCH (n:Airport)<-[r0:destinedFor]-(m0:FlightAccident {name: 'Air Ontario Flight 1363'}) WITH DISTINCT n RETURN n.name, n.country"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-flight_accident-b817ad0c",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "destinedFor",
+      "corrupted_element": "itinerary",
+      "candidate_interpretations": [
+        "departsFrom",
+        "destinedFor"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "93ab6592-24f8-42b4-b91a-9ad3136dce9d",
+    "original_graph": "flight_accident",
+    "original_nl_question": "What are the names and dates of aviation accidents that were headed to the same airport as Iberia Airlines Flight 610?",
+    "original_gold_cypher": "MATCH (n:FlightAccident)-[r0:destinedFor]->(m0:Airport)<-[r1:destinedFor]-(m1:FlightAccident {name: 'Iberia Airlines Flight 610'}) WITH DISTINCT n RETURN n.name, n.date",
+    "corrupted_nl_question": "What are the names and dates of aviation accidents that shared the airport from the itinerary of Iberia Airlines Flight 610?",
+    "valid_cyphers": [
+      "MATCH (n:FlightAccident)-[r0:departsFrom]->(m0:Airport)<-[r1:departsFrom]-(m1:FlightAccident {name: 'Iberia Airlines Flight 610'}) WITH DISTINCT n RETURN n.name, n.date",
+      "MATCH (n:FlightAccident)-[r0:destinedFor]->(m0:Airport)<-[r1:destinedFor]-(m1:FlightAccident {name: 'Iberia Airlines Flight 610'}) WITH DISTINCT n RETURN n.name, n.date"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  }
+]

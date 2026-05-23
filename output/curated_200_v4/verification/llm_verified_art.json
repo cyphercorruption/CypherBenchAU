@@ -1,0 +1,318 @@
+[
+  {
+    "corruption_id": "A2-art-dea158fb",
+    "corruption_type": "A2",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The corrupted question asks for the 'year' of an art movement. \n2. Check against schema: The `ArtMovement` entity has two year-related properties: `start_year` and `end_year`. \n3. Exclusivity: Querying for `start_year` versus `end_year` will result in different database queries and return different integer values. \n4. Balance: Because art movements typically span a range of time rather than a single year, asking for 'the year' is inherently vague. It is equally plausible that a naive user might be thinking of when the movement began or when it ended. \n5. Naturalness: The question sounds like a natural, albeit slightly imprecise, query a real user might ask. \n6. Irresolvability: There are no context clues in the question to indicate whether the start year or end year is desired.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": [
+      "The corruption details claim the ambiguous element used is 'timeframe', but the actual corrupted question uses the word 'year'. However, the ambiguity still holds perfectly."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-67167023",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "The phrase \"work of art\" is a hypernym that encompasses both `Painting` and `Sculpture` in the schema. While the corruption claims this is ambiguous between Painting and Sculpture, the most natural and literal interpretation is that the user is asking for *any* work of art (i.e., a union of both Painting and Sculpture). Because this broad interpretation perfectly captures the user's request, it strongly dominates over the idea that the user secretly meant *only* paintings or *only* sculptures. A broad question is not the same as an ambiguous question; a single union query can unambiguously satisfy the request.",
+    "naturalness": 5,
+    "effectiveness": 2,
+    "issues": [
+      "The term 'work of art' is a hypernym, making the question broad rather than ambiguous.",
+      "The union of Painting and Sculpture is the clearly dominant interpretation, as it perfectly captures the literal meaning of the question."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-1d2f27a9",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "The corrupted question replaces \"sculpture\" with \"artwork\". While \"artwork\" could refer to either a Painting or a Sculpture in the schema, this does not create genuine ambiguity in the user's intent. \"Artwork\" is simply a hypernym. A correct Cypher query would not need to guess whether the user meant a painting or a sculpture; it would simply search for both labels simultaneously (e.g., `MATCH (a:Painting|Sculpture {name: 'Untitled V'})`). Because the question can be deterministically mapped to a single query that covers both possibilities, it does not force multiple exclusive interpretations.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The ambiguous term is a hypernym that can be resolved by querying the union of the entity types, rather than forcing exclusive interpretations."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-31200333",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "First, the ambiguous element is 'art piece'. The claimed interpretations are that it could mean 'Painting' or 'Sculpture'. However, 'art piece' is a standard hypernym for both paintings and sculptures. When a user asks for the earliest creation year of an 'art piece', they are almost certainly asking for the global minimum creation year across ALL art pieces (both paintings and sculptures) at the museum. They are not ambiguously asking for *either* paintings *or* sculptures exclusively. Because the union of both entity types is the single, overwhelmingly dominant interpretation, there is no genuine irresolvable ambiguity.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'art piece' is a hypernym that naturally includes both Painting and Sculpture. It does not create an exclusive ambiguity between the two; rather, it unambiguously refers to the union of both."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-6afc1df3",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "1. Identify the ambiguous element: 'work of art'.\n2. Check interpretations against schema: The schema contains 'Painting' and 'Sculpture', both of which can be associated with an ArtMovement and displayed at a Museum.\n3. Judge ambiguity: The claimed interpretations are that 'work of art' could mean exclusively 'Painting' or exclusively 'Sculpture'. However, 'work of art' is a hypernym. When a user asks for a 'work of art', they almost certainly mean *any* work of art (the union of both Painting and Sculpture). It is highly unnatural to assume they meant exclusively one or the other but chose to use a broader term. Therefore, the inclusive interpretation clearly dominates, and there is no genuine, irresolvable ambiguity between exclusive options.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'work of art' is a hypernym, not an ambiguous term. The overwhelmingly dominant interpretation is to include all types of artworks (both Painting and Sculpture)."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-2231ac79",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "1. Identify the ambiguous element: The word 'art' is used instead of 'sculptures'.\n2. Check interpretations against the schema: The schema contains 'Painting' and 'Sculpture' entities. Both can be created by a Person and associated with an ArtMovement.\n3. Judge ambiguity: 'Art' is a hypernym for both paintings and sculptures. If a user asks for 'art', they almost certainly mean *all* art (both paintings and sculptures). They are not using 'art' to exclusively mean 'paintings' or exclusively mean 'sculptures' in a way that forces the system to guess which single entity type they meant. The correct and unambiguous resolution is to query both entity types and return the union of the results. Therefore, this is not genuine ambiguity, but rather a general/broad category.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'art' is a hypernym that naturally encompasses both Painting and Sculpture. It is not genuinely ambiguous because a user asking for 'art' would expect results for both, rather than exclusively one or the other."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-236ecb30",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "1. Identify the ambiguous element: 'art pieces'. \n2. Check interpretations against the schema: The schema contains `Painting` and `Sculpture` entities, both of which can be linked to an `ArtMovement`. The claimed interpretations are that 'art pieces' could mean just `Painting` or just `Sculpture`. \n3. Judge ambiguity: 'Art pieces' is a broad term (a hypernym) that naturally encompasses both paintings and sculptures. If a user asks for 'art pieces', they almost certainly want a list of ALL art pieces (both paintings and sculptures). They would not use a broad term if they exclusively wanted only paintings or only sculptures. Therefore, the interpretation where 'art pieces' means the union of both entity types clearly dominates, making the question unambiguous.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'art pieces' is a hypernym that naturally includes both paintings and sculptures. It is not ambiguous; it simply requires querying both entity types."
+    ]
+  },
+  {
+    "corruption_id": "A3-art-2404f35f",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "fail",
+    "reasoning": "The ambiguous element is 'art'. The claimed interpretations are 'Painting' and 'Sculpture'. However, 'art' is a broad term (hypernym) that encompasses both paintings and sculptures. When a user asks for 'portrait art', they most likely mean all forms of portrait art (the union of both Painting and Sculpture). Interpreting 'art' to mean exclusively paintings or exclusively sculptures is a stretch. Therefore, the question is not genuinely ambiguous; it simply requires querying for both entity types.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'art' is a hypernym that naturally encompasses both 'Painting' and 'Sculpture'. It is not ambiguous between the two; rather, it means the union of both. A query for 'art' should simply include both entity types."
+    ]
+  },
+  {
+    "corruption_id": "U1-art-0c77a24f",
+    "corruption_type": "U1",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: The question asks for 'names' and 'origin cities' of 'art movements' associated with 'paintings' in a specific 'genre'.\n2. Check schema for the requested information: The 'ArtMovement' entity only has 'start_year' and 'end_year' properties. It does not have an 'origin_city' property.\n3. Check alternative paths: There is no indirect way to find the origin city of an art movement. While 'Person' has 'place_of_birth' and 'Painting' has 'country_of_origin', neither of these represents the origin city of the art movement itself.\n4. Plausibility: Asking for the origin city of an art movement is highly plausible in the art domain (e.g., Florence for the Renaissance, Paris for Impressionism).\n5. Naturalness: The question is grammatically correct and sounds like a natural query a user would make.\n6. Distinctness: 'origin_city' is clearly distinct from the existing properties 'start_year' and 'end_year'.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-art-7223a175",
+    "corruption_type": "U3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Map to schema: The question asks for 'art movements' (ArtMovement) associated with a 'sculpting technique' ('lost-wax casting' or 'assemblage'). \n2. Check paths: The schema contains entities for Sculpture, Painting, Genre, ArtMovement, Person, and Museum. There is no entity for 'SculptingTechnique', nor is there a 'technique' property on the Sculpture entity. \n3. Alternative paths: While one might try to map 'assemblage' to a 'Genre', 'lost-wax casting' is strictly a technique. Furthermore, the question explicitly asks for a 'sculpting technique', which has no equivalent in the schema. Even if mapped to Genre, there is no direct relationship between Genre and ArtMovement, only an indirect one through Sculpture/Painting, which doesn't perfectly align with the concept of a technique.\n4. Plausibility & Distinctness: Sculpting techniques are highly relevant to the art domain and distinct from the physical 'Sculpture' objects or their 'Genre'.\n5. Conclusion: The question is genuinely unanswerable due to the missing entity/property for techniques.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-art-1460ebe1",
+    "corruption_type": "U4",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter paintings by their 'canvas orientation' (specifically 'landscape'). Looking at the schema, the 'Painting' entity only has 'country_of_origin' and 'creation_year' properties. There are no relationships or other entities (like dimensions or format) that could provide information about the orientation of the canvas. The fake property is highly plausible for the art domain, distinct from all existing schema elements, and makes the question completely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-art-8413e4bf",
+    "corruption_type": "U4",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks to filter paintings by their medium ('painted in oil on canvas'). Looking at the schema, the `Painting` entity only has `country_of_origin` and `creation_year` properties. There is no `Medium` entity, nor any property on any entity that captures the materials or medium used for the artwork. While `Genre` exists, 'oil on canvas' is a medium, not a genre, and the question already explicitly filters by the genres 'landscape art' and 'marine art'. Therefore, there is no alternative path to derive the medium, making the question genuinely unanswerable. The fake element is highly plausible for the art domain and the question reads perfectly naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-art-88fd3c84",
+    "corruption_type": "U4",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The question asks to filter paintings by their 'dominant color'. Looking at the schema, the `Painting` entity only has `country_of_origin` and `creation_year` properties. There are no properties, entities, or relationships in the schema that capture the color or visual characteristics of a painting. Therefore, it is impossible to answer the question using the provided schema. The fake property 'dominant color' is highly plausible for the art domain and completely distinct from existing properties.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-art-81f6fed2",
+    "corruption_type": "U4",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The corrupted question asks for 'well-preserved sculptures', which implies a filter based on the condition or preservation status of the sculpture. Looking at the schema, the 'Sculpture' entity only has 'country_of_origin' and 'creation_year' as properties. There are no properties or relationships in the schema that capture the physical condition, preservation status, or quality of the artwork. Therefore, there is no way to filter for 'well-preserved' sculptures. The fake element is highly plausible in the art domain, distinct from existing properties, and the question reads naturally.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-art-d132606a",
+    "corruption_type": "U4",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Map to schema: 'sculptures' maps to the Sculpture entity. 'Impressionism art movement' maps to the ArtMovement entity. 'linked to' maps to the :associatedWith relationship. 'created using the bronze casting technique' requires a property like 'technique' or 'medium' on the Sculpture entity, or a relationship to a Technique/Material entity.\n2. Check alternative paths: The schema contains 'Genre', but genre refers to artistic categories (e.g., portrait, landscape, abstract), not the physical material or technique used to create the art. There are no properties on Sculpture for material or technique (only country_of_origin and creation_year). Thus, there is no way to filter sculptures by bronze casting.\n3. Plausibility: Asking about the material or technique of a sculpture (e.g., bronze, marble, wood) is highly plausible and common in the art domain.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user would ask an art database.\n5. Distinctness: The concept of a sculpting technique is clearly distinct from all existing schema elements.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-art-f653ca80",
+    "corruption_type": "U5",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The question asks for the specific years during which certain artworks (a sculpture and a painting) were displayed at museums. Looking at the schema, the relationship `displayedAt` connects `Painting` and `Sculpture` to `Museum`, but it has no properties. There are no temporal properties related to exhibitions or displays on the `Museum`, `Painting`, or `Sculpture` entities either (only `creation_year` for the artworks, which is distinct from display years). Thus, there is no alternative path to derive this information. The question is highly plausible in the art domain (referring to exhibition dates) and sounds perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-art-2816534f",
+    "corruption_type": "U5",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The question asks for the specific time or date when sculptures were categorized under the 'nude' genre. To answer this, the schema would need a temporal property (like 'categorization_date' or 'year') on the `hasGenre` relationship, or a separate event entity representing the categorization. The schema only contains a simple `hasGenre` relationship with no properties. Other temporal properties in the schema, such as `creation_year` on `Sculpture` or `start_year` on `ArtMovement`, represent different concepts and cannot be used to answer when the categorization occurred. Therefore, the question is genuinely unanswerable. It is also a plausible and naturally phrased question in the context of art history.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A3-art-b2861473",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: 'works of art'.\n2. Check interpretations against schema: The schema has `Painting` and `Sculpture` entities. Both can be displayed at a museum and have a creation year.\n3. Judge confusion: If a user asks for 'works of art', they are asking for the superclass of both `Painting` and `Sculpture`. The natural interpretation is to return *both* paintings and sculptures (e.g., using a UNION or matching both labels). It is highly unlikely that a user asking for 'works of art' secretly means *only* paintings or *only* sculptures. Therefore, there is no genuine ambiguity between exclusive interpretations; there is only one clear interpretation, which is the inclusive one (both).",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'works of art' is a hypernym that naturally includes both paintings and sculptures. It does not create genuine ambiguity between the two, as the clear and dominant interpretation is to return both."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-063521cb",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The ambiguous element is 'masterpieces'. In the schema, there are 'Painting' and 'Sculpture' entities, both of which can be created by a Person and displayed at a Museum. However, 'masterpiece' is a broad term (a hypernym) that encompasses both paintings and sculptures. A user asking about 'masterpieces' is almost certainly referring to all artworks (the union of paintings and sculptures) rather than exclusively meaning 'only paintings' or 'only sculptures'. Because the inclusive interpretation clearly dominates, this is not a genuine ambiguity where the system must choose between mutually exclusive entity types.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The corrupted term 'masterpieces' is a hypernym, not an ambiguous term with mutually exclusive interpretations."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-2176fa9d",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'artwork'.\n2. Check interpretations against the schema: The schema contains 'Painting' and 'Sculpture' entities, both of which can be associated with an ArtMovement and displayed at a Museum. The claimed interpretations are that 'artwork' could mean exclusively 'Painting' or exclusively 'Sculpture'.\n3. Judge ambiguity: In natural language, 'artwork' is a hypernym that encompasses both paintings and sculptures. A user asking for 'artwork' is almost certainly asking for *all* types of artwork combined, rather than secretly meaning 'only paintings' or 'only sculptures'. Therefore, this question does not have multiple exclusive interpretations; it has one clear, broader interpretation (the union of Painting and Sculpture). It fails the exclusivity test.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'artwork' is a hypernym, not an ambiguous term. It clearly refers to the union of all art types (Painting and Sculpture) rather than being ambiguous between them."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-f8dec839",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "First, the ambiguous element is 'art piece', which could theoretically refer to the 'Painting' entity, the 'Sculpture' entity, or both. \n\nHowever, this question fails the ambiguity test for two main reasons. \n1. Contextual Resolution: The question explicitly mentions the 'Italian Renaissance painting movement'. This strong context clue heavily biases the interpretation of 'art piece' towards 'Painting'. It is highly unlikely a user would ask exclusively for sculptures while referencing a painting movement. \n2. Hypernymy vs. Ambiguity: 'Art piece' is a hypernym that naturally encompasses both paintings and sculptures. In a database context, asking for a hypernym usually means the user wants a union of all relevant subtypes (both Painting and Sculpture), rather than ambiguously meaning one or the other. \n\nBecause the context strongly resolves the intended entity type, and the literal meaning implies a union rather than an exclusive choice, this is not genuinely ambiguous.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "Contextual clue ('painting movement') strongly biases the interpretation towards Painting.",
+      "'Art piece' is a hypernym, so the most natural interpretation is a union of both Painting and Sculpture, rather than an ambiguous choice between the two.",
+      "The question asks for 'the name' (singular) instead of 'the names' (plural), which is slightly awkward for a query expected to return multiple results."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-8c660399",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "First, I read the corrupted question, which asks for 'a work of art'. Looking at the schema, the database contains 'Painting' and 'Sculpture' entities, both of which can be displayed at a museum and have a genre. The claimed ambiguity is that 'work of art' could mean either Painting or Sculpture. However, 'work of art' is a hypernym that encompasses both. If a user asks for works of art, they are almost certainly asking for *any* artwork (the union of both Painting and Sculpture), rather than secretly meaning *only* paintings or *only* sculptures. Because the union of both is the clear, dominant interpretation, this is not a genuine ambiguity but rather a request for a broader category that can be resolved by querying both labels.",
+    "naturalness": 3,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'work of art' is a hypernym, not an ambiguous term. The clear and dominant interpretation is to query for both Paintings and Sculptures (a union), rather than having to choose exclusively between them.",
+      "The use of singular 'a work of art' when expecting a list of results is slightly unnatural."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-cc2263db",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'artworks'. \n2. Schema check: The schema contains `Painting` and `Sculpture` entities, both of which can have genres and be displayed at museums. \n3. Judgment: While 'artworks' could theoretically refer to just paintings or just sculptures, common sense strongly dictates that a user asking for 'artworks' wants *all* artworks (both paintings and sculptures combined). It is highly unnatural to use the broad word 'artworks' when specifically and exclusively asking for only sculptures or only paintings. Thus, the interpretation of 'both' overwhelmingly dominates, meaning the question is just broader, not genuinely ambiguous.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'artworks' is a hypernym, not an ambiguous term. It clearly refers to the union of Paintings and Sculptures rather than being ambiguous between the two."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-7a5352ff",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase \"art piece\" is used instead of \"painting\".\n2. Check interpretations against schema: In the schema, artworks are divided into `Painting` and `Sculpture` entity types. Both have a `createdBy` relationship to `Person`.\n3. Judge exclusivity and irresolvability: While \"art piece\" could technically refer to a painting or a sculpture, this does not create exclusive, competing interpretations of the user's intent. The user is simply using a broader term (a hypernym) because they either don't know or don't care whether \"Jeunesse\" is a painting or a sculpture. A correct database query would not be forced to choose between the two; it would simply search for an entity named \"Jeunesse\" that is EITHER a `Painting` OR a `Sculpture` (e.g., `MATCH (a)-[:createdBy]->(p:Person) WHERE (a:Painting OR a:Sculpture) AND a.name = 'Jeunesse'`). \n4. Conclusion: Since a single query can perfectly satisfy the user's clear intent without needing to guess which specific entity type they meant, the question is not genuinely ambiguous.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The ambiguous term is a hypernym that can be resolved by querying multiple labels (OR condition) rather than forcing a choice between exclusive interpretations."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-c9f5ec90",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'artwork' is used instead of 'sculptures'.\n2. Check interpretations against schema: The schema contains 'Painting' and 'Sculpture' entities, both of which can be linked to ArtMovements and Genres. The claimed interpretations are that 'artwork' could mean exclusively Painting or exclusively Sculpture.\n3. Judge ambiguity: When a user uses a broad term like 'artwork', they typically mean *any* artwork (the union of paintings and sculptures). It is highly unnatural to use the word 'artwork' if one specifically and exclusively means 'painting' or 'sculpture'. Because the union interpretation completely dominates, the question does not genuinely admit multiple exclusive interpretations.",
+    "naturalness": 4,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'artwork' is a hypernym that encompasses both Painting and Sculpture. A user asking about 'an artwork' almost certainly means the union of both, rather than exclusively meaning 'Painting' or exclusively meaning 'Sculpture'. Therefore, there are no multiple exclusive interpretations."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  },
+  {
+    "corruption_id": "A3-art-8ff24520",
+    "corruption_type": "A3",
+    "graph": "art",
+    "verdict": "pass",
+    "reasoning": "The ambiguous element is 'artworks'. The claimed interpretations are 'Painting' and 'Sculpture'. However, 'artwork' is a hypernym that encompasses both paintings and sculptures. A natural reading of the question does not force an exclusive choice between querying ONLY paintings or ONLY sculptures. Instead, common sense dictates that 'artworks' refers to the union of all artwork types available in the schema (both Paintings and Sculptures). Because the inclusive interpretation (the union of both) clearly dominates and resolves the supposed ambiguity, the question is not genuinely ambiguous.",
+    "naturalness": 5,
+    "effectiveness": 1,
+    "issues": [
+      "The term 'artworks' is a hypernym, meaning the natural interpretation is to query both Paintings and Sculptures, rather than it being an ambiguous choice between the two."
+    ],
+    "_original_verdict": "fail",
+    "_relaxed_reason": "hypernym/union"
+  }
+]

@@ -1,0 +1,242 @@
+[
+  {
+    "corruption_id": "A1-politics-02f3de4a",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasHeadOfGovernment",
+      "corrupted_element": "leads",
+      "candidate_interpretations": [
+        "hasHeadOfState",
+        "hasHeadOfGovernment"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "4d8e20df-1022-4715-ad92-539fce04e269",
+    "original_graph": "politics",
+    "original_nl_question": "Provide the names of politicians who have been heads of government for any country, along with the schools they attended.",
+    "original_gold_cypher": "MATCH (n:Politician)<-[r0:hasHeadOfGovernment]-(m0:Country) WITH DISTINCT n RETURN n.name, n.schools_attended",
+    "corrupted_nl_question": "Provide the names of politicians who have been the leader of any country, along with the schools they attended.",
+    "valid_cyphers": [
+      "MATCH (n:Politician)<-[r0:hasHeadOfState]-(m0:Country) WITH DISTINCT n RETURN n.name, n.schools_attended",
+      "MATCH (n:Politician)<-[r0:hasHeadOfGovernment]-(m0:Country) WITH DISTINCT n RETURN n.name, n.schools_attended"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-politics-dde479da",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasHeadOfGovernment",
+      "corrupted_element": "runs",
+      "candidate_interpretations": [
+        "hasHeadOfState",
+        "hasHeadOfGovernment"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "f122bc75-dd26-4d3c-aeb7-f3a0eb60e9b3",
+    "original_graph": "politics",
+    "original_nl_question": "How many politicians are either members of the United People's Party or have served as the head of government in Poland at some point?",
+    "original_gold_cypher": "CALL { MATCH (n:Politician)-[r0:memberOf]->(m0:PoliticalParty {name: 'United People\\'s Party'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfGovernment]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "How many politicians are either members of the United People's Party or have been the leader of Poland at some point?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Politician)-[r0:memberOf]->(m0:PoliticalParty {name: 'United People\\'s Party'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfState]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+      "CALL { MATCH (n:Politician)-[r0:memberOf]->(m0:PoliticalParty {name: 'United People\\'s Party'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfGovernment]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-politics-ca06d26e",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasHeadOfState",
+      "corrupted_element": "runs",
+      "candidate_interpretations": [
+        "hasHeadOfState",
+        "hasHeadOfGovernment"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "d96303ef-ddb7-446a-ad56-c0f572373d6f",
+    "original_graph": "politics",
+    "original_nl_question": "What are the names of all the current and former head of states, listed from the oldest to the youngest.",
+    "original_gold_cypher": "MATCH (n:Politician)<-[r0:hasHeadOfState]-(m0:Country) WITH DISTINCT n RETURN n.name ORDER BY n.date_of_birth ASC",
+    "corrupted_nl_question": "What are the names of every current and former leader, listed from the oldest to the youngest?",
+    "valid_cyphers": [
+      "MATCH (n:Politician)<-[r0:hasHeadOfState]-(m0:Country) WITH DISTINCT n RETURN n.name ORDER BY n.date_of_birth ASC",
+      "MATCH (n:Politician)<-[r0:hasHeadOfGovernment]-(m0:Country) WITH DISTINCT n RETURN n.name ORDER BY n.date_of_birth ASC"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-politics-cf0468fa",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "hasHeadOfState",
+      "corrupted_element": "leads",
+      "candidate_interpretations": [
+        "hasHeadOfState",
+        "hasHeadOfGovernment"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "017b69dd-a6a5-48ee-8c98-b530a1eae38c",
+    "original_graph": "politics",
+    "original_nl_question": "Who are the politicians who have either led the Law and Justice party or served as the head of state of Poland at any time?",
+    "original_gold_cypher": "CALL { MATCH (n:Politician)<-[r0:headedBy]-(m0:PoliticalParty {name: 'Law and Justice'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfState]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "Which politician has either led the Law and Justice party or served as the leader of Poland?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Politician)<-[r0:headedBy]-(m0:PoliticalParty {name: 'Law and Justice'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfState]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Politician)<-[r0:headedBy]-(m0:PoliticalParty {name: 'Law and Justice'}) RETURN n, m0 as m UNION MATCH (n:Politician)<-[r1:hasHeadOfGovernment]-(m1:Country {name: 'Poland'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U2-politics-ca3d46bc",
+    "corruption": {
+      "corruption_type": "U2",
+      "corruption_category": "unanswerability",
+      "original_element": "headedBy",
+      "corrupted_element": "hasNominee",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasNominee' does not exist. Existing: hasHeadOfState, hasHeadOfGovernment, headedBy, holdsPosition, leads, belongsTo, memberOf, foundedBy, operatesIn, hasDiplomaticRelationWith, memberOf"
+    },
+    "original_qid": "bc7e9ebf-80d5-47d3-a73f-c81631cbf78e",
+    "original_graph": "politics",
+    "original_nl_question": "What are the names of politicians who have led both The Republicans and Rally for the Republic at some point?",
+    "original_gold_cypher": "MATCH (n:Politician)<-[r0:headedBy]-(m0:PoliticalParty {name: 'The Republicans'}),(n:Politician)<-[r1:headedBy]-(m1:PoliticalParty {name: 'Rally for the Republic'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of politicians who have been nominated by both The Republicans and Rally for the Republic at some point?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-politics-fce0231c",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Country",
+      "corrupted_element": "DiplomaticTreaty",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'DiplomaticTreaty' does not exist. Existing: Politician, Country, PoliticalParty, InternationalOrganization, GovernmentOrganization, Position"
+    },
+    "original_qid": "37b32b17-8f83-4011-88f5-c071faa8ad3a",
+    "original_graph": "politics",
+    "original_nl_question": "Who are the current heads of government in Sudan?",
+    "original_gold_cypher": "MATCH (n:Politician)<-[r0:hasHeadOfGovernment]-(m0:Country {name: 'Sudan'}) WHERE r0.start_year IS NOT NULL AND r0.end_year IS NULL WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "Who are the current signatories of the Paris Agreement?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-politics-9cc90b04",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Country",
+      "corrupted_element": "InternationalTreaty",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'InternationalTreaty' does not exist. Existing: Politician, Country, PoliticalParty, InternationalOrganization, GovernmentOrganization, Position"
+    },
+    "original_qid": "33ea52f1-9a48-4cc8-a996-3a042d37e3ab",
+    "original_graph": "politics",
+    "original_nl_question": "What is the name of the European Union country where the Workers Party of Socialist Unity is active?",
+    "original_gold_cypher": "MATCH (n:Country)-[r0:memberOf]->(m0:InternationalOrganization {name: 'European Union'}),(n:Country)<-[r1:operatesIn]-(m1:PoliticalParty {name: 'Workers Party of Socialist Unity'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the international treaty that the Workers Party of Socialist Unity is actively opposing?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U3-politics-5917bcc5",
+    "corruption": {
+      "corruption_type": "U3",
+      "corruption_category": "unanswerability",
+      "original_element": "Position",
+      "corrupted_element": "ElectoralDistrict",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Entity type 'ElectoralDistrict' does not exist. Existing: Politician, Country, PoliticalParty, InternationalOrganization, GovernmentOrganization, Position"
+    },
+    "original_qid": "8c8e2b86-ca5d-45dd-aa86-2d32949babe1",
+    "original_graph": "politics",
+    "original_nl_question": "What are the names of government organizations that the United States Ambassador to the United Nations leads?",
+    "original_gold_cypher": "MATCH (n:GovernmentOrganization)<-[r0:leads]-(m0:Position {name: 'United States Ambassador to the United Nations'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What are the names of government organizations that govern New York's 14th congressional district?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-politics-55eaf808",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "memberOf",
+      "corrupted_element": "memberOf (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'memberOf' between Country and InternationalOrganization has no temporal properties. Properties: none"
+    },
+    "original_qid": "be4548fc-9701-4dbd-a1df-b7e08d30f49a",
+    "original_graph": "politics",
+    "original_nl_question": "How many international organizations have either The Bahamas or Mauritius as members?",
+    "original_gold_cypher": "CALL { MATCH (n:InternationalOrganization)<-[r0:memberOf]-(m0:Country {name: 'The Bahamas'}) RETURN n, m0 as m UNION MATCH (n:InternationalOrganization)<-[r1:memberOf]-(m1:Country {name: 'Mauritius'}) RETURN n, m1 as m } WITH DISTINCT n RETURN count(n)",
+    "corrupted_nl_question": "When did either The Bahamas or Mauritius become members of the international organizations they belong to?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-politics-8a73e39a",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "operatesIn",
+      "corrupted_element": "operatesIn (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'operatesIn' between PoliticalParty and Country has no temporal properties. Properties: none"
+    },
+    "original_qid": "8a2014c7-9dae-4b5a-a3c8-cd2144882406",
+    "original_graph": "politics",
+    "original_nl_question": "What are the names of countries that have diplomatic relations with Cyprus, and how many political parties operate in each of them?",
+    "original_gold_cypher": "MATCH (n:Country)-[r1:hasDiplomaticRelationWith]->(m1:Country {name: 'Cyprus'}) OPTIONAL MATCH (n:Country)<-[r0:operatesIn]-(m0:PoliticalParty) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "What are the names of countries that have diplomatic relations with Cyprus, and in what year did each political party start operating in those countries?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-politics-328a74a4",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "belongsTo",
+      "corrupted_element": "belongsTo (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'belongsTo' between GovernmentOrganization and Country has no temporal properties. Properties: none"
+    },
+    "original_qid": "1698e773-e015-444f-9c96-3cd6e6fb7511",
+    "original_graph": "politics",
+    "original_nl_question": "Provide the names of all countries that have diplomatic relations with Zambia, along with the number of government organizations associated with each.",
+    "original_gold_cypher": "MATCH (n:Country)-[r1:hasDiplomaticRelationWith]->(m1:Country {name: 'Zambia'}) OPTIONAL MATCH (n:Country)<-[r0:belongsTo]-(m0:GovernmentOrganization) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Provide the names of all countries that have diplomatic relations with Zambia, along with the number of government organizations that belonged to each country in the year 2010.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-politics-522df826",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "hasDiplomaticRelationWith",
+      "corrupted_element": "hasDiplomaticRelationWith (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'hasDiplomaticRelationWith' between Country and Country has no temporal properties. Properties: none"
+    },
+    "original_qid": "c439d1cf-943e-4d7a-9cf5-54ba21cfe625",
+    "original_graph": "politics",
+    "original_nl_question": "Identify the countries that have diplomatic relations with countries that have V. V. Giri as a head of state, and specify how many such countries does each have diplomatic ties with.",
+    "original_gold_cypher": "MATCH (n:Country)-[r0:hasDiplomaticRelationWith]->(m0:Country)-[r1:hasHeadOfState]->(m1:Politician {name: 'V. V. Giri'}) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "Identify the countries that have diplomatic relations with nations that have V. V. Giri as a head of state, and specify the exact year those diplomatic ties were established, as well as how many such countries each has ties with.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  }
+]

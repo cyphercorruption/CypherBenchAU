@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.env
+local.env
+*.egg-info/
+dist/
+build/
+.venv/
+.DS_Store
+**/.DS_Store
+
+# CypherBench data (downloaded separately via git-lfs)
+benchmark/
+
+# Generated outputs — only the curated dataset and the cache tarball are tracked
+output/*
+!output/curated_200_v4/
+!output/query_cache.tar.gz
+
+# Raw query cache is gitignored — it ships as the tarball above and is
+# extracted on demand. Single .jsonl files in here can exceed GitHub's 100 MB limit.
+output/query_cache/

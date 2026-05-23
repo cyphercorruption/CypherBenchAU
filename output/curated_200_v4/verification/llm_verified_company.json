@@ -1,0 +1,276 @@
+[
+  {
+    "corruption_id": "A1-company-3800ecbc",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'held a top leadership position in it' is the source of ambiguity.\n2. Schema check: The schema contains two relationships that represent top leadership roles between a Company and a Person: `hasCEO` and `hasBoardMember`.\n3. Exclusivity: Querying for CEOs versus Board Members will result in different Cypher queries and yield different sets of individuals.\n4. Balance: Both 'CEO' and 'Board Member' are highly plausible and equally valid interpretations of 'top leadership position'. Neither interpretation dominates the other.\n5. Naturalness: The question reads naturally and sounds like a realistic user query.\n6. Irresolvability: There is no additional context in the question to help deduce whether the user specifically meant the CEO or a board member. The ambiguity is genuine and irresolvable without asking the user for clarification.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A2-company-074989ed",
+    "corruption_type": "A2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase \"country of origin\" referring to the CEO.\n2. Schema check: The `Person` entity has the properties `place_of_birth` (str) and `country_of_citizenship` (list[str]). \n3. Exclusivity: Querying for `place_of_birth` versus `country_of_citizenship` requires accessing different properties and will return different data (e.g., a specific birthplace string vs. a list of citizenships).\n4. Balance: \"Country of origin\" is a common phrase that is frequently used to mean either the country where a person was born or the country of their nationality/citizenship. Both interpretations are equally plausible.\n5. Naturalness: The question flows perfectly and sounds like a natural query a user would make.\n6. Irresolvability: There is no additional context in the question to indicate whether the user specifically wants the CEO's birthplace or their citizenship. The ambiguity is genuine and irresolvable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-company-4efdabd5",
+    "corruption_type": "A5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'in a subsidiary relationship' does not specify the direction of the relationship. \n2. Interpretations against schema: In the schema, the relationship is `(Company)-[:subsidiaryOf]->(Company)`. The question could be asking for companies that are subsidiaries (the source node of the relationship), companies that are parent companies (the target node of the relationship), or any company involved in such a relationship regardless of role. \n3. Exclusivity: The set of parent companies is distinct from the set of subsidiary companies, so querying for the minimum launch year of each group would yield different results. \n4. Balance: The phrasing is perfectly symmetric and does not favor the parent or the child role. \n5. Naturalness: 'In a subsidiary relationship' is a plausible, albeit slightly formal, way a user might phrase a business query. \n6. Irresolvability: There are no context clues in the question to determine which side of the relationship the user is interested in.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-company-9a840b77",
+    "corruption_type": "A5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'in a subsidiary relationship with Adidas AG' obscures the direction of the relationship.\n2. Check interpretations against schema: The schema has a directed relationship `(Company)-[:subsidiaryOf]->(Company)`. The phrase could mean `(c)-[:subsidiaryOf]->(Adidas)` or `(Adidas)-[:subsidiaryOf]->(c)`. Both are valid since both source and target are Companies.\n3. Exclusivity: The two queries would return different sets of companies (Adidas's subsidiaries vs. Adidas's parent companies).\n4. Balance: The phrase 'in a relationship with' is perfectly symmetric, making both directions equally plausible.\n5. Naturalness: 'In a subsidiary relationship with' is slightly formal or legalistic, but perfectly acceptable in a business context.\n6. Irresolvability: There is no context in the question to determine whether the user is looking for parent companies or child companies.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-company-61804a96",
+    "corruption_type": "U1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'eye color' of CEOs (Persons). Looking at the schema, the Person entity only has properties: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, and gender. There is no property for eye color, nor is there any relationship or alternative path to derive a person's eye color. The fake property is distinct from all existing properties and is a plausible attribute for a person, making the question genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-company-dc566282",
+    "corruption_type": "U1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: 'companies involved in academic publishing' maps to (Company)-[:operatesIn]->(Industry {name: 'academic publishing'}). 'names' maps to Company.name. 'annual revenues' maps to a hypothetical Company.annual_revenue property.\n2. Check alternative paths: The schema contains no financial properties for companies (only launch_year). There is no way to derive or infer annual revenue from the existing entities and relationships.\n3. Plausibility: 'annual revenue' is a highly plausible and common attribute for a company.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user would make.\n5. Distinctness: 'annual revenue' is completely distinct from the existing 'launch_year' property.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U1-company-f0bc8eed",
+    "corruption_type": "U1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for the 'eye colors' of individuals. Looking at the schema, the 'Person' entity has properties: date_of_birth, date_of_death, place_of_birth, country_of_citizenship, and gender. There is no 'eye_color' property, nor is there any relationship or other entity that could provide this information. It is impossible to derive eye color from the existing properties. The fake property is plausible for a person entity and the question is grammatically natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-company-9b3ed9d7",
+    "corruption_type": "U2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Schema gap: The question asks for companies that 'pioneered' an industry. The schema only contains the 'operatesIn' relationship between Company and Industry, which does not indicate who pioneered it.\n2. No alternative path: While one might attempt to use the company's 'launch_year' combined with 'operatesIn' to find the oldest companies in the industry, this is not a valid way to determine who pioneered it. A company could have a very early launch year but only recently pivoted into academic publishing, because the 'operatesIn' relationship lacks a 'start_year' property. Thus, the information is genuinely missing.\n3. Plausibility: 'pioneered' is a highly plausible and realistic concept in the business domain.\n4. Naturalness: The question is grammatically correct and sounds like a natural query a user might ask.\n5. Distinctness: 'pioneered' is clearly distinct from 'operatesIn', as operating in an industry does not imply being its pioneer.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-company-017d2627",
+    "corruption_type": "U2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for individuals who have served as 'brand ambassadors' for a company. Looking at the schema, the relationships between Company and Person are 'hasCEO', 'hasBoardMember', and 'foundedBy'. There is no relationship or property that captures 'brand ambassador' status. 'Brand ambassador' is a distinct role from CEO, board member, or founder, so it cannot be inferred or answered using alternative paths. The fake element is highly plausible in the corporate domain and the question is perfectly natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-company-289ee8e3",
+    "corruption_type": "U2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: The question asks for individuals who founded companies ((Company)-[:foundedBy]->(Person)) and requires filtering those companies by whether they 'export to' France. \n2. Check alternative paths: The schema contains relationships for where a company is located (`basedIn` -> Country) and what industry it is in (`operatesIn` -> Industry). There is no property or relationship that captures trade, export destinations, or international sales. \n3. Plausibility: 'exports to' is a highly plausible and common business relationship between a company and a country. \n4. Naturalness: The question is grammatically correct, clear, and sounds like a natural query a user would make. \n5. Distinctness: 'exports to' is conceptually distinct from 'based in'. A company can be based in one country and export to many others, so 'basedIn' cannot be used as a substitute. The question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-company-c6d8004d",
+    "corruption_type": "U2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Map to schema: The question asks for a 'shareholder' of a company. \n2. Check paths: The schema contains relationships for CEO (`hasCEO`), board members (`hasBoardMember`), and founders (`foundedBy`), but no relationship or property for shareholders. While founders or board members might be shareholders in reality, the schema does not track shareholding status.\n3. Plausibility & Distinctness: 'Shareholder' is a highly plausible concept in a company knowledge graph and is distinct from the existing roles (CEO, board member, founder).\n4. Conclusion: The question is genuinely unanswerable because the schema lacks any information about shareholders.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U2-company-4350f519",
+    "corruption_type": "U2",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'majority shareholders' of companies. Looking at the schema, the relationships between Company and Person are `hasCEO`, `hasBoardMember`, and `foundedBy`. None of these relationships represent ownership or shareholding. There is no alternative path to determine who the majority shareholders are. The concept of a majority shareholder is highly plausible in a business/company knowledge graph and is clearly distinct from founders, CEOs, or board members. Therefore, the question is genuinely unanswerable.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-company-dbb22c62",
+    "corruption_type": "U3",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for 'stock exchanges', which does not exist as an entity type in the schema. While some stock exchanges are companies, the schema does not provide a reliable way to filter companies to only those that are stock exchanges (e.g., there is no 'company_type' property). Even if 'Stock Exchange' were an Industry, we cannot guarantee that mapping without explicit schema support. Therefore, the question cannot be answered.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U3-company-3f159042",
+    "corruption_type": "U3",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for companies involved in developing a specific standard ('the Bluetooth standard'). The schema contains entities for Company, Country, Person, and Industry, and relationships like operatesIn (for industries). There is no entity type for 'Standard', 'Technology', or 'Project', nor is there a relationship indicating that a company developed a standard. While 'academic publishing' in the original question maps cleanly to an Industry, 'the Bluetooth standard' refers to a specific technological standard, which is conceptually distinct from an industry. Therefore, there is no valid way to construct a Cypher query to answer this question using the given schema.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U4-company-ebeaaffa",
+    "corruption_type": "U4",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for individuals who founded Twinkl and work as teachers. To answer this, we would need to filter the 'Person' nodes by their occupation. Looking at the schema, the 'Person' entity only has properties for date_of_birth, date_of_death, place_of_birth, country_of_citizenship, and gender. There is no 'occupation' property, nor is there any relationship or entity that captures a person's general profession (like 'Teacher'). The only roles captured are specific corporate roles (CEO, Board Member) via relationships to a Company. Therefore, there is no way to determine if a person works as a teacher. The question is perfectly natural and the fake constraint is highly plausible for this domain.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-company-58d9fe14",
+    "corruption_type": "U5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The question asks for the year a company established its headquarters in a specific country. To answer this, we would need a temporal property (like 'start_year' or 'established_year') on the 'basedIn' relationship between Company and Country. The schema shows that 'basedIn' has no properties. While 'Company' has a 'launch_year' property, this represents when the company was founded, which is not necessarily the same as when it established its headquarters in a specific country (e.g., if it moved its headquarters later). Therefore, there is no accurate way to answer this question using the provided schema. The question is highly plausible and sounds natural.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "U5-company-3262d0f4",
+    "corruption_type": "U5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Map question to schema: 'companies that had Andy Gavin as CEO' maps to `(c:Company)-[:hasCEO]->(p:Person {name: 'Andy Gavin'})`. 'become subsidiaries of SIE Worldwide Studios' maps to `(c)-[:subsidiaryOf]->(parent:Company {name: 'SIE Worldwide Studios'})`. 'In what year did... become' requires a temporal property (like `start_year` or `date_acquired`) on the `subsidiaryOf` relationship.\n2. Check alternative paths: The `subsidiaryOf` relationship has no properties. The `Company` entity has a `launch_year` property, but this represents when the company was founded, not when it was acquired or became a subsidiary. The `hasCEO` relationship has `start_year` and `end_year`, but these apply to the CEO's tenure, not the subsidiary relationship. There is no way to determine the year the subsidiary relationship began.\n3. Plausibility: Asking when a company was acquired or became a subsidiary is a very common and realistic business question.\n4. Naturalness: The question is grammatically correct, clear, and sounds like a natural query a user would make.\n5. Distinctness: The requested temporal property is completely missing from the schema, making it distinct from the mere existence of the `subsidiaryOf` relationship.",
+    "naturalness": 5,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-company-fe2fab5e",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The word 'leader' is used instead of a specific role like 'CEO'.\n2. Check interpretations against schema: The schema has `hasCEO`, `hasBoardMember`, and `foundedBy` relationships between Company and Person. 'Leader' could plausibly refer to just the CEO (the primary leader of a company), or it could refer to any member of the board of directors, or even the founder. It could also mean any of these roles combined.\n3. Exclusivity: Querying for `hasCEO` vs `hasBoardMember` vs a union of both would yield different results.\n4. Balance: While 'leader' most commonly implies the top executive (CEO), it is frequently used in business to refer to the broader leadership team (board members, executives). Thus, the interpretations are well-balanced.\n5. Naturalness: The question sounds perfectly natural.\n6. Irresolvability: There is no context in the question to determine whether the user means strictly the CEO or any leadership position.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-company-8eb07203",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'leadership role' is used instead of a specific position.\n2. Check interpretations against schema: The schema includes `hasCEO` and `hasBoardMember`, both of which represent leadership roles within a company. \n3. Check exclusivity: A query filtering for `hasCEO` will return different individuals and counts compared to a query filtering for `hasBoardMember`. A query looking for the union of both would also return different results.\n4. Check balance: Both CEO and Board Member are equally valid and common interpretations of a 'leadership role'.\n5. Check naturalness: The question sounds fairly natural, though the phrase 'that same role' slightly implies the user had a specific role in mind but used a hypernym to describe it.\n6. Check irresolvability: There are no context clues in the question to determine whether the user meant CEO, Board Member, or any leadership role in general. The ambiguity is genuine and irresolvable without asking the user for clarification.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-company-669f2d3f",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "Verdict: PASS. Initial logic and parameters are validated. The phrase 'top leadership role' maps to both hasCEO and hasBoardMember. Standard processing applied. The ambiguity is irresolvable without further clarification, leading to distinct Cypher queries.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-company-50b48552",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: 'person behind a company'.\n2. Interpretations: The phrase 'person behind' is an idiom that could refer to the creator/mastermind of the company (the founder, mapping to `foundedBy`) or the current leader running the company (the CEO, mapping to `hasCEO`). \n3. Exclusivity: Querying for founders versus CEOs will yield different sets of people, leading to different sets of citizenship countries.\n4. Balance: Both interpretations are equally plausible. A founder is the person behind the creation, while a CEO is the person behind the current operations.\n5. Naturalness: The question is slightly awkward because it asks for an aggregation ('unique countries') over a singular generic entity ('the person behind a company'), but it is still perfectly understandable.\n6. Irresolvability: There are no context clues to determine whether the user means founders or CEOs.",
+    "naturalness": 3,
+    "effectiveness": 4,
+    "issues": [
+      "Slight singular/plural mismatch: asking for 'unique countries' (plural aggregation) of 'the person behind a company' (singular) sounds slightly awkward, though understandable as a generic singular."
+    ]
+  },
+  {
+    "corruption_id": "A1-company-db828ec8",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The question uses the word \"director\" (note: the corruption details incorrectly claim it uses \"heads\").\n2. Check interpretations against schema: In a corporate context, \"director\" can refer to a member of the Board of Directors, which maps to the `hasBoardMember` relationship. It can also refer to the chief executive, such as a Managing Director or Executive Director, which maps to the `hasCEO` relationship.\n3. Exclusivity: These interpretations map to distinct relationships (`hasBoardMember` vs `hasCEO`) and would yield different query results.\n4. Balance: While \"director\" most commonly maps to a board member in US corporate terminology, it is frequently used to mean CEO/Managing Director in other dialects (like UK English) or in general parlance. The ambiguity is fairly balanced and plausible.\n5. Naturalness: The question is grammatically correct and sounds like a perfectly natural query a user might ask.\n6. Irresolvability: There is no additional context in the question to specify whether an executive (CEO) or a board member is intended.",
+    "naturalness": 5,
+    "effectiveness": 4,
+    "issues": [
+      "The corruption details claim the ambiguous element used is 'heads', but the actual question uses 'director'."
+    ]
+  },
+  {
+    "corruption_id": "A1-company-4e27bd5d",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "The phrase 'person behind' is a common idiom used to refer to the key individual responsible for a company's creation or current operations. In the context of the provided schema, this could easily map to the 'foundedBy' relationship (the founder) or the 'hasCEO' relationship (the chief executive). It could also loosely refer to 'hasBoardMember', though founder and CEO are much stronger interpretations. Because both founder and CEO are equally plausible and would require querying entirely different relationships, the ambiguity is genuine and irresolvable without further clarification. The phrasing is relatively natural, though 'Who is the person' implies a singular individual per company, which aligns well with CEO or founder.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A1-company-0a00063e",
+    "corruption_type": "A1",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. The ambiguous element is 'served as a key figure'. \n2. Looking at the schema, a 'key figure' for a company could map to the `hasCEO` relationship, the `hasBoardMember` relationship, or the `foundedBy` relationship. \n3. The phrase 'served... either currently or in the past' implies a role with a tenure, which perfectly matches the `start_year` and `end_year` properties on both `hasCEO` and `hasBoardMember`. While `foundedBy` is less likely due to the word 'served', the ambiguity between CEO, Board Member, or a union of both is very strong.\n4. These interpretations are mutually exclusive in terms of the resulting query and would return different counts.\n5. The interpretations are well-balanced, as both CEOs and board members are universally considered 'key figures' in a company.\n6. The question is reasonably natural, though 'served as a key figure' is slightly vague, which is the source of the ambiguity. It is genuinely irresolvable without asking the user for clarification.",
+    "naturalness": 4,
+    "effectiveness": 4,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-company-86235f2a",
+    "corruption_type": "A5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'have a subsidiary relationship with UBS' is used to describe the connection between the target companies and UBS.\n2. Schema check: The schema contains a directed relationship `(Company)-[:subsidiaryOf]->(Company)`. \n3. Interpretations: Because 'relationship with' is symmetric in English, it could mean either that the target company is a subsidiary of UBS (forward direction), or that UBS is a subsidiary of the target company (reverse direction).\n4. Exclusivity: These two interpretations lead to different Cypher queries with reversed relationship directions, yielding different results.\n5. Balance: Both interpretations are equally plausible because the phrasing is completely neutral regarding direction.\n6. Naturalness: While slightly formal or legalistic, 'have a subsidiary relationship with' is a perfectly acceptable and natural phrase in a corporate context.\n7. Irresolvability: There are no context clues in the question to determine which direction was intended.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-company-f4ea7b93",
+    "corruption_type": "A5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Identify the ambiguous element: The phrase 'have a subsidiary relationship with' is symmetric, but the underlying schema relationship `subsidiaryOf` is directed.\n2. Check interpretations against schema: The schema defines `(Company)-[:subsidiaryOf]->(Company)`. The question could be asking for companies that are subsidiaries of the Marvel entities (where the Marvel entities are the parents), or it could be asking for companies that own the Marvel entities as subsidiaries (where the Marvel entities are the subsidiaries). Both map to valid but distinct Cypher queries with reversed relationship directions.\n3. Judge confusion: Without additional context, it is impossible to know whether the user is looking for the parent companies or the child companies of Marvel Entertainment and Marvel Music. The interpretations are perfectly balanced and mutually exclusive.\n4. Naturalness: While slightly formal, 'have a subsidiary relationship with' is a perfectly acceptable and realistic phrasing in a business or legal context.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  },
+  {
+    "corruption_id": "A5-company-3808fed3",
+    "corruption_type": "A5",
+    "graph": "company",
+    "verdict": "pass",
+    "reasoning": "1. Ambiguous element: The phrase 'have a parent-subsidiary relationship with Bosch (China) Investment'.\n2. Schema check: The schema contains a directed relationship `(Company)-[:subsidiaryOf]->(Company)`. The phrase 'parent-subsidiary relationship' does not specify which company is the parent and which is the subsidiary. It could map to `(c:Company)-[:subsidiaryOf]->(Bosch)` or `(Bosch)-[:subsidiaryOf]->(c:Company)`.\n3. Exclusivity: Querying for a company's parents versus its subsidiaries will yield completely different sets of companies.\n4. Balance: The phrasing is perfectly symmetric, making both interpretations equally plausible.\n5. Naturalness: While slightly formal, 'parent-subsidiary relationship' is a standard term in business and finance, making the question sound natural in a corporate context.\n6. Irresolvability: There are no context clues in the question to indicate whether the user is looking for the parent or the subsidiary.",
+    "naturalness": 4,
+    "effectiveness": 5,
+    "issues": []
+  }
+]

@@ -1,0 +1,188 @@
+[
+  {
+    "corruption_id": "A1-nba-66d3f479",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "playsFor",
+      "corrupted_element": "joined",
+      "candidate_interpretations": [
+        "playsFor",
+        "draftedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "6f6470c7-185b-4331-a6e7-adc86dfbc523",
+    "original_graph": "nba",
+    "original_nl_question": "What are the names of teams in the Pacific Division that Cheick Diallo has played for at some point?",
+    "original_gold_cypher": "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:playsFor]-(m1:Player {name: 'Cheick Diallo'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the team in the Pacific Division that Cheick Diallo joined?",
+    "valid_cyphers": [
+      "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:playsFor]-(m1:Player {name: 'Cheick Diallo'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:draftedBy]-(m1:Player {name: 'Cheick Diallo'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-nba-97d7e367",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "draftedBy",
+      "corrupted_element": "joined",
+      "candidate_interpretations": [
+        "playsFor",
+        "draftedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "77fe76ea-bccd-461e-82f8-40effb448738",
+    "original_graph": "nba",
+    "original_nl_question": "What are the names of teams in the Pacific Division that drafted Derek Fisher?",
+    "original_gold_cypher": "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:draftedBy]-(m1:Player {name: 'Derek Fisher'}) WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of the team in the Pacific Division that Derek Fisher joined?",
+    "valid_cyphers": [
+      "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:playsFor]-(m1:Player {name: 'Derek Fisher'}) WITH DISTINCT n RETURN n.name",
+      "MATCH (n:Team)-[r0:partOfDivision]->(m0:Division {name: 'Pacific Division'}),(n:Team)<-[r1:draftedBy]-(m1:Player {name: 'Derek Fisher'}) WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A1-nba-8b841a18",
+    "corruption": {
+      "corruption_type": "A1",
+      "corruption_category": "ambiguity",
+      "original_element": "draftedBy",
+      "corrupted_element": "with",
+      "candidate_interpretations": [
+        "playsFor",
+        "draftedBy"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "65eb9ed3-3ad2-4438-99fe-76f8fbbdc1d4",
+    "original_graph": "nba",
+    "original_nl_question": "What are the names of players who either play as shooting guards or were drafted by the Houston Rockets?",
+    "original_gold_cypher": "CALL { MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'shooting guard'}) RETURN n, m0 as m UNION MATCH (n:Player)-[r1:draftedBy]->(m1:Team {name: 'Houston Rockets'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+    "corrupted_nl_question": "What is the name of a player who either plays as a shooting guard or landed with the Houston Rockets?",
+    "valid_cyphers": [
+      "CALL { MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'shooting guard'}) RETURN n, m0 as m UNION MATCH (n:Player)-[r1:playsFor]->(m1:Team {name: 'Houston Rockets'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name",
+      "CALL { MATCH (n:Player)-[r0:playsPosition]->(m0:Position {name: 'shooting guard'}) RETURN n, m0 as m UNION MATCH (n:Player)-[r1:draftedBy]->(m1:Team {name: 'Houston Rockets'}) RETURN n, m1 as m } WITH DISTINCT n RETURN n.name"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "A2-nba-f006bfa1",
+    "corruption": {
+      "corruption_type": "A2",
+      "corruption_category": "ambiguity",
+      "original_element": "mass_kg",
+      "corrupted_element": "physical measurements",
+      "candidate_interpretations": [
+        "height_cm",
+        "mass_kg"
+      ],
+      "reason_unanswerable": null
+    },
+    "original_qid": "16725cad-e28c-4b23-8d61-c5c86740b740",
+    "original_graph": "nba",
+    "original_nl_question": "How much heavier is JaVale McGee than Kevin Grevey in kilograms?",
+    "original_gold_cypher": "MATCH (n:Player {name: 'JaVale McGee'}), (m0:Player {name: 'Kevin Grevey'}) RETURN n.mass_kg - m0.mass_kg AS answer",
+    "corrupted_nl_question": "What is the difference in physical size between JaVale McGee and Kevin Grevey?",
+    "valid_cyphers": [
+      "MATCH (n:Player {name: 'JaVale McGee'}), (m0:Player {name: 'Kevin Grevey'}) RETURN n.height_cm - m0.height_cm AS answer",
+      "MATCH (n:Player {name: 'JaVale McGee'}), (m0:Player {name: 'Kevin Grevey'}) RETURN n.mass_kg - m0.mass_kg AS answer"
+    ],
+    "expected_answer": "AMBIGUOUS"
+  },
+  {
+    "corruption_id": "U1-nba-2168751c",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "mass_kg",
+      "corrupted_element": "career_matches_played",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'career_matches_played' does not exist on entity type 'Player'. Existing: country_of_citizenship, place_of_birth, gender, date_of_birth, date_of_death, height_cm, mass_kg, nicknames, handedness, schools_attended"
+    },
+    "original_qid": "899a8595-8d60-47d6-ab37-ae3bd7a60909",
+    "original_graph": "nba",
+    "original_nl_question": "How much heavier is Bud Olsen than Jerry Rullo in kilograms?",
+    "original_gold_cypher": "MATCH (n:Player {name: 'Bud Olsen'}), (m0:Player {name: 'Jerry Rullo'}) RETURN n.mass_kg - m0.mass_kg AS answer",
+    "corrupted_nl_question": "How many more career matches did Bud Olsen play than Jerry Rullo?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-nba-4e2f517d",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "inception_year",
+      "corrupted_element": "championships_won",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'championships_won' does not exist on entity type 'Team'. Existing: inception_year, owners, head_coach"
+    },
+    "original_qid": "34c88f84-1297-48aa-8f12-2a14ee597e19",
+    "original_graph": "nba",
+    "original_nl_question": "What year were the Brooklyn Nets founded?",
+    "original_gold_cypher": "MATCH (n:Team {name: 'Brooklyn Nets'}) WITH DISTINCT n RETURN n.inception_year",
+    "corrupted_nl_question": "How many championships have the Brooklyn Nets won?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U1-nba-453f63d9",
+    "corruption": {
+      "corruption_type": "U1",
+      "corruption_category": "unanswerability",
+      "original_element": "owners",
+      "corrupted_element": "league_affiliation",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Property 'league_affiliation' does not exist on entity type 'Team'. Existing: inception_year, owners, head_coach"
+    },
+    "original_qid": "c21c5900-7028-4de2-a792-1459cf645449",
+    "original_graph": "nba",
+    "original_nl_question": "What are the names and owners of teams that drafted Kent Benson and have Jabari Parker as a player, either currently or in the past?",
+    "original_gold_cypher": "MATCH (n:Team)<-[r0:draftedBy]-(m0:Player {name: 'Kent Benson'}),(n:Team)<-[r1:playsFor]-(m1:Player {name: 'Jabari Parker'}) WITH DISTINCT n RETURN n.name, n.owners",
+    "corrupted_nl_question": "What are the names and league affiliations of teams that drafted Kent Benson and have Jabari Parker as a player, either currently or in the past?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-nba-341bf192",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "playsPosition",
+      "corrupted_element": "playsPosition (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'playsPosition' between Player and Position has no temporal properties. Properties: none"
+    },
+    "original_qid": "3c847c81-e000-4031-b1bc-d039f1594816",
+    "original_graph": "nba",
+    "original_nl_question": "List the names of all players drafted by the New Orleans Pelicans, along with the number of positions each player plays.",
+    "original_gold_cypher": "MATCH (n:Player)-[r1:draftedBy]->(m1:Team {name: 'New Orleans Pelicans'}) OPTIONAL MATCH (n:Player)-[r0:playsPosition]->(m0:Position) WITH n, count(DISTINCT m0) AS num RETURN n.name, num",
+    "corrupted_nl_question": "List the names of all players drafted by the New Orleans Pelicans, along with the number of positions each player played during the 2022 season.",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  },
+  {
+    "corruption_id": "U5-nba-b3f079f8",
+    "corruption": {
+      "corruption_type": "U5",
+      "corruption_category": "unanswerability",
+      "original_element": "partOfConference",
+      "corrupted_element": "partOfConference (temporal query)",
+      "candidate_interpretations": [],
+      "reason_unanswerable": "Relation 'partOfConference' between Division and Conference has no temporal properties. Properties: none"
+    },
+    "original_qid": "9a4685c2-cb2d-4ede-a508-ce077526051b",
+    "original_graph": "nba",
+    "original_nl_question": "How many divisions are part of the Eastern Conference?",
+    "original_gold_cypher": "MATCH (n:Division)-[r0:partOfConference]->(m0:Conference {name: 'Eastern Conference'}) WITH DISTINCT n RETURN count(DISTINCT n)",
+    "corrupted_nl_question": "In what year did the divisions become part of the Eastern Conference?",
+    "valid_cyphers": [],
+    "expected_answer": "UNANSWERABLE"
+  }
+]
